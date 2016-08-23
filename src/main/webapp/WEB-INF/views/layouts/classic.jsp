@@ -43,7 +43,17 @@
           <tiles:insertAttribute name="footer" />
       </footer>
   </body>
+  <script src="${js}/application.js"></script>
+  <script src="${js}/admin.js"></script>
+  <script src="${js}/douglas.js"></script>
+  <script src="${js}/member.js"></script>
+  <script src="${js}/resig.js"></script>
   <script>
+  app.init('${context}');
+  member.init();
+  admin.init();
+  douglas.init();
+  grade.init();
   
   </script>
 </html>

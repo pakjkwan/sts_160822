@@ -9,8 +9,6 @@
 	
 	<input type="submit" value="탈퇴" />
 		<input type="reset" value="취소" />
-	
-	
 	</form>
 	<embed src="../../img/starwars.gif">
 		<h1>탈퇴</h1> 

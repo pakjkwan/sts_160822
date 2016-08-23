@@ -22,17 +22,6 @@
 		<img src="${img}/home.png" alt="home" style="width: 30px"/>
 	</a>
 </div>
-<script>
-var context = "<%=request.getContextPath()%>";
-$('#regist').click(function(){location.href=context+"/member/regist"});
-$('#detail').click(function(){location.href=context+"/member/detail"});
-$('#update').click(function(){location.href=context+"/member/update"});
-$('#delete').click(function(){location.href=context+"/member/delete"});
-$('#login').click(function(){location.href=context+"/member/login"});
-$('#logout').click(function(){location.href=context+"/member/logout"});
-$('#list').click(function(){location.href=context+"/member/list"});
-$('#find_by').click(function(){location.href=context+"/member/find_by"});
-$('#count').click(function(){location.href=context+"/member/count"});
-</script>	
+
 
 
