@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-    
-<jsp:include page="../global/header.jsp"/>
 <div class="box">
 	<form action="${context}/member.do" method="post">
 		<span class="meta">ID</span> <input type="text" name="id"/><br />
@@ -12,8 +10,3 @@
 	</form>
 	
 	</div>	
-<jsp:include page="../global/footer.jsp"/>
-<jsp:include page="../global/end.jsp"/>
-
-</body>
-</html>

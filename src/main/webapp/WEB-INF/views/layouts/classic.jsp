@@ -44,9 +44,6 @@
       </footer>
   </body>
   <script>
-   $('header').addClass('border_red');
-   $('nav').addClass('border_red');
-   $('section').addClass('border_red');
-   $('footer').addClass('border_red');
+  
   </script>
 </html>
