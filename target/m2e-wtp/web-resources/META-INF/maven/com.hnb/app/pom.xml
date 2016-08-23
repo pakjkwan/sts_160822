@@ -270,11 +270,11 @@
 			<version>2.4</version>
 		</dependency>
 		<!-- tiles -->
-<dependency>
-     <groupId>org.apache.tiles</groupId>
-    <artifactId>tiles-extras</artifactId>
-    <version>${tiles-version}</version>
-  </dependency>
+	<dependency>
+     	<groupId>org.apache.tiles</groupId>
+    	<artifactId>tiles-extras</artifactId>
+    	<version>${tiles-version}</version>
+  	</dependency>
   
   <!-- <dependency>
     <groupId>org.apache.tiles</groupId>
@@ -321,8 +321,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.5.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java-version}</source>
+                    <target>${java-version}</target>
                     <compilerArgument>-Xlint:all</compilerArgument>
                     <showWarnings>true</showWarnings>
                     <showDeprecation>true</showDeprecation>
