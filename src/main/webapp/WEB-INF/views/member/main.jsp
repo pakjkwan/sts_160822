@@ -2,7 +2,6 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <tiles:getAsString name="title"/>
 <tiles:insertAttribute name="header" />
-<jsp:include page="../global/top.jsp"/>
 <jsp:include page="../global/header.jsp"/>
 <jsp:include page="../global/navi.jsp"/>
 <jsp:include page="content.jsp"/>

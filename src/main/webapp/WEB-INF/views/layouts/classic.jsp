@@ -13,9 +13,9 @@
     <tiles:getAsString name="title"/>
     </title>
     <style>
-    	header{width:100%;height: 200px;}
-    	nav{width:100%;height: 100px;}
-    	section{width:100%;height:300px;}
+    	header{width:100%;height: 90px;}
+    	nav{width:100%;height: 70px;}
+    	section{width:100%;height:450px;}
     	footer{width:100%;height:50px;}
     	.border_red{border:1px solid red;}
     </style>
@@ -36,7 +36,6 @@
         </nav>
         <section>
         <article>	
-        타일즈 메인
           <tiles:insertAttribute name="body" />
           </article>
         </section>
