@@ -2,7 +2,8 @@
 var app = (function(){
 	var init = function(context) {
 		sessionStorage.setItem('context',context);
-		go_home();
+		move();
+		
 	};
 	var context = function(){
 		return sessionStorage.getItem('context');
@@ -10,9 +11,21 @@ var app = (function(){
 	var to_douglas = function() {
 		location.href=context()+"/douglas.do";
 	};
-	var go_home = function(){
+	var move = function(){
 		$('#title').click(function(){
 			location.href=context()+"/";
+		});
+		$('#a_member').click(function(){
+			location.href = context+"/member/main";
+		});
+		$('#a_grade').click(function(){
+			location.href = context+"/grade/main";
+		});
+		$('#a_account').click(function(){
+			location.href = context+"/account/main";
+		});
+		$('#a_shool').click(function(){
+			location.href = context+"/school_info";
 		});
 		
 	}
