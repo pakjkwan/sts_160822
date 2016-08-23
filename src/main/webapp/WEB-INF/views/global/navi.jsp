@@ -13,7 +13,7 @@ width:100%;background-color: #333">${user.name}님 환영합니다</div>
 <script type="text/javascript">
 $(function() {
 	$('#a_member').click(function(){
-		location.href = "${context}/member.do";
+		location.href = "<%=request.getContextPath()%>/member/main";
 	});
 	$('#a_grade').click(function(){
 		location.href = "${context}/grade.do";
