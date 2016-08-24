@@ -37,6 +37,7 @@
       </footer>
   </body>
   <script src="${js}/application.js"></script>
+  
   <script src="${js}/grade.js"></script>
   <script src="${js}/douglas.js"></script>
   <script src="${js}/member.js"></script>
