@@ -25,7 +25,7 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		logger.info("Welcome PUBLIC! The client locale is {}.", locale);
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -34,9 +34,9 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "global/content.tiles";
+		return "public:global/content.tiles";
 	}
-	@RequestMapping("/school_info")
+	@RequestMapping("/global/school_info")
 	public String schoolInfo(){
 		return "global/school_info.tiles";
 	}

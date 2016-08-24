@@ -37,17 +37,7 @@
       </footer>
   </body>
   <script src="${js}/application.js"></script>
-  
-  <script src="${js}/grade.js"></script>
-  <script src="${js}/douglas.js"></script>
-  <script src="${js}/member.js"></script>
-  <script src="${js}/account.js"></script>
-  <script src="${js}/resig.js?ver=1.1"></script>
   <script>
   app.init('${context}');
-  member.init();
-  grade.init();
-  account.init();
-  douglas.init();
   </script>
 </html>

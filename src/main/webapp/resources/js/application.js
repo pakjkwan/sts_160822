@@ -10,10 +10,10 @@ var app = (function(){
 		$('#global_content h2').text('서비스를 이용하시려면 회원가입을 하셔야 합니다');
 		$('#global_content_a_regist')
 		.text('SIGN UP')
-		.click(function(){location.href=app.context()+'/member/regist';});
+		.click(function(){util.move('member','regist');});
 		$('#global_content_a_login')
 		.text('LOG IN')
-		.click(function(){location.href=app.context()+'/member/login';});
+		.click(function(){util.move('member','login');});
 		$('#global_content_a_admin')
 		.text('ADMIN MODE')
 		.click(function(){admin.check();});
@@ -30,31 +30,16 @@ var app = (function(){
 	var img = function(){
 		return sessionStorage.getItem('img');
 	};
-	var to_douglas = function() {
-		location.href=context()+"/douglas.do";
-	};
 	var move = function(){
-		$('#title').click(function(){
-			location.href=context()+"/";
-		});
-		$('#a_member').click(function(){
-			location.href = context()+"/member/main";
-		});
-		$('#a_grade').click(function(){
-			location.href = context()+"/grade/main";
-		});
-		$('#a_account').click(function(){
-			location.href = context()+"/account/main";
-		});
-		$('#a_shool').click(function(){
-			location.href = context()+"/school_info";
-		});
-		
+		$('#title').click(function(){util.home();});
+		$('#a_member').click(function(){util.move('member','main');});
+		$('#a_grade').click(function(){util.move('grade','main');});
+		$('#a_account').click(function(){util.move('account','main');});
+		$('#a_shool').click(function(){util.move('global','school_info');});
 	};
 	
 	return {
 		init : init,
-		to_douglas : to_douglas,
 		move : move,
 		context : context,
 		img : img,
@@ -78,7 +63,7 @@ var admin = (function() {
 			} else {
 				var password = prompt('관리자 비번을 입력바랍니다');
 				if(password == getPass()){
-					location.href = app.context()+'/global.do';
+					location.href = app.context()+'/admin/main';
 				}else{
 					alert('관리자 비번이 틀립니다.');
 				}
@@ -86,30 +71,32 @@ var admin = (function() {
 		}
     };
 })();
-var account = (function(){
-	return {
-		
-	};
-})();
 var util = (function(){
 	var _page,_directory;
 	var setPage=function(page){this._page=page;};
 	var setDirectory=function(directory){this._directory=directory;};
+	var getPage = function(){return this._page;};
+	var getDirectory = function(){return this._directory;};
 	return {
+		setPage : setPage,
+		getPage : getPage,
+		setDirectory : setDirectory,
+		getDirectory : getDirectory,
 		move : function(directory,page){
 			setDirectory(directory);
 			setPage(page);
-			location.href = 
-				sessionStorage.getItem("context")+'/'+getDirectory()+'.do?page='+getPage();
+			location.href = app.context()+'/'+getDirectory()+'/'+getPage();
+				
 		},
 		isNumber : function(value){
 			return typeof value === 'number' && isFinite(value);
-		}
+		},
+		home : function(){location.href=app.context()+'/'}
+		
 	};
 })();
-var move = function(directory,page){
-	location.href=app.context()+'/'+directory+'/'+page;
-}
+
+
 var user = (function(){
 	var context = sessionStorage.getItem("context");
 	return {
