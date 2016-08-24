@@ -1,4 +1,4 @@
-var grade = (function(){
+var grade2 = (function(){ //grade랑 충돌나서 2로 바꿨어염
 	return {
 		init : function(){
 			$('#grade_content').addClass('box');
