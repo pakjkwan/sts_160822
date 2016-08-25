@@ -6,6 +6,7 @@ var app = (function(){
 		sessionStorage.setItem('img',context+'/resources/img');
 		move();
 		member.init();
+		$('footer').addClass('bottom');
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');
 		$('#global_content_a_regist').text('SIGN UP').click(function(){util.move('member','regist');});
@@ -329,7 +330,19 @@ var member = (function(){
 			$('#member_content_ol > li:nth(7) > a').text('SEARCH');
 			$('#member_content_ol > li:nth(8) > a').text('COUNT');
 			$('#member_regist').addClass('box');
-			$('#member_regist span').addClass('bg_color_yellow').addClass('float_left').addClass('text_left').css('width','200px')
+			$('#member_regist #bt_join').addClass('btn').addClass(' btn-primary');
+			$('#member_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
+			$('#member_regist_form').addClass('form-horizontal');
+			$('#member_regist_form > div').addClass('form-group').addClass('form-group-lg');
+			$('#member_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
+			$('#member_regist_form > div > div').addClass('col-sm-10');
+			$('#member_regist_form > div > div > input').addClass('form-control');
+			$('#member_regist #rd_major > label:gt(1)').addClass('radio-inline');
+			$('#member_regist #ck_subject').addClass('checkbox');
+			$('#member_regist #ck_subject > label').addClass('checkbox-inline');
+
+
+
 		}
 	};
 })();

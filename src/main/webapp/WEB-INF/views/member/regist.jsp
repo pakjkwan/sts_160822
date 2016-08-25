@@ -1,33 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
-<style type="text/css">
-	
-	div.joinDiv{border:1px dotted gray;width: 80%;margin:10px 50px 10px 50px}	
-</style>
 <section id="member_regist">
-	<form action="${context}/member.do" method="post">
-		<span>이름</span>	<input type="text" name="name" /><br />
-		<span>ID</span> <input type="text" name="id"/><br />
-		<span>비밀번호</span> <input type="text" name="pw" /><br />
-		<span>SSN</span><input type="text" name="ssn" /><br />
-		<span>EMAIL</span><input type="text" name="email" /><br />
-		<span>전화번호</span><input type="text" name="phone" /><br />
-		<span>전공</span> <br /><br />
-		<input type="radio" name="major" value="computer" checked/> 컴공학부
-		<input type="radio" name="major" value="mgmt" /> 경영학부
-		<input type="radio" name="major" value="math" /> 수학부 
-		<input type="radio" name="major" value="eng" /> 영문학부 <br /><br /><br/></brr>
-		<span class="meta">수강과목</span> <br /><br />
-		<input type="checkbox" name="subject" value="java" /> Java
-		<input type="checkbox" name="subject" value="sql" /> SQL
-		<input type="checkbox" name="subject" value="cpp" /> C++
-		<input type="checkbox" name="subject" value="python" /> 파이썬
-		<input type="checkbox" name="subject" value="delphi" /> 델파이
-		<input type="checkbox" name="subject" value="html" /> HTML
-		<br /><br /><br />
+	<form id="member_regist_form">
+	<div>
+    	<label for="exampleInputEmail1">이름</label>
+    	<div><input type="text" id="username" placeholder="USER NAME"></div>
+  	</div>
+  	<div>
+    	<label for="exampleInputEmail1">비밀번호</label>
+    	<div><input type="password" id="password" placeholder="PASSWORD"></div>
+  	</div>
+  	<div>
+    	<label for="exampleInputEmail1">SSN</label>
+    	<div><input type="text" id="ssn" placeholder="예)800101-2"></div>
+  	</div>
+  	<div>
+    	<label for="exampleInputEmail1">E-MAIL</label>
+    	<div><input type="email" id="email" placeholder="EMAIL"></div>
+  	</div>
+  	<div>
+    	<label for="exampleInputEmail1">전화번호</label>
+    	<div><input type="text" id="phone" placeholder="PHONE"></div>
+  	</div>
+  	<div id="rd_major">
+  		<label for="exampleInputEmail1">전 공</label><br>
+		<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>
+		<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>
+		<label ><input type="radio" name="major" value="math"> 수학부</label> 
+		<label ><input type="radio" name="major" value="eng"> 영문학부</label> 
+  	</div>
+  	<div>
+  		<label for="exampleInputEmail1">수강과목</label><br>
+	    <div>
+	      <div id="ck_subject">
+			<label ><input type="checkbox" name="subject"  value="java"> Java</label>
+			<label ><input type="checkbox" name="subject"  value="sql"> SQL</label>
+	  		<label ><input type="checkbox" name="subject"  value="cpp"> C++	</label>
+			<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>
+			<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>
+	  		<label ><input type="checkbox" name="subject"  value="html"> HTML</label>	
+	      </div>
+	    </div>
+  </div>
 		<input type="hidden" name="action" value="regist" />
 		<input type="hidden" name="page" value="login" />
-		<input type="submit" value="회원가입" />
-		<input type="reset" value="취소" />
+		<button id="bt_join" type="button" value="회원가입" >JOIN</button>
+		<button id="bt_cancel" type="reset" value="취소" >CANCEL</button>
 	</form>
 </section>
 
