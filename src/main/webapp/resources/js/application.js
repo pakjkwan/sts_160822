@@ -5,18 +5,12 @@ var app = (function(){
 		sessionStorage.setItem('css',context+'/resources/css');
 		sessionStorage.setItem('img',context+'/resources/img');
 		move();
+		member.init();
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');
-		$('#global_content h2').text('서비스를 이용하시려면 회원가입을 하셔야 합니다');
-		$('#global_content_a_regist')
-		.text('SIGN UP')
-		.click(function(){util.move('member','regist');});
-		$('#global_content_a_login')
-		.text('LOG IN')
-		.click(function(){util.move('member','login');});
-		$('#global_content_a_admin')
-		.text('ADMIN MODE')
-		.click(function(){admin.check();});
+		$('#global_content_a_regist').text('SIGN UP').click(function(){util.move('member','regist');});
+		$('#global_content_a_login').text('LOG IN').click(function(){util.move('member','login');});
+		$('#global_content_a_admin').text('ADMIN MODE').click(function(){admin.check();});
 	};
 	var context = function(){
 		return sessionStorage.getItem('context');
@@ -107,8 +101,7 @@ var user = (function(){
 			$('#bt_account').click(function(){move(context,'account');});
 		},
 		account : function(){
-			$('#a_regist').click(function(){
-				location.href=app.context()+"/account/regist"});
+			$('#a_regist').click(function(){location.href=app.context()+"/account/regist"});
 			$('#a_withdraw').click(function(){location.href=app.context()+"/account/withdraw"});
 			$('#a_deposit').click(function(){location.href=app.context()+"/account/deposit"});
 			$('#a_list').click(function(){location.href=app.context()+"/account/list"});
@@ -310,7 +303,6 @@ var grade = (function(){
 var member = (function(){
 	return {
 		init : function(){
-			
 			$('#regist').click(function(){location.href=app.context()+"/member/regist"});
 			$('#detail').click(function(){location.href=app.context()+"/member/detail"});
 			$('#update').click(function(){location.href=app.context()+"/member/update"});
@@ -323,8 +315,7 @@ var member = (function(){
 			$('#member_content_img_home').attr('src',app.img()+'/home.png').css('width','30px');
 			$('#member_content_a_home').attr('alt','home').click(function(){location.href=app.context()+"/"});
 			$('#member_content').addClass('box').css('font-size','20px');
-			$('#member_content > article').css('width','300px')
-			   .addClass('center').addClass('text_left');
+			$('#member_content > article').css('width','300px').addClass('center').addClass('text_left');
 			$('#member_content a').css('font-size','15px').addClass('cursor');
 			$('#member_content > h1').text('MEMBER MGMT');
 			$('#member_content_ol > li > a').addClass('remove_underline');
@@ -337,6 +328,8 @@ var member = (function(){
 			$('#member_content_ol > li:nth(6) > a').text('LIST');
 			$('#member_content_ol > li:nth(7) > a').text('SEARCH');
 			$('#member_content_ol > li:nth(8) > a').text('COUNT');
+			$('#member_regist').addClass('box');
+			$('#member_regist span').addClass('bg_color_yellow').addClass('float_left').addClass('text_left').css('width','200px')
 		}
 	};
 })();

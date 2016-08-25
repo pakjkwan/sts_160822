@@ -21,7 +21,7 @@ public class MemberController {
 	@RequestMapping("/regist")
 	public String moveRegist() {
 		logger.info("MemberController ! regist() ");
-		return "member/regist.tiles";
+		return "public:member/regist.tiles";
 	}
 	@RequestMapping("/detail")
 	public String moveDetail() {
@@ -41,7 +41,7 @@ public class MemberController {
 	@RequestMapping("/login")
 	public String moveLogin() {
 		logger.info("MemberController ! login() ");
-		return "member/login.tiles";
+		return "public:member/login.tiles";
 	}
 	@RequestMapping("/logout")
 	public String moveLogout() {
