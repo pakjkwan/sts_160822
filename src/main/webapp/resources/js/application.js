@@ -302,6 +302,11 @@ var admin = (function() {
     	$('#admin_nav #member_mgmt #list').click(function(){controller.move('member','list');});
     	$('#admin_nav #member_mgmt #find_by').click(function(){controller.move('member','find');});
     	$('#admin_nav #member_mgmt #count').click(function(){controller.move('member','count');});
+    	$('#admin_nav #account_mgmt #list').click(function(){controller.move('account','list');});
+    	$('#admin_nav #account_mgmt #open').click(function(){controller.move('account','open');});
+    	$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete');});
+    	$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find');});
+    	$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count');});
     };
     return {
     	getPass : getPass,
