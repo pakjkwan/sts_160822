@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${css}/global.css" />
-<link rel="stylesheet" href="${css}/member.css" />
 <div class="box">
 <div class="panel panel-default">
   <div class="panel-heading">학생 목록</div>

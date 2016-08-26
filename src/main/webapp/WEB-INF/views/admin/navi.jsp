@@ -29,8 +29,6 @@
     </a>
     <ul id="account_mgmt" class="dropdown-menu">
     	<li><a id="list">목록 </a></li>
-    	<li><a id="open">개설</a></li>
-		<li><a id="delete">해지</a></li>
 		<li><a id="find">조회 </a></li>
 		<li><a id="count">통장수</a></li>
     </ul>
