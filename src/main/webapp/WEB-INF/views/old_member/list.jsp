@@ -2,9 +2,9 @@
 <link rel="stylesheet" href="${css}/global.css" />
 <link rel="stylesheet" href="${css}/member.css" />
 <div class="box">
-<div class="panel panel-default">
-  <div class="panel-heading">학생 목록</div>
- <table id="member_list" class="table">
+
+	<h1>목록보기</h1> <br> 
+	<table id="member_list">
 	  <tr>
 	    <th>ID</th>
 	    <th>이 름</th>
@@ -25,5 +25,10 @@
 	  </tr>
 	 </c:forEach>
 	</table>
-</div>
+	<a href="../../index.jsp">
+		<img src="../../img/home.png" alt="home" style="width: 30px"/>
+	</a>
+	<a href="../member_controller.jsp">
+		<img src="../../img/member.jpg" alt="member" style="width: 30px"/>
+	</a>
 </div>

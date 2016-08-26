@@ -8,6 +8,7 @@ var app = (function(){
 		kaup.init();
 		grade.init();
 		nav.init();
+		admin.init();
 	};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return session.getJavascriptPath('js');};
@@ -75,10 +76,10 @@ var account = (function(){
 	var setContentView = function(){};
 	var onCreate = function(){
 		setContentView();
-		$('#bt_spec_show').click(member.spec());
+		/*$('#bt_spec_show').click(member.spec());
 		$('#bt_make_account').click(this.spec());
 		$('#bt_deposit').click(this.deposit());
-		$('#bt_withdraw').click(this.withdraw());
+		$('#bt_withdraw').click(this.withdraw());*/
 	};
 	return {
 		setAccountNo : setAccountNo,
@@ -87,9 +88,9 @@ var account = (function(){
 		getMoney : getMoney,
 		init : init,
 		spec : function(){
-			setAccountNo(Math.floor(Math.random()*899999)+100000);
+			/*setAccountNo(Math.floor(Math.random()*899999)+100000);
 			setMoney(0);
-			document.querySelector('#result_account').innerHTML = getAccountNo();
+			document.querySelector('#result_account').innerHTML = getAccountNo();*/
 		},
 		deposit : function (){
 			var r_acc = document.querySelector('#result_account').innerText;
@@ -182,10 +183,10 @@ var member = (function(){
 		getGender : getGender,
 		init : init,
 		spec : function (){
-			//console.log('SET SSN'+document.querySelector('#ssn').value);
-			//setSSN(document.querySelector('#ssn').value);
+			/*console.log('SET SSN'+document.querySelector('#ssn').value);
+			setSSN(document.querySelector('#ssn').value);
 			console.log('GET SSN'+getSSN());
-			//setName(document.querySelector('#name').value);
+			setName(document.querySelector('#name').value);
 			var now = new Date().getFullYear();
 			var ssnArr = getSSN().split("-");
 			var ageResult1 = ssnArr[0];
@@ -216,7 +217,7 @@ var member = (function(){
 		}	
 			document.querySelector('#result_name').innerHTML = getName();
 			document.querySelector('#result_age').innerHTML = getAge();
-			document.querySelector('#result_gender').innerHTML = getGender();
+			document.querySelector('#result_gender').innerHTML = getGender();*/
 		}
 		
 	};	
@@ -226,7 +227,7 @@ var kaup = (function(){
 	var setContentView = function(){};
 	var onCreate = function(){
 		setContentView();
-		document.getElementById('bt_kaup_calc').addEventListener('click',this.calc,false);
+		//document.getElementById('bt_kaup_calc').addEventListener('click',this.calc,false);
 	};
 	return {
 		init : init,
@@ -289,9 +290,23 @@ var admin = (function() {
 	var _pass;
     var	getPass = function(){return this._pass;};
     var setPass = function(pass){this._pass=pass;};
+    var init = function(){onCreate();};
+    var setContentView = function(){
+    	$('#admin_content #img_1').attr('src',app.img()+'/member_mgmt.PNG');
+    	$('#admin_content #img_2').attr('src',app.img()+'/grade_mgmt.PNG');
+    	$('#admin_content #img_3').attr('src',app.img()+'/account_mgmt.PNG');
+    	$('#admin_content h3').addClass('text_center');
+    };
+    var onCreate = function(){
+    	setContentView();
+    	$('#admin_nav #member_mgmt #list').click(function(){controller.move('member','list');});
+    	$('#admin_nav #member_mgmt #find_by').click(function(){controller.move('member','find');});
+    	$('#admin_nav #member_mgmt #count').click(function(){controller.move('member','count');});
+    };
     return {
     	getPass : getPass,
     	setPass : setPass,
+    	init : init,
     	check : function() {
     		setPass(1);
 			var isAdmin = confirm('관리자입니까?');
