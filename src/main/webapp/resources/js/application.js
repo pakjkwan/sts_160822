@@ -1,19 +1,21 @@
 var app = (function(){
 	var init = function(context) {
-		onCreate();
 		session.init(context);
+		onCreate();
 		member.init();
 		user.init();
 		account.init();
 		kaup.init();
 		grade.init();
+		nav.init();
 	};
 	var context = function(){return session.getContextPath();};
 	var js = function(){return session.getJavascriptPath('js');};
 	var css = function(){return session.getCssPath('css');};
 	var img = function(){return session.getImagePath('img');};
 	var setContentView = function(){
-		$('footer').addClass('bottom');
+		$('#header_brand').attr('src',app.img()+'/hanbit.jpg').css('height','80px').css('width','100px').css('padding-bottom','20px');
+		$('#footer').addClass('bottom').addClass('footer');
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');
 		$('#global_content_a_regist').text('SIGN UP').click(function(){controller.move('member','regist');});
@@ -180,10 +182,10 @@ var member = (function(){
 		getGender : getGender,
 		init : init,
 		spec : function (){
-			console.log('SET SSN'+document.querySelector('#ssn').value);
-			setSSN(document.querySelector('#ssn').value);
+			//console.log('SET SSN'+document.querySelector('#ssn').value);
+			//setSSN(document.querySelector('#ssn').value);
 			console.log('GET SSN'+getSSN());
-			setName(document.querySelector('#name').value);
+			//setName(document.querySelector('#name').value);
 			var now = new Date().getFullYear();
 			var ssnArr = getSSN().split("-");
 			var ageResult1 = ssnArr[0];
@@ -352,7 +354,26 @@ var util = (function(){
 		}
 	};
 })();
-
+var nav = (function(){
+	var init = function(){onCreate();};
+	var setContentView = function(){
+		$('#nav ul').addClass('list_style_none').addClass('over_hidden').addClass('bg_color_black')
+		.css('margin','0').css('padding','0');
+		$('#nav li').addClass('float_left').addClass('display_inline')
+		.css('border-right','1px').css('solid','#bbb');
+		$('#nav li:last-child').css('border-right','none');
+		$('#nav li a').addClass('display_block').addClass('font_color_white').addClass('text_center').addClass('text_deco_none')
+		.css('padding','14px 16px')
+		$('#nav li a:hover:not(.active)').addClass('bg_color_green')
+		$('#nav .active').addClass('bg_color_black');
+	};
+	var onCreate = function(){
+		setContentView();
+	};
+	return {
+		init : init
+	};
+})();
 
 
 

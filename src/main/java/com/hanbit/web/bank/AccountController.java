@@ -13,6 +13,6 @@ public class AccountController {
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("AccountController ! goMain() ");	
-		return "account/content.tiles";
+		return "admin:account/content.tiles";
 	}
 }

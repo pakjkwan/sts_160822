@@ -16,7 +16,7 @@ public class MemberController {
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("MemberController ! goMain() ");	
-		return "member/content.tiles";
+		return "admin:member/content.tiles";
 	}
 	@RequestMapping("/regist")
 	public String moveRegist() {
