@@ -23,11 +23,11 @@ public class AccountServiceImpl implements AccountService {
 		return instance;
 	}
 	private AccountServiceImpl() {
-		map = new HashMap<String,AccountMemberBean>();
+		map = new HashMap<String,AccountMemberVO>();
 	}
 	@Override
 	public String openAccount(String id) {
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo();
 		acc.setId(id);
 		acc.setMoney(0);
@@ -44,7 +44,7 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public void deposit(String depositInfo) {
 		String[] arr = depositInfo.split(",");
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo(Integer.parseInt(arr[0]));
 		int money = this.restMoney(Integer.parseInt(arr[0])) 
 				+ Integer.parseInt(arr[1]);
@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
 	public String withdraw(String withdrawInfo) {
 		String result = "";
 		String[] arr = withdrawInfo.split(",");
-		AccountBean acc = new AccountBean();
+		AccountVO acc = new AccountVO();
 		acc.setAccountNo(Integer.parseInt(arr[0]));
 		int restMoney = this.restMoney(Integer.parseInt(arr[0]));
 		int withdrawMoney = Integer.parseInt(arr[1]);
@@ -72,7 +72,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public String updateAccount(AccountBean acc) {
+	public String updateAccount(AccountVO acc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -85,13 +85,13 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<?> list() {
-		List<AccountMemberBean> list = dao.selectAll();
+		List<AccountMemberVO> list = dao.selectAll();
 		
 		return list;
 	}
 
 	@Override
-	public AccountBean findByAccountNo(String accNo) {
+	public AccountVO findByAccountNo(String accNo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -114,7 +114,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 	@Override
 	public Map<?,?> map() {
-		map = new HashMap<String,AccountMemberBean>();
+		map = new HashMap<String,AccountMemberVO>();
 		map = dao.selectMap();
 		return map;
 	}
