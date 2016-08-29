@@ -1,5 +1,7 @@
 package com.hanbit.web.member;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,18 +11,33 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.springframework.stereotype.Repository;
 
-import com.hanbit.web.util.Constants;
 @Repository
 public class MemberDAOImpl implements MemberDAO{
-	private SqlSessionFactory sqlSessionFactory = null;
-    public MemberDAOImpl(SqlSessionFactory sqlSessionFactory) {
-	  this.sqlSessionFactory = sqlSessionFactory;
-    }
+	private static MemberDAOImpl instance;
+	private SqlSessionFactory sqlSessionFactory;
+	private static final String NAMESPACE = "mapper.member.";
+	
+	private MemberDAOImpl() {
+		try {
+			InputStream inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (IOException e) {
+			System.out.println("session 빌드 실패");
+		}
+	}
+
+	public static MemberDAOImpl getInstance() {
+		if (instance == null)
+			instance = new MemberDAOImpl();
+		return instance;
+	}
+
 	@Override
 	public int insert(MemberVO member){
 		SqlSession session = sqlSessionFactory.openSession();
@@ -40,7 +57,11 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberVO findById(String id) {
 		SqlSession session = sqlSessionFactory.openSession();
-		return session.selectOne("",id);
+		try {
+			return session.selectOne(NAMESPACE + "findById", id);
+		} finally {
+			session.close();
+		}
 	}
 	@Override
 	public List<MemberVO> findByName(String name) {
