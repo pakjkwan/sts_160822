@@ -11,7 +11,7 @@ import com.hanbit.web.subject.SubjectMember;
 
 public class MemberServiceImpl implements MemberService{
 	
-	private MemberDAO dao = MemberDAO.getInstance();
+	private MemberDAOImpl dao = null;
 	private SubjectDAO subjDao = SubjectDAO.getInstance();
 	private AccountService accService = AccountServiceImpl.getInstance();
 	private MemberBean session;
