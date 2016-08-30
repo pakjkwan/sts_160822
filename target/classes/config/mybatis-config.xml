@@ -22,6 +22,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 	<mappers>
 		<mapper resource="mapper/member.xml" />
+		<mapper resource="mapper/account.xml" />
+		<mapper resource="mapper/grade.xml" />
+		<mapper resource="mapper/subject.xml" />
 	</mappers>
 
 </configuration>

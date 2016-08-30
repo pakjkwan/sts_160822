@@ -2,39 +2,36 @@ package com.hanbit.web.member;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
+	private static final Logger logger = LoggerFactory.getLogger(MemberDAOImpl.class);
 	private static MemberDAOImpl instance;
-	private SqlSessionFactory sqlSessionFactory;
 	private static final String NAMESPACE = "mapper.member.";
-	
+	private SqlSessionFactory sqlSessionFactory;
 	private MemberDAOImpl() {
 		try {
-			InputStream inputStream = Resources.getResourceAsStream("config/mybatis-config.xml");
-			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+			InputStream is = Resources.getResourceAsStream("config/mybatis-config.xml");
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(is);
 		} catch (IOException e) {
-			System.out.println("session 빌드 실패");
+			logger.info("session build fail");
 		}
 	}
 
 	public static MemberDAOImpl getInstance() {
-		if (instance == null)
+		if (instance == null){
+			logger.info("MemberDAOImpl instance is created !!");
 			instance = new MemberDAOImpl();
+		}
 		return instance;
 	}
 
@@ -89,7 +86,7 @@ public class MemberDAOImpl implements MemberDAO{
 				loginOk = true;
 			}
 		}
-		System.out.println("LOGIN_OK ?"+loginOk);
+		System.out.println("LOGIN OK ?"+loginOk);
 		return  false;
 	}
 	@Override

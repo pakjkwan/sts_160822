@@ -7,15 +7,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @date   :2016. 6. 20. 
  * @author :pakjkwan@gmail.com
  * @file   :AccountServiceImpl.java
  * @story  :계좌 인터페이스
 */
+@Service
 public class AccountServiceImpl implements AccountService {
 	
-	AccountDAO dao = AccountDAO.getInstance();
+	AccountDAOImpl dao = AccountDAOImpl.getInstance();
 	private Map<?,?> map ;
 	private static AccountServiceImpl instance = new AccountServiceImpl();
 	
