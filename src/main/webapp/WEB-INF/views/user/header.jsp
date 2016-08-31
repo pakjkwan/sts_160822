@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<nav id="user_header" class="navbar navbar-default">
+ <nav id="user_header" class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -54,7 +54,9 @@
     </div>
     
   </div>
-</nav>
+</nav> 
+
+
 <script type="text/javascript">
 $(function(){
 	$('#user_header').css('height','50px');

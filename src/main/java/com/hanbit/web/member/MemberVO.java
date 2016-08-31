@@ -7,12 +7,15 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @date   :2016. 6. 16. 
  * @author :pakjkwan@gmail.com
  * @file   :Student.java
  * @story  :
 */
+@Component
 public class MemberVO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String id,pw,name,regDate,gender,ssn,

@@ -15,7 +15,7 @@ var app = (function(){
 	var css = function(){return session.getCssPath('css');};
 	var img = function(){return session.getImagePath('img');};
 	var setContentView = function(){
-		$('#header_brand').attr('src',app.img()+'/hanbit.jpg').css('height','80px').css('width','100px').css('padding-bottom','20px');
+		$('#header_brand').attr('src',app.img()+'/default/hanbit.jpg').css('height','80px').css('width','100px').css('padding-bottom','20px');
 		$('#footer').addClass('bottom').addClass('footer');
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');

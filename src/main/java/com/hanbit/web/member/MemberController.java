@@ -37,10 +37,11 @@ public class MemberController {
 	@RequestMapping("/login/execute")
 	public String executeLogin(@RequestParam("id") String id,
 			@RequestParam("pw")String pw,
+			@RequestParam("context")String context,
 			Model model) {
 		logger.info("MemberController ! login() ");
 		System.out.println("TRYING TO LOGIN  ID :"+id);
-		System.out.println("TRYING TO LOGIN  PW :"+pw);
+		System.out.println("CONTEXT :"+context);
 		MemberVO member = new MemberVO();
 		System.out.println("======new MemberVO() ====");
 		member.setId(id);
@@ -48,6 +49,9 @@ public class MemberController {
 		System.out.println("======서비스 login 가기 직전 ====");
 		SubjectMemberVO sm = service.login(member);
 		model.addAttribute("user",sm);
+		model.addAttribute("js", context+"/resources/js");
+		model.addAttribute("css", context+"/resources/css");
+		model.addAttribute("img", context+"/resources/img");
 		return "user:user/content.tiles";
 	}
 	// --- MOVE ---
