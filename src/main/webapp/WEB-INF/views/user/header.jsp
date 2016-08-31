@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<nav class="navbar navbar-default"  style='height: 50px'>
+<nav id="user_header" class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -36,12 +36,26 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">학교 소개</a></li>
+        <li style="text-align:right; margin-top:14px;">${user.name}님 환영합니다</li>
+        <li><a id="exit"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>로그아웃</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">비밀번호 변경</a></li>
+          </ul>
+        </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">오시는 길</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+    </div>
+    
+  </div>
 </nav>
+<script type="text/javascript">
+$(function(){
+	$('#user_header').css('height','50px');
+	$('.navbar-header').css('height','50px');
+});
+</script>

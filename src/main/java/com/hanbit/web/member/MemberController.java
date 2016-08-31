@@ -34,7 +34,15 @@ public class MemberController {
 		model.addAttribute("img", context+"/resources/img");
 		return "admin:member/detail.tiles";
 	}
-	
+	@RequestMapping("/login/execute")
+	public String executeLogin(@RequestParam("id") String id,
+			@RequestParam("pw")String pw) {
+		logger.info("MemberController ! login() ");
+		System.out.println("로그인시 넘어온 id");
+		System.out.println("로그인시 넘어온 pw");
+		return "user:user/content.tiles";
+	}
+	// --- MOVE ---
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("MemberController ! goMain() ");	
