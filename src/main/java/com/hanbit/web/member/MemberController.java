@@ -104,4 +104,24 @@ public class MemberController {
 		logger.info("GO TO {}","count");
 		return "admin:member/count.tiles";
 	}
+	@RequestMapping("/content")
+	public String moveUserContent() {
+		logger.info("GO TO {}","content");
+		return "user:user/content.tiles";
+	}
+	@RequestMapping("/kaup")
+	public String moveKaup() {
+		logger.info("GO TO {}","kaup");
+		return "user:user/kaup.tiles";
+	}
+	@RequestMapping("/rock_sissor_paper")
+	public String moveRockSissorPaper() {
+		logger.info("GO TO {}","rock_sissor_paper");
+		return "user:user/rock_sissor_paper.tiles";
+	}
+	@RequestMapping("/lotto")
+	public String moveLotto() {
+		logger.info("GO TO {}","lotto");
+		return "user:user/lotto.tiles";
+	}
 }

@@ -46,7 +46,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>  <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">비밀번호 변경</a></li>
+          	<li><a id="a_mypage">마이페이지</a></li>
+            <li><a id="">비밀번호 변경</a></li>
           </ul>
         </li>
       </ul>
@@ -60,6 +61,7 @@
 <script type="text/javascript">
 $(function(){
 	$('#user_header').css('height','50px');
+	$('#user_header #a_mypage').click(function(){controller.move('member','content');});
 	$('.navbar-header').css('height','50px');
 	$('#user_header #logout').addClass('cursor').click(function() {controller.home();});
 });

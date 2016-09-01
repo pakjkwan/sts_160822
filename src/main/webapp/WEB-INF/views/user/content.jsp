@@ -5,19 +5,13 @@
 <link rel="icon" type="image/png" href="${img}/favicons/favicon-16x16.png" sizes="16x16">
 <link rel="manifest" href="${img}/favicons/manifest.json">
 <link rel="shortcut icon" href="${img}/favicons/favicon.ico">
-<!-- Normalize -->
 <link rel="stylesheet" type="text/css" href="${css}/normalize.css">
-<!-- Owl -->
 <link rel="stylesheet" type="text/css" href="${css}/owl.css">
-<!-- Animate.css -->
 <link rel="stylesheet" type="text/css" href="${css}/animate.css">
-<!-- Font Awesome -->
 <link rel="stylesheet" type="text/css" href="${css}/fonts/font-awesome.min.css">
-<!-- Elegant Icons -->
 <link rel="stylesheet" type="text/css" href="${css}/fonts/et-icons.css">
-<!-- Main style -->
 <link rel="stylesheet" type="text/css" href="${css}/cardio.css">
-	<section id="services" class="box section-padded">
+	<section id="user_content_service" class="box section-padded">
 		<div>
 			<div class="row text-center title">
 				<h2>Services</h2>
@@ -25,7 +19,7 @@
 			</div>
 			<div class="row services">
 				<div class="col-md-4">
-					<div class="service">
+					<div id="kaup" class="service">
 						<div class="icon-holder">
 							<img src="${img}/icons/heart-blue.png" alt="" class="icon">
 						</div>
@@ -34,7 +28,7 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="service">
+					<div id="rock_sissor_paper" class="service">
 						<div class="icon-holder">
 							<img src="${img}/icons/guru-blue.png" alt="" class="icon">
 						</div>
@@ -43,7 +37,7 @@
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="service">
+					<div id="lotto" class="service">
 						<div class="icon-holder">
 							<img src="${img}/icons/weight-blue.png" alt="" class="icon">
 						</div>
@@ -55,7 +49,7 @@
 		</div>
 		<div class="cut cut-bottom"></div>
 	</section>
-	<section id="team" class="section gray-bg">
+	<section id="user_content_subject" class="section gray-bg">
 		<div class="container">
 			<div class="row title text-center">
 				<h2 class="margin-top">MAJOR SUBJECT</h2>
@@ -63,11 +57,11 @@
 			</div>
 			<div class="row">
 				<div class="col-md-4">
-					<div class="team text-center">
+					<div id="major_subject_1"  class="team text-center">
 						<div class="cover" style="background:url('${img}/team/team-cover1.jpg'); background-size:cover;">
 							<div class="overlay text-center">
-								<h3 class="white">$69.00</h3>
-								<h5 class="light light-white">1 - 5 sessions / month</h5>
+								<h3 class="white">Java</h3>
+								<h5 class="light light-white">Server Program Language</h5>
 							</div>
 						</div>
 						<img src="${img}/team/team3.jpg" alt="Team Image" class="avatar">
@@ -75,15 +69,16 @@
 							<h4>Java</h4>
 							<h5 class="muted regular">Server Program Language</h5>
 						</div>
-						<button data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill">Sign Up Now</button>
+						<input type="hidden" name='major_subject_1' value="java">
+						<input id='aaaa' type='button' data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="team text-center">
+					<div id="major_subject_2"  class="team text-center">
 						<div class="cover" style="background:url('${img}/team/team-cover2.jpg'); background-size:cover;">
 							<div class="overlay text-center">
-								<h3 class="white">$69.00</h3>
-								<h5 class="light light-white">1 - 5 sessions / month</h5>
+								<h3 class="white">Javascript</h3>
+								<h5 class="light light-white">UI Program Language</h5>
 							</div>
 						</div>
 						<img src="${img}/team/team1.jpg" alt="Team Image" class="avatar">
@@ -91,15 +86,16 @@
 							<h4>Javascript</h4>
 							<h5 class="muted regular">UI Program Language</h5>
 						</div>
-						<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+						<input type="hidden" name='major_subject_2'>
+						<input type='button' data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="team text-center">
+					<div id="major_subject_3" class="team text-center">
 						<div class="cover" style="background:url('${img}/team/team-cover3.jpg'); background-size:cover;">
 							<div class="overlay text-center">
-								<h3 class="white">$69.00</h3>
-								<h5 class="light light-white">1 - 5 sessions / month</h5>
+								<h3 class="white">SQL</h3>
+								<h5 class="light light-white">Database Management Language</h5>
 							</div>
 						</div>
 						<img src="${img}/team/team2.jpg" alt="Team Image" class="avatar">
@@ -107,7 +103,8 @@
 							<h4>SQL</h4>
 							<h5 class="muted regular">Database Management Language</h5>
 						</div>
-						<a href="#" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill ripple">Sign Up Now</a>
+						<input type="hidden" name='major_subject_3'>
+						<input type='button' data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>
 					</div>
 				</div>
 			</div>
@@ -120,3 +117,14 @@
 <script src="${js}/typewriter.js"></script>
 <script src="${js}/jquery.onepagenav.js"></script>
 <script src="${js}/main.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#user_content #kaup').addClass('cursor').click(function(){controller.move('member','kaup');});
+	$('#user_content #rock_sissor_paper').addClass('cursor').click(function(){controller.move('member','rock_sissor_paper');});
+	$('#user_content #lotto').addClass('cursor').click(function(){controller.move('member','lotto');});
+	var key = $('#user_content_subject #major_subject_1 input[type="hidden"]').val();
+	$('#user_content_subject #major_subject_1 input[type="button"]').click(function(){alert('************');controller.moveWithKey('subject','detail',key)});
+	$('#user_content_subject #major_subject_2').click(function(){});
+	$('#user_content_subject #major_subject_3').click(function(){});
+});
+</script>
