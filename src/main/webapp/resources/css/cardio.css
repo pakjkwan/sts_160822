@@ -1,12 +1,12 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:300,400,500,700);
-/* body {
+body {
 	font-family: 'Roboto', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
 	font-size: 14px;
 	overflow-x: hidden;
 	color: #2a3237;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-} */
+}
 
 .parallax {
 	position: absolute;
@@ -59,7 +59,7 @@ h4,
 h5,
 h6 {
 	font-family: 'Roboto', 'Avenir Next', 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
-	position: relative;
+	
 	margin: 10px 0;
 }
 
@@ -100,7 +100,7 @@ ul.white-list li {
 
 ul.white-list li:before {
 	content: ' ';
-	position: relative;
+	
 	top: -3px;
 	display: inline-block;
 	width: 6px;
@@ -109,101 +109,11 @@ ul.white-list li:before {
 	background: white;
 }
 
-/* header {
-	position: relative;
-	width: 100%;
-	color: white;
-	background: rgba(28, 36, 65, 0.93);
-	background: url('../img/header.jpg');
-	background-size: cover;
-} */
-
-header .table {
-	display: table;
-	height: 100%;
-}
-
-header .container {
-	height: 100%;
-}
-
-header .header-text {
-	display: table-cell;
-	text-align: center;
-	vertical-align: middle;
-	color: white;
-}
-
-header .typed {
-	display: inline-block;
-	margin: 0;
-}
-
-header .typed-cursor {
-	font-size: 60px;
-	display: inline-block;
-	margin: 0 10px;
-	color: #00a8ff;
-	-webkit-animation-name: flash;
-	animation-name: flash;
-	-webkit-animation-duration: 1s;
-	animation-duration: 1s;
-	-webkit-animation-iteration-count: infinite;
-	animation-iteration-count: infinite;
-}
-
-/* a {
-	text-decoration: none;
-	color: #00a8ff;
-	-webkit-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-} */
-/* Navigation Bar ( Navbar ) */
-
-nav.navbar {
-	position: absolute;
-	z-index: 9500;
-	width: 100%;
-	width: 100vw;
-	-webkit-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-nav.navbar .navbar-nav li.active a:not(.btn) {
-	color: #00a8ff !important;
-}
-
-nav.navbar-fixed-top {
-	z-index: 9499;
-	top: 0;
-	padding: 25px 0;
-	opacity: 0;
-	background: white;
-	box-shadow: 0px 4px 3px rgba(0, 0, 0, 0.05);
-}
-
-nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
-	color: #bbb;
-}
-
 .icon-bar {
 	background: #bbb;
 }
 /* Buttons */
 
-.btn {
-	font-size: 18px;
-	display: inline-block;
-	padding: 15px 30px;
-	color: white;
-	border: 2px solid transparent;
-	border-radius: 2px;
-	background: transparent;
-	-webkit-transition: all 0.3s ease;
-	transition: all 0.3s ease;
-}
-
-.btn:hover,
 .btn:focus {
 	color: white;
 }
@@ -252,7 +162,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 /* Blink Cursor */
 
 .blink {
-	position: relative;
+	
 	top: 4px;
 	display: inline-block;
 	width: 4px;
@@ -260,29 +170,6 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 	height: 5vh;
 	margin: 0 10px;
 }
-
-.navbar {
-	top: 50px;
-}
-
-.container {
-	position: relative;
-	z-index: 1;
-}
-/* Sections */
-/* section {
-	position: relative;
-}
- */
-.section {
-	padding: 40px 0;
-	background: #fff;
-}
-
-.section-padded {
-	padding: 140px 0 40px;
-}
-
 .cut-top {
 	content: ' ';
 	position: absolute;
@@ -309,7 +196,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 
 .intro-tables {
 	top: -130px;
-	position: relative;
+	
 }
 
 .intro-table {
@@ -378,7 +265,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .intro-tables .intro-table {
-	position: relative;
+	
 	width: 100%;
 	height: 300px;
 	margin: 20px 0;
@@ -536,7 +423,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .team .avatar {
-	position: relative;
+	
 	z-index: 2;
 	margin-top: -60px;
 	border-radius: 50%;
@@ -566,13 +453,13 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .pricing {
-	position: relative;
+	
 	width: 100%;
 }
 
 .pricings .pricing .box-main,
 .pricings .pricing .box-second {
-	position: relative;
+	
 	left: 25%;
 	display: inline-block;
 	width: 50%;
@@ -651,14 +538,14 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 	margin-bottom: 60px;
 	color: white;
 }
+/* Footer */
+
 
 /* Form Control */
 
 .form-control {
 	font-size: 18px;
-	position: relative;
 	left: 0;
-	height: auto;
 	padding: 20px 30px;
 	border: 1px;
 	border-radius: 0;
@@ -711,7 +598,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .modal-popup {
-	position: relative;
+	
 	padding: 45px 30px;
 	text-align: center;
 	background: url('../img/popup.jpg');
@@ -784,12 +671,12 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .checkbox {
-	position: relative;
+	
 	display: block;
 }
 
 .checkbox {
-	position: relative;
+	
 }
 
 .checkbox label:before {
@@ -835,7 +722,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 }
 
 .checkbox-holder span {
-	position: relative;
+	
 	display: inline-block;
 	margin: 0 0 0 10px;
 	white-space: normal;
@@ -859,6 +746,58 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 	background: #fff;
 }
 
+/* Mobile Nav */
+.mobile-nav {
+	position: fixed;
+	z-index: 9999;
+	top: 0;
+	left: 0;
+	display: table;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	opacity: 0;
+	background: rgba(255, 255, 255, 0.98);
+	-webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+	-webkit-transform: scale(0);
+	-ms-transform: scale(0);
+	transform: scale(0);
+}
+
+.mobile-nav.active {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+
+.mobile-nav ul {
+	display: table-cell;
+	padding: 0;
+	list-style: none;
+	vertical-align: middle;
+}
+
+.mobile-nav ul li {
+	margin: 25px 0;
+}
+
+.mobile-nav ul li a:not(.btn) {
+	color: #aaa;
+}
+
+.mobile-nav a.close-link {
+	font-size: 24px;
+	position: absolute;
+	bottom: 0px;
+	left: calc(50% - 10px);
+	left: 0;
+	width: 100%;
+	padding: 15px 0;
+	color: #fff;
+	background: #00a8ff;
+}
 
 .row.title {
 	padding: 0 20px;
@@ -963,7 +902,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 		transform: translateX(0%);
 	}
 	.pricings .pricing .box-second {
-		position: relative;
+		
 		opacity: 1;
 	}
 	.popup-form {
@@ -974,7 +913,7 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 		padding: 0 10px !important;
 	}
 	.popup-form .form-control:not(.dropdown):focus {
-		position: relative;
+		
 		padding-right: 30px;
 		padding-left: 30px;
 	}
@@ -988,8 +927,3 @@ nav.navbar-fixed-top .navbar-nav > li > a:not(.btn) {
 		padding-top: 0;
 	}
 }
-
-
-
-
-
