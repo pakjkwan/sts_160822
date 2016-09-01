@@ -15,6 +15,6 @@ public class SubjectController {
 	@RequestMapping("/detail")
 	public String moveDetail(@RequestParam("key")String key){
 		logger.info("SUBJECT KEY IS {}",key);
-		return "";
+		return "user:subject/detail.tiles";
 	}
 }

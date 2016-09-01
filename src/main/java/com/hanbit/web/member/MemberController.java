@@ -67,17 +67,17 @@ public class MemberController {
 	@RequestMapping("/detail")
 	public String moveDetail() {
 		logger.info("GO TO {}","detail");
-		return "member/detail.tiles";
+		return "user:member/detail.tiles";
 	}
 	@RequestMapping("/update")
 	public String moveUpdate() {
 		logger.info("GO TO {}","update");
-		return "member/update.tiles";
+		return "user:member/update.tiles";
 	}
 	@RequestMapping("/delete")
 	public String moveDelete() {
 		logger.info("GO TO {}","delete");
-		return "member/delete.tiles";
+		return "user:member/delete.tiles";
 	}
 	@RequestMapping("/login")
 	public String login() {
