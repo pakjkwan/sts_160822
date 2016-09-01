@@ -13,60 +13,82 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 </style>
-<div class="box">
-<section style="height: 150px">
-	<p>회원 정보</p>
-	이름 : <article id="result_name"></article>
-	나이 : <article id="result_age"></article>
-	성별 : <article id="result_gender"></article>
-	계좌번호 :<article id="result_account"></article>
-	잔액 : <article id="rest_money"></article>
-	
-</section>
+<div class="box" style='padding-top:0'>
+<ul class="list-group">
+  <li class="list-group-item">홍 길 동</li>
+  <li class="list-group-item">신한은행</li>
+  <li class="list-group-item">123-456-789</li>
+  <li class="list-group-item">잔액 : ￦90,000</li>
+</ul>
 		<div class="panel panel-primary">
   <div class="panel-heading">계좌 내역</div>
   <div class="panel-body">
-    <p>TEST</p>
   </div>
 
 
 
 <table>
   <tr>
-    <th>Company</th>
-    <th>Contact</th>
-    <th>Country</th>
+    <th>날짜</th>
+    <th>입금</th>
+    <th>출금</th>
+    <th>잔액</th>
   </tr>
   <tr>
-    <td>Alfreds Futterkiste</td>
-    <td>Maria Anders</td>
-    <td>Germany</td>
+    <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
   <tr>
-    <td>Centro comercial Moctezuma</td>
-    <td>Francisco Chang</td>
-    <td>Mexico</td>
+     <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
   <tr>
-    <td>Ernst Handel</td>
-    <td>Roland Mendel</td>
-    <td>Austria</td>
+     <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
   <tr>
-    <td>Island Trading</td>
-    <td>Helen Bennett</td>
-    <td>UK</td>
+    <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
   <tr>
-    <td>Laughing Bacchus Winecellars</td>
-    <td>Yoshi Tannamuri</td>
-    <td>Canada</td>
+   <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
   <tr>
-    <td>Magazzini Alimentari Riuniti</td>
-    <td>Giovanni Rovelli</td>
-    <td>Italy</td>
+    <td>2016-08-01</td>
+    <td>5,000</td>
+    <td>0</td>
+    <td>5000</td>
   </tr>
 </table>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 </div>
 	</div>
