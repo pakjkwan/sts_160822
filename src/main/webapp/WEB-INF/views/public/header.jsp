@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default"  style='height: 50px'>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header"><img id="header_brand"></div>
+    <div class="navbar-header"><a><img id="header_brand"></a></div>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#">학교 소개</a></li>
       </ul>
