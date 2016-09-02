@@ -26,9 +26,9 @@
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">내 성적<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">성적 목록</a></li>
-            <li><a href="#">성적 조회</a></li>
+          <ul id="grade"  class="dropdown-menu">
+            <li><a>최근 성적표 보기</a></li>
+            <li><a>지난 성적표 조회</a></li>
           </ul>
         </li>
       </ul>
@@ -73,6 +73,8 @@ $(function(){
 	$("#user_header #account li:eq(1) a").click(function(){controller.move('account','open');});
 	$("#user_header #account li:eq(2) a").click(function(){controller.move('account','transaction');});
 	$("#user_header #account li:eq(3) a").click(function(){controller.move('account','delete');});
+	$("#user_header #grade li:eq(0) a").click(function(){controller.move('grade','detail');});
+	$("#user_header #grade li:eq(1) a").click(function(){controller.move('grade','find');});
 });
 </script>
 
