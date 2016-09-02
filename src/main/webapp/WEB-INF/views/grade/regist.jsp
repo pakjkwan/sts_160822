@@ -26,7 +26,7 @@
   	
 		<input type="hidden" name="action" value="regist" />
 		<input type="hidden" name="page" value="login" />
-		<input id="bt_send" type="submit" value="전 송" />
+		<input id="bt_send" type="submit" value="등 록" />
 		<input id="bt_cancel" type="reset" value="취 소" />
 	</form>
 </section>

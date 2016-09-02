@@ -23,8 +23,9 @@ public class GradeController {
 		return "admin:grade/regist.tiles";
 	}
 	@RequestMapping("/update")
-	public String moveUpdate() {
+	public String moveUpdate(@RequestParam("key")String key) {
 		logger.info("GO TO {}","update");	
+		logger.info("KEY IS {}",key);
 		return "admin:grade/update.tiles";
 	}
 	@RequestMapping("/delete")
@@ -35,8 +36,9 @@ public class GradeController {
 	@RequestMapping("/list")
 	public String moveList() {
 		logger.info("GO TO {}","list");	
-		return "user:grade/list.tiles";
+		return "admin:grade/list.tiles";
 	}
+	
 	@RequestMapping("/find")
 	public String moveFind() {
 		logger.info("GO TO {}","find");	
