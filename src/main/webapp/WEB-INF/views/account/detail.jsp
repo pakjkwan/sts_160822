@@ -1,18 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-</style>
 <div class="box" style='padding-top:0'>
 <ul class="list-group">
   <li class="list-group-item">홍 길 동</li>
@@ -20,14 +6,11 @@ tr:nth-child(even) {
   <li class="list-group-item">123-456-789</li>
   <li class="list-group-item">잔액 : ￦90,000</li>
 </ul>
-		<div class="panel panel-primary">
+<div class="panel panel-primary">
   <div class="panel-heading">계좌 내역</div>
   <div class="panel-body">
-  </div>
-
-
-
-<table>
+</div>
+<table id="account_detail_table">
   <tr>
     <th>날짜</th>
     <th>입금</th>
@@ -91,4 +74,4 @@ tr:nth-child(even) {
   </ul>
 </nav>
 </div>
-	</div>
+</div>

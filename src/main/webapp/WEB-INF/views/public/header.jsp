@@ -2,7 +2,7 @@
 <nav class="navbar navbar-default"  style='height: 50px'>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header"><a><img id="header_brand"></a></div>
+    <div class="navbar-header"><a id="go_public_home"><img id="header_brand"></a></div>
       <ul class="nav navbar-nav navbar-right">
         <li><a id="school_info"><span class="glyphicon glyphicon-picture" aria-hidden="true"></span>학교 소개</a></li>
       </ul>
@@ -16,8 +16,9 @@
 </nav>
 <script type="text/javascript">
 $(function(){
-	$('#school_info').click(function(){cotroller.move('public','school_info');});
-	$('#contact').click(function(){cotroller.move('public','contact');});
-	$('#free_board').click(function(){cotroller.move('public','free_board');});
+	$('#go_public_home').click(function(){controller.home()});
+	$('#school_info').click(function(){controller.move('public','school_info');});
+	$('#contact').click(function(){controller.move('public','contact');});
+	$('#free_board').click(function(){controller.move('public','free_board');});
 });
 </script>

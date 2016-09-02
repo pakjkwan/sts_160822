@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-	div.memberClass{font-size: 20px}
-</style>
 <div id="" class="memberClass box">
-	
 	<h1>계좌관리</h1>
 	<div style="width: 300px;margin: 0 auto;text-align: left;">
 	<ol>
@@ -17,9 +13,6 @@
 		<li><a href="${context}/account/count.do">통장수</a></li>
 	</ol>
 	</div>
-	<a href="../home.jsp">
-		<img src="../img/home.png" alt="home" style="width: 30px"/>
-	</a>
 </div>
 
 

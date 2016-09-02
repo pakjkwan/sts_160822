@@ -28,9 +28,14 @@ public class HomeController {
 	public String schoolInfo(){
 		return "public:public/school_info.tiles";
 	}
-	@RequestMapping("/public/slider")
-	public String slider(){
-		return "public:error/slider.tiles";
+	@RequestMapping("/public/contact")
+	public String contact(){
+		return "public:public/contact.tiles";
+	}
+	@RequestMapping("/public/free_board")
+	public String freeBoard(){
+		logger.info("GO TO {}", "freeBoard");
+		return "public:public/free_board.tiles";
 	}
 	
 }

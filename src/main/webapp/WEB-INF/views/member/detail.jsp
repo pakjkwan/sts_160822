@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="box">
-		<h1>회원상세정보</h1>
-		<table id="member_detail">
+		<table id="member_detail" class="table">
 				<tr>
 				<td rowspan="5" style="width:30%">
 				<img src="${img}/member/${member.profileImg}" alt="W3Schools.com" width="104"
@@ -39,13 +38,5 @@
 			</tr>
 		</table>
 		
-		<br /> 
-		<p>
-			
-		</p>
-		<a href="${context}/member/member_controller.jsp">
-			<img src="${img}/member.jpg" alt="member" style="width:30px" /></a>
-			<a href="${context}/index.jsp">
-		<img src="${img}/home.png" alt="member" style="width:30px" />
-		</a>
+		
 	</div>

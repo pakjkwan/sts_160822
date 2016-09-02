@@ -25,7 +25,6 @@ var app = (function(){
 	};
 	var onCreate = function(){
 		setContentView();
-		$('#title').click(function(){controller.home();});
 		$('#a_member').click(function(){controller.move('member','main');});
 		$('#a_grade').click(function(){controller.move('grade','main');});
 		$('#a_account').click(function(){controller.move('account','main');});
@@ -80,6 +79,9 @@ var account = (function(){
 		$('#bt_make_account').click(this.spec());
 		$('#bt_deposit').click(this.deposit());
 		$('#bt_withdraw').click(this.withdraw());*/
+		$('#account_list_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
+		$('#account_list_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
+		$('#account_list_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
 	};
 	return {
 		setAccountNo : setAccountNo,
@@ -313,6 +315,9 @@ var admin = (function() {
     	$('#admin_nav #account_mgmt #delete').click(function(){controller.move('account','delete');});
     	$('#admin_nav #account_mgmt #find').click(function(){controller.move('account','find');});
     	$('#admin_nav #account_mgmt #count').click(function(){controller.move('account','count');});
+    	$('#admin_content #img_1').attr('src',app.img()+'/default/member_mgmt.PNG');
+    	$('#admin_content #img_2').attr('src',app.img()+'/default/grade_mgmt.PNG');
+    	$('#admin_content #img_3').attr('src',app.img()+'/default/account_mgmt.PNG');
     };
     return {
     	getPass : getPass,

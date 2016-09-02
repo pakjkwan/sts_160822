@@ -30,9 +30,7 @@
 </div>
 <script>
 $(function(){
-	$('#admin_content #img_1').attr('src',app.img()+'/default/member_mgmt.PNG');
-	$('#admin_content #img_2').attr('src',app.img()+'/default/grade_mgmt.PNG');
-	$('#admin_content #img_3').attr('src',app.img()+'/default/account_mgmt.PNG');
+	
 });
 </script>
 

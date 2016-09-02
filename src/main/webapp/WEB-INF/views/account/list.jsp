@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <style>
-table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-
-
-td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
+#account_list_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
+#account_list_table td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;}
+#account_list_table tr:nth-child(even) {background-color: #dddddd;}
 </style>
 <div class="box" style='padding-top:0;width:90%'>
 <ul class="list-group">
@@ -66,11 +57,4 @@ tr:nth-child(even) {
   </ul>
 </nav>
 </div>
-	</div>
-<script type="text/javascript">
-$(function(){
-	$('#account_list_table .name').click(function(){controller.moveWithKey('member','a_detail','hong');});
-	$('#account_list_table .regist').click(function(){controller.moveWithKey('grade','regist','hong');});
-	$('#account_list_table .update').click(function(){controller.moveWithKey('grade','update','hong');});
-});
-</script>
+</div>
