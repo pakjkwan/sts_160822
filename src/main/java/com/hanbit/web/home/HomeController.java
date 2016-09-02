@@ -24,9 +24,13 @@ public class HomeController {
 		logger.info("SERVER START TIME IS {}", formattedDate);
 		return "public:public/content.tiles";
 	}
-	@RequestMapping("/global/school_info")
+	@RequestMapping("/public/school_info")
 	public String schoolInfo(){
-		return "public/school_info.tiles";
+		return "public:public/school_info.tiles";
+	}
+	@RequestMapping("/public/slider")
+	public String slider(){
+		return "public:error/slider.tiles";
 	}
 	
 }

@@ -18,7 +18,7 @@ public class AccountController {
 	@RequestMapping("/list")
 	public String moveList() {
 		logger.info("AccountController ! goMain() ");	
-		return "admin:account/content.tiles";
+		return "admin:account/list.tiles";
 	}
 	@RequestMapping("/open")
 	public String moveOpen() {
