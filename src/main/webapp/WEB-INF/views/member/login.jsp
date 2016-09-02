@@ -8,19 +8,8 @@
         <input type="password" name="pw" class="form-control" placeholder="PASSWORD" required>
         <input type="hidden" name="context">
         <div class="checkbox">
-          <label>
-            <input type="checkbox" name="remember_me" value="remember-me"> Remember me
-          </label>
+          <label><input type="checkbox" name="remember_me" value="remember-me"> Remember me</label>
         </div>
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/>
 </form>
 </div>
-<script type="text/javascript">
-	$(function(){
-		$('#member_login_form').attr('method','post').attr('action',app.context()+'/member/login');
-		$('#member_login_form input[type="hidden"]').attr('value',app.context());
-		$('#member_login_form input[type="submit"]').click(function() {
-			$('#member_login_form').submit();
-		});
-	});
-</script>

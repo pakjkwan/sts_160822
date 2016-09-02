@@ -39,6 +39,6 @@
 	</div>
 <script type="text/javascript">
 $(function(){
-	$('#member_detail img').attr('src',app.img()+'/member/hong.jpg').css('width','104px').css('height','142px');
+	
 });
 </script>

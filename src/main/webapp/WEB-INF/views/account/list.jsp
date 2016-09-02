@@ -1,9 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style>
-#account_list_table {font-family: arial, sans-serif;border-collapse: collapse;width: 100%;}
-#account_list_table td, th {border: 1px solid #dddddd;text-align: left;padding: 8px;}
-#account_list_table tr:nth-child(even) {background-color: #dddddd;}
-</style>
 <div class="box" style='padding-top:0;width:90%'>
 <ul class="list-group">
   <li class="list-group-item">총계좌수 : 120 개</li>

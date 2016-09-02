@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <div class="box">
 		<table id="member_update" class="table">
-				<tr>
-				<td rowspan="5" style="width:30%">
-				<img src="" alt="W3Schools.com" width="104"
-			height="142"></td>
+			<tr>
+				<td rowspan="5" style="width:30%"><img src="" alt="W3Schools.com" width="104" height="142"></td>
 				<td style="width:20%" class="font_bold ">ID</td>
 				<td style="width:40%"></td>
 			</tr>
@@ -37,5 +35,4 @@
 				<td colspan="2"></td>
 			</tr>
 		</table>
-		
-			</div>
+</div>

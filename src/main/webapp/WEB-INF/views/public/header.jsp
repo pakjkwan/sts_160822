@@ -16,9 +16,6 @@
 </nav>
 <script type="text/javascript">
 $(function(){
-	$('#go_public_home').click(function(){controller.home()});
-	$('#school_info').click(function(){controller.move('public','school_info');});
-	$('#contact').click(function(){controller.move('public','contact');});
-	$('#free_board').click(function(){controller.move('public','free_board');});
+	
 });
 </script>

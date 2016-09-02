@@ -7,8 +7,3 @@
 	<a id="global_content_a_admin" ></a> 
 </section>
 </div>
-<script>
-$(function(){
-	$('#test').click(function(){controller.move('public','slider');});
-});
-</script>
