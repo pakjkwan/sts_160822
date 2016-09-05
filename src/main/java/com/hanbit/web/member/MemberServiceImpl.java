@@ -13,7 +13,7 @@ import com.hanbit.web.subject.SubjectDAOImpl;
 import com.hanbit.web.subject.SubjectMemberVO;
 @Service
 public class MemberServiceImpl implements MemberService{
-	private MemberDAOImpl dao;
+	private MemberDAO dao;
 	private SubjectDAOImpl subjDao;
 	@Autowired private MemberVO member;
 	@Autowired private SubjectVO subject;
@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService{
 	private AccountServiceImpl accService;
 	
 	public MemberServiceImpl() {
-		dao = MemberDAOImpl.getInstance();
+		dao = null;
 		subjDao = SubjectDAOImpl.getInstance();
 	}
 	
