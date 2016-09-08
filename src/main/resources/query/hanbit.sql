@@ -238,6 +238,131 @@ EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1'
 EXEC HANBIT.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101-1','profx@test.com','default.jpg','PROF','010-1234-5678');
 EXEC HANBIT.INSERT_SUBJECT('java','profx');
 
+CREATE OR REPLACE PROCEDURE select_students(
+	mem_id OUT Member.mem_id%TYPE,
+	pw OUT Member.pw%TYPE,
+	name OUT Member.name%TYPE,
+	gender OUT Member.gender%TYPE,
+	reg_date OUT Member.reg_date%TYPE,
+	ssn OUT Member.ssn%TYPE,
+	email OUT Member.email%TYPE,
+	profile_img OUT Member.profile_img%TYPE,
+	role OUT Member.role%TYPE,
+	phone OUT Member.phone%TYPE,
+	major_seq OUT Member.major_seq%TYPE 
+) AS
+BEGIN
+	SELECT mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq 
+	FROM Member WHERE major_seq IS NOT NULL;
+END select_students;
+
+/*
+major stored procedure
+*/
+
+-- count major
+
+CREATE OR REPLACE PROCEDURE count_major(
+	sp_count OUT NUMBER
+) AS 
+BEGIN
+	SELECT COUNT(*) into sp_count FROM Major;
+END count_major;
+
+-- find major
+
+CREATE OR REPLACE PROCEDURE find_major(
+	sp_major_seq IN OUT Major.major_seq%TYPE,
+	sp_title OUT Major.title%TYPE,
+	sp_result OUT VARCHAR2
+) AS 
+    sp_temp_count NUMBER;
+BEGIN
+    SELECT COUNT(*) into SP_temp_count from major where major_seq = sp_major_seq; 
+	IF (sp_temp_count > 0) 
+	THEN
+        SELECT major_seq, title
+        INTO sp_major_seq,sp_title 
+        FROM Major 
+        WHERE major_seq = sp_major_seq;
+        sp_result :='과목번호 : '||sp_major_seq||', 과목명 : '||sp_title;
+    ELSE  
+        sp_result :='전공 과목이 없습니다';
+    END IF;
+END find_major;
+
+-- list major
+CREATE OR REPLACE PROCEDURE list_major(
+	sp_major_seq IN OUT Major.major_seq%TYPE,
+	sp_title OUT Major.title%TYPE,
+	sp_result OUT VARCHAR2
+) AS 
+    sp_temp_count NUMBER;
+BEGIN
+    SELECT COUNT(*) into SP_temp_count from major where major_seq = sp_major_seq; 
+	IF (sp_temp_count > 0) 
+	THEN
+        SELECT major_seq, title
+        INTO sp_major_seq,sp_title 
+        FROM Major 
+        WHERE major_seq = sp_major_seq;
+        sp_result :='과목번호 : '||sp_major_seq||', 과목명 : '||sp_title;
+    ELSE  
+        sp_result :='전공 과목이 없습니다';
+    END IF;
+END list_major;
+
+/*
+member stored procedure
+*/
+-- count_member
+
+-- find_by_id_member
+
+-- sp_result :='학생ID : '||??||', 이름 : '|| ?? ;
+
+
+
+
+--★ degugging code
+
+DECLARE
+ sp_count NUMBER;
+BEGIN
+ count_major(sp_count);
+ DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);
+END;
+
+DECLARE
+ sp_major_seq NUMBER := 2;
+ sp_title VARCHAR2(20);
+ sp_num NUMBER := 0;
+BEGIN
+ select count(*) into sp_num from major where major_seq = sp_major_seq; 
+ IF (sp_num > 0) THEN
+ select_major(sp_major_seq,sp_title);
+ 
+ DBMS_OUTPUT.put_line ('과목번호 : '||sp_major_seq||', 과목명 : '||sp_title);
+ ELSE 
+ DBMS_OUTPUT.put_line ('결과가 없습니다 ');
+ END IF;
+END;
+
+DECLARE
+ sp_major_seq NUMBER := 22;
+ sp_result VARCHAR2(100);
+ sp_title VARCHAR2(100);
+BEGIN
+ select_major(sp_major_seq,sp_title,sp_result);
+  DBMS_OUTPUT.put_line (sp_result);
+ END;
+
+
+select * from major where major_seq = 1001;
+select * from member;
+select * from subject; 
+
+
 select * from major;
 select * from member;
 select * from subject; 
