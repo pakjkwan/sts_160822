@@ -1,163 +1,30 @@
 /*
-META PROCEDURE
+========= META_PROCEDURE ====
 */	
 SELECT OBJECT_NAME FROM USER_PROCEDURES;
-
+DROP PROCEDURE HANBIT.INSERTMEMBER;
 /*
-CREATE PROCEDURE
+============ MAJOR ==========
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 전공
+==============================
 */
-
+-- DEF_INSERT_MAJOR
 CREATE OR REPLACE PROCEDURE insert_major(sp_title IN Major.title%TYPE) AS
 BEGIN
 	INSERT INTO Major(major_seq,title) VALUES(major_seq.nextval,sp_title);
-	
 END insert_major;
-
+-- EXE_INSERT_MAJOR
 EXEC HANBIT.INSERT_MAJOR('컴퓨터공학');
-
-CREATE OR REPLACE PROCEDURE insert_prof(
-	sp_mem_id IN Member.mem_id%TYPE,
-	sp_pw IN Member.pw%TYPE,
-	sp_name IN Member.name%TYPE,
-	sp_gender IN Member.gender%TYPE,
-	sp_reg_date IN Member.reg_date%TYPE,
-	sp_ssn IN Member.ssn%TYPE,
-	sp_email IN Member.email%TYPE,
-	sp_profile_img IN Member.profile_img%TYPE,
-	sp_role IN Member.role%TYPE,
-	sp_phone IN Member.phone%TYPE
-) AS
-BEGIN
-	INSERT INTO Member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone) 
-	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone);
-END insert_prof;
-
-CREATE OR REPLACE PROCEDURE insert_student(
-	sp_mem_id IN Member.mem_id%TYPE,
-	sp_pw IN Member.pw%TYPE,
-	sp_name IN Member.name%TYPE,
-	sp_gender IN Member.gender%TYPE,
-	sp_reg_date IN Member.reg_date%TYPE,
-	sp_ssn IN Member.ssn%TYPE,
-	sp_email IN Member.email%TYPE,
-	sp_profile_img IN Member.profile_img%TYPE,
-	sp_role IN Member.role%TYPE,
-	sp_phone IN Member.phone%TYPE,
-	sp_major_seq IN Member.major_seq%TYPE 
-) AS
-BEGIN
-	INSERT INTO Member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq) 
-	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone,sp_major_seq);
-END insert_student;
-
-EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
-EXEC HANBIT.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101-1','profx@test.com','default.jpg','PROF','010-1234-5678');
-
-CREATE OR REPLACE PROCEDURE insert_subject(
-	sp_subj_name IN Subject.subj_name%TYPE,
-	sp_mem_id IN Subject.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Subject(subj_seq,subj_name,mem_id) 
-	VALUES(subj_seq.NEXTVAL,sp_subj_name,sp_mem_id);
-END insert_subject;
-
-EXEC HANBIT.INSERT_SUBJECT('java','profx');
-
-CREATE OR REPLACE PROCEDURE insert_exam(
-	sp_exam_seq IN Exam.exam_seq%TYPE,
-	sp_term IN Exam.term%TYPE,
-	sp_score IN Exam.score%TYPE,
-	sp_subj_seq IN Exam.subj_seq%TYPE,
-	sp_mem_id IN Exam.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Exam(exam_seq,term,score,subj_seq,mem_id) 
-	VALUES(sp_exam_seq,sp_term,sp_score,sp_subj_seq,sp_mem_id);
-END insert_exam;
-
-CREATE OR REPLACE PROCEDURE insert_grade(
-	sp_grade_seq IN Grade.grade_seq%TYPE,
-	sp_grade IN Grade.grade%TYPE,
-	sp_term IN Grade.term%TYPE,
-	sp_mem_id IN Grade.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Grade(grade_seq,grade,term,mem_id) 
-	VALUES(sp_grade_seq,sp_grade,sp_term,sp_mem_id);
-END insert_grade;
-	
-CREATE OR REPLACE PROCEDURE insert_qna(
-	sp_art_seq IN Board.art_seq%TYPE,
-	sp_category IN Board.category%TYPE,
-	sp_title IN Board.title%TYPE,
-	sp_reg_date IN Board.reg_date%TYPE,
-	sp_content IN Board.content%TYPE,
-	sp_mem_id IN Board.mem_id%TYPE
-) AS
-BEGIN
-	INSERT INTO Board(art_seq,category,title,reg_date,content,mem_id) 
-	VALUES(sp_art_seq,sp_category,sp_title,sp_reg_date,sp_content,sp_mem_id);
-END insert_qna;
-
-CREATE OR REPLACE PROCEDURE insert_notice(
-	sp_art_seq IN Board.art_seq%TYPE,
-	sp_category IN Board.category%TYPE,
-	sp_title IN Board.title%TYPE,
-	sp_reg_date IN Board.reg_date%TYPE,
-	sp_content IN Board.content%TYPE
-) AS
-BEGIN
-	INSERT INTO Board(art_seq,category,title,reg_date,content) 
-	VALUES(sp_art_seq,sp_category,sp_title,sp_reg_date,sp_content);
-END insert_notice;
-
-
-/*
-READ PROCEDURE
-*/
-CREATE OR REPLACE PROCEDURE select_students(
-	mem_id OUT Member.mem_id%TYPE,
-	pw OUT Member.pw%TYPE,
-	name OUT Member.name%TYPE,
-	gender OUT Member.gender%TYPE,
-	reg_date OUT Member.reg_date%TYPE,
-	ssn OUT Member.ssn%TYPE,
-	email OUT Member.email%TYPE,
-	profile_img OUT Member.profile_img%TYPE,
-	role OUT Member.role%TYPE,
-	phone OUT Member.phone%TYPE,
-	major_seq OUT Member.major_seq%TYPE 
-) AS
-BEGIN
-	SELECT mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq 
-	FROM Member WHERE major_seq IS NOT NULL;
-END select_students;
-
-/*
-====== Major stored procedure ======
-*/
-
--- count major
-
-CREATE OR REPLACE PROCEDURE count_major(
-	sp_count OUT NUMBER
-) AS 
-BEGIN
-	SELECT COUNT(*) into sp_count FROM Major;
-END count_major;
-
-
-DECLARE
- sp_count NUMBER;
-BEGIN
- count_major(sp_count);
- DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);
-END;
-
--- find major
-
-CREATE OR REPLACE PROCEDURE find_major(
+-- DEF_COUNT_MAJOR
+CREATE OR REPLACE PROCEDURE count_major(sp_count OUT NUMBER) AS 
+BEGIN SELECT COUNT(*) into sp_count FROM Major;END count_major;
+-- EXE_COUNT_MAJOR
+DECLARE sp_count NUMBER;BEGIN count_major(sp_count);DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);END;
+-- DEF_FIND_BY_MAJOR_SEQ
+CREATE OR REPLACE PROCEDURE find_by_major_seq(
 	sp_major_seq IN OUT Major.major_seq%TYPE,
 	sp_title OUT Major.title%TYPE,
 	sp_result OUT VARCHAR2
@@ -175,19 +42,17 @@ BEGIN
     ELSE  
         sp_result :='전공 과목이 없습니다';
     END IF;
-END find_major;
-
+END find_by_major_seq;
+-- EXE_FIND_BY_MAJOR_SEQ
 DECLARE
  sp_major_seq NUMBER := 22;
  sp_result VARCHAR2(100);
  sp_title VARCHAR2(100);
 BEGIN
- find_major(sp_major_seq,sp_title,sp_result);
+ find_by_major_seq(sp_major_seq,sp_title,sp_result);
   DBMS_OUTPUT.put_line (sp_result);
  END;
-
--- all major
-
+-- DEF_ALL_MAJOR
 CREATE OR REPLACE PROCEDURE HANBIT.all_major(
     sp_result OUT CLOB
 ) AS
@@ -215,32 +80,189 @@ BEGIN
     sp_result := sp_temp;
     
 END all_major;
-
-DECLARE
-     sp_result CLOB;
+-- EXE_ALL_MAJOR
+DECLARE sp_result CLOB; BEGIN all_major(sp_result);DBMS_OUTPUT.PUT_LINE(sp_result);END; 
+-- DEF_UPDATE_MAJOR
+CREATE OR REPLACE PROCEDURE update_major(
+  sp_major_seq IN Major.major_seq%TYPE,
+  sp_title IN Major.title%TYPE
+)AS BEGIN UPDATE Major SET title = sp_title WHERE major_seq = sp_major_seq;END update_major;
+-- EXE_UPDATE_MAJOR
+BEGIN update_major(1002,'경영학부');END;
+-- DEF_DELETE_MAJOR
+CREATE OR REPLACE PROCEDURE delete_major(sp_major_seq IN Major.major_seq%TYPE)AS 
+BEGIN DELETE FROM Major WHERE major_seq = sp_major_seq; END;
+-- EXE_DELETE_MAJOR
+BEGIN delete_major(1006); END;
+/*
+========= MEMBER_PROF =======
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 교수
+==============================
+*/
+-- DEF_INSERT_PROF
+CREATE OR REPLACE PROCEDURE insert_prof(
+	sp_mem_id IN Member.mem_id%TYPE,
+	sp_pw IN Member.pw%TYPE,
+	sp_name IN Member.name%TYPE,
+	sp_gender IN Member.gender%TYPE,
+	sp_reg_date IN Member.reg_date%TYPE,
+	sp_ssn IN Member.ssn%TYPE,
+	sp_email IN Member.email%TYPE,
+	sp_profile_img IN Member.profile_img%TYPE,
+	sp_role IN Member.role%TYPE,
+	sp_phone IN Member.phone%TYPE
+) AS
 BEGIN
-    all_major(sp_result);
-    DBMS_OUTPUT.PUT_LINE(sp_result);
-    
-END; 
-
+	INSERT INTO Member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone) 
+	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone);
+END insert_prof;
+-- EXE_INSERT_PROF
+EXEC HANBIT.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101-1','profx@test.com','default.jpg','PROF','010-1234-5678');
 /*
-===== Member stored procedure ====
+========= MEMBER_STUDENT =====
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 학생
+==============================
 */
--- count_member
-
--- find_by_id_member
-
--- all_member
-
-
-
-
+-- DEF_INSERT_STUDENT
+CREATE OR REPLACE PROCEDURE insert_student(
+	sp_mem_id IN Member.mem_id%TYPE,
+	sp_pw IN Member.pw%TYPE,
+	sp_name IN Member.name%TYPE,
+	sp_gender IN Member.gender%TYPE,
+	sp_reg_date IN Member.reg_date%TYPE,
+	sp_ssn IN Member.ssn%TYPE,
+	sp_email IN Member.email%TYPE,
+	sp_profile_img IN Member.profile_img%TYPE,
+	sp_role IN Member.role%TYPE,
+	sp_phone IN Member.phone%TYPE,
+	sp_major_seq IN Member.major_seq%TYPE 
+) AS
+BEGIN
+	INSERT INTO Member(mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq) 
+	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone,sp_major_seq);
+END insert_student;
+-- EXE_INSERT_STUDENT
+EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
+-- DEF_ALL_STUDENT
+CREATE OR REPLACE PROCEDURE select_students(
+	mem_id OUT Member.mem_id%TYPE,
+	pw OUT Member.pw%TYPE,
+	name OUT Member.name%TYPE,
+	gender OUT Member.gender%TYPE,
+	reg_date OUT Member.reg_date%TYPE,
+	ssn OUT Member.ssn%TYPE,
+	email OUT Member.email%TYPE,
+	profile_img OUT Member.profile_img%TYPE,
+	role OUT Member.role%TYPE,
+	phone OUT Member.phone%TYPE,
+	major_seq OUT Member.major_seq%TYPE 
+) AS
+BEGIN
+	SELECT mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq 
+	FROM Member WHERE major_seq IS NOT NULL;
+END select_students;
 /*
-UPDATE PROCEDURE
+=========== SUBJECT =========
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 과목
+=============================
 */
-
+-- DEF_INSERT_SUBJECT
+CREATE OR REPLACE PROCEDURE insert_subject(
+	sp_subj_name IN Subject.subj_name%TYPE,
+	sp_mem_id IN Subject.mem_id%TYPE
+) AS
+BEGIN
+	INSERT INTO Subject(subj_seq,subj_name,mem_id) 
+	VALUES(subj_seq.NEXTVAL,sp_subj_name,sp_mem_id);
+END insert_subject;
+-- EXE_INSERT_SUBJECT
+EXEC HANBIT.INSERT_SUBJECT('java','profx');
 /*
-DROP PROCEDURE
+=========== EXAM ===========
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 시험
+============================
 */
-DROP PROCEDURE HANBIT.INSERTMEMBER;
+-- DEF_INSERT_EXAM
+CREATE OR REPLACE PROCEDURE insert_exam(
+	sp_exam_seq IN Exam.exam_seq%TYPE,
+	sp_term IN Exam.term%TYPE,
+	sp_score IN Exam.score%TYPE,
+	sp_subj_seq IN Exam.subj_seq%TYPE,
+	sp_mem_id IN Exam.mem_id%TYPE
+) AS
+BEGIN
+	INSERT INTO Exam(exam_seq,term,score,subj_seq,mem_id) 
+	VALUES(sp_exam_seq,sp_term,sp_score,sp_subj_seq,sp_mem_id);
+END insert_exam;
+/*
+============ GRADE =========
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 성적
+============================
+*/
+-- DEF_INSERT_GRADE
+CREATE OR REPLACE PROCEDURE insert_grade(
+	sp_grade_seq IN Grade.grade_seq%TYPE,
+	sp_grade IN Grade.grade%TYPE,
+	sp_term IN Grade.term%TYPE,
+	sp_mem_id IN Grade.mem_id%TYPE
+) AS
+BEGIN
+	INSERT INTO Grade(grade_seq,grade,term,mem_id) 
+	VALUES(sp_grade_seq,sp_grade,sp_term,sp_mem_id);
+END insert_grade;
+/*
+========== BOARD_QNA ========
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : QNA
+=============================
+*/
+-- DEF_INSERT_QNA	
+CREATE OR REPLACE PROCEDURE insert_qna(
+	sp_art_seq IN Board.art_seq%TYPE,
+	sp_category IN Board.category%TYPE,
+	sp_title IN Board.title%TYPE,
+	sp_reg_date IN Board.reg_date%TYPE,
+	sp_content IN Board.content%TYPE,
+	sp_mem_id IN Board.mem_id%TYPE
+) AS
+BEGIN
+	INSERT INTO Board(art_seq,category,title,reg_date,content,mem_id) 
+	VALUES(sp_art_seq,sp_category,sp_title,sp_reg_date,sp_content,sp_mem_id);
+END insert_qna;
+/*
+========= BOARD_NOTICE ======
+@AUTHOR : pakjkwan@gmail.com
+@CREATE DATE : 2016-9-8
+@UPDATE DATE : 2016-9-9
+@DESC : 공지사항
+=============================
+*/
+-- DEF_INSERT_NOTICE
+CREATE OR REPLACE PROCEDURE insert_notice(
+	sp_art_seq IN Board.art_seq%TYPE,
+	sp_category IN Board.category%TYPE,
+	sp_title IN Board.title%TYPE,
+	sp_reg_date IN Board.reg_date%TYPE,
+	sp_content IN Board.content%TYPE
+) AS
+BEGIN
+	INSERT INTO Board(art_seq,category,title,reg_date,content) 
+	VALUES(sp_art_seq,sp_category,sp_title,sp_reg_date,sp_content);
+END insert_notice;
