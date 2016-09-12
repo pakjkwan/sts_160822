@@ -2,7 +2,7 @@
 ========= META_PROCEDURE ====
 */	
 SELECT OBJECT_NAME FROM USER_PROCEDURES;
-DROP PROCEDURE HANBIT.INSERTMEMBER;
+DROP PROCEDURE HANBIT.SELECT_MAJOR;
 /*
 ============ MAJOR ==========
 @AUTHOR : pakjkwan@gmail.com
@@ -45,14 +45,36 @@ BEGIN
 END find_by_major_seq;
 -- EXE_FIND_BY_MAJOR_SEQ
 DECLARE
- sp_major_seq NUMBER := 22;
+ sp_major_seq NUMBER := 1001;
  sp_result VARCHAR2(100);
  sp_title VARCHAR2(100);
 BEGIN
  find_by_major_seq(sp_major_seq,sp_title,sp_result);
   DBMS_OUTPUT.put_line (sp_result);
  END;
--- DEF_ALL_MAJOR
+-- DEF_ALL_MAJOR(CURSOR VERSION)
+CREATE OR REPLACE PROCEDURE HANBIT.all_major(
+    major_cur OUT SYS_REFCURSOR
+) IS
+BEGIN
+    OPEN major_cur FOR SELECT major_seq,title FROM major;
+END all_major;
+-- EXE_ALL_MAJOR(CURSOR VERSION)
+DECLARE
+  sp_cursor  SYS_REFCURSOR;
+  sp_major_seq   Major.major_seq%TYPE;
+  sp_title   Major.title%TYPE;
+BEGIN
+  all_major (sp_cursor);         
+  LOOP 
+    FETCH sp_cursor
+    INTO  sp_major_seq, sp_title;
+    EXIT WHEN sp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(sp_major_seq || ',' ||sp_title);
+  END LOOP;
+  CLOSE sp_cursor;
+END;
+-- DEF_ALL_MAJOR(CLOB VERSION)
 CREATE OR REPLACE PROCEDURE HANBIT.all_major(
     sp_result OUT CLOB
 ) AS
@@ -80,7 +102,7 @@ BEGIN
     sp_result := sp_temp;
     
 END all_major;
--- EXE_ALL_MAJOR
+-- EXE_ALL_MAJOR(CLOB VERSION)
 DECLARE sp_result CLOB; BEGIN all_major(sp_result);DBMS_OUTPUT.PUT_LINE(sp_result);END; 
 -- DEF_UPDATE_MAJOR
 CREATE OR REPLACE PROCEDURE update_major(
@@ -120,7 +142,70 @@ BEGIN
 	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone);
 END insert_prof;
 -- EXE_INSERT_PROF
-EXEC HANBIT.INSERT_PROF('profx','1','찰스','MALE','2010-06-01','700101-1','profx@test.com','default.jpg','PROF','010-1234-5678');
+EXEC HANBIT.INSERT_PROF('prof_x','1','찰스','MALE','2010-06-01','700101-1','prof_x@test.com','default.jpg','PROF','010-1234-5678');
+-- DEF_COUNT_PROF
+CREATE OR REPLACE PROCEDURE count_prof(sp_count OUT NUMBER) AS 
+BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='PROF';END count_prof;
+-- EXE_COUNT_PROF
+DECLARE sp_count NUMBER;BEGIN count_prof(sp_count);DBMS_OUTPUT.put_line ('교수 인원 : '||sp_count||' 명');END;
+-- DEF_EXIST_MEMBER_ID
+CREATE OR REPLACE PROCEDURE exist_member_id(
+    sp_mem_id IN Member.mem_id%TYPE,
+    sp_count OUT NUMBER
+)AS BEGIN SELECT COUNT(*) INTO sp_count FROM Member WHERE mem_id = sp_mem_id;END exist_member_id;
+-- EXE_EXIST_MEMBER_ID
+DECLARE sp_mem_id VARCHAR2(30) := 'hong';sp_count NUMBER;BEGIN exist_member_id(sp_mem_id,sp_count);DBMS_OUTPUT.put_line ('조회결과는  : '||sp_count||' 명');END;
+-- DEF_FIND_BY_PROF_ID
+CREATE OR REPLACE PROCEDURE find_by_prof_id(
+	sp_prof_id IN Member.mem_id%TYPE,
+	sp_prof OUT Member%ROWTYPE
+) AS BEGIN SELECT * INTO sp_prof FROM Member 
+    WHERE mem_id = sp_prof_id AND role='PROF'; END find_by_prof_id;
+-- EXE_FIND_BY_PROF_ID
+DECLARE
+ sp_prof_id VARCHAR2(100) := 'profx';
+ sp_prof Member%ROWTYPE;
+BEGIN
+ find_by_prof_id(sp_prof_id,sp_prof);
+  DBMS_OUTPUT.put_line (sp_prof.name);
+ END;
+ -- DEF_ALL_PROF(CURSOR VERSION)
+CREATE OR REPLACE PROCEDURE HANBIT.all_prof(
+    prof_cur OUT SYS_REFCURSOR
+) IS
+BEGIN
+    OPEN prof_cur FOR SELECT * FROM Member WHERE role = 'PROF';
+END all_prof;
+ -- EXE_ALL_PROF(CURSOR VERSION)
+DECLARE
+  sp_cursor  SYS_REFCURSOR;
+  sp_prof Member%ROWTYPE;
+BEGIN
+  all_prof (sp_cursor);         
+  LOOP 
+    FETCH sp_cursor
+    INTO  sp_prof;
+    EXIT WHEN sp_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(sp_prof.mem_id || ' : '||sp_prof.name
+     || '   교수 : '||sp_prof.email);
+  END LOOP;
+  CLOSE sp_cursor;
+END;
+-- DEF_UPDATE_PROF
+CREATE OR REPLACE PROCEDURE update_prof(
+  sp_prof_id IN Member.mem_id%TYPE,
+  sp_pw IN Member.pw%TYPE,
+  sp_email IN Member.email%TYPE,
+  sp_phone IN Member.phone%TYPE
+)AS BEGIN UPDATE Member SET pw = sp_pw , email = sp_email 
+, phone = sp_phone WHERE mem_id = sp_prof_id;END update_prof;
+-- EXE_UPDATE_PROF
+BEGIN update_prof('profx','1','change@test.com','101-9999-9999');END;
+-- DEF_DELETE_PROF
+CREATE OR REPLACE PROCEDURE delete_prof(sp_prof_id IN Member.mem_id%TYPE)AS 
+BEGIN DELETE FROM Member WHERE mem_id = sp_prof_id; END;
+-- EXE_DELETE_PROF
+BEGIN delete_prof('profx'); END;
 /*
 ========= MEMBER_STUDENT =====
 @AUTHOR : pakjkwan@gmail.com
@@ -150,7 +235,7 @@ END insert_student;
 -- EXE_INSERT_STUDENT
 EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
 -- DEF_ALL_STUDENT
-CREATE OR REPLACE PROCEDURE select_students(
+CREATE OR REPLACE PROCEDURE all_students(
 	mem_id OUT Member.mem_id%TYPE,
 	pw OUT Member.pw%TYPE,
 	name OUT Member.name%TYPE,
@@ -166,7 +251,7 @@ CREATE OR REPLACE PROCEDURE select_students(
 BEGIN
 	SELECT mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq 
 	FROM Member WHERE major_seq IS NOT NULL;
-END select_students;
+END all_students;
 /*
 =========== SUBJECT =========
 @AUTHOR : pakjkwan@gmail.com
