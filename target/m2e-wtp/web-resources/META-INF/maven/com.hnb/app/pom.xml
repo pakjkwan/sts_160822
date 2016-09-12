@@ -26,7 +26,7 @@
 		<ojdbc6-version>11.1.0.7.0</ojdbc6-version>
 		<mysql-connector-java-version>5.1.6</mysql-connector-java-version>
 		<tiles-version>3.0.5</tiles-version>
-		
+		<lombok-version>1.16.8</lombok-version>
 		
 	</properties>
 	<dependencies>
@@ -312,6 +312,13 @@
 			<artifactId>commons-el</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<!-- lombok -->
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>${lombok-version}</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
