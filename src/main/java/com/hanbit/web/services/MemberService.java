@@ -22,5 +22,6 @@ public interface MemberService extends CommonService{
 	public void delete(MemberDTO member);
 	public void logout(MemberDTO member);
 	public MemberDTO show();
+	public MemberDTO login(MemberDTO member);
 	
 }

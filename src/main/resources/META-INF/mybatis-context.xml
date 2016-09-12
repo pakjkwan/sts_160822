@@ -29,11 +29,13 @@
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
-	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<value>classpath:config/database.properties</value>
-		</property>
-	</bean> 
+	<context:property-placeholder location="classpath:config/database.properties" />
+		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<value>classpath:config/database.properties</value>
+			</property>
+		</bean> 
+		
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
@@ -41,18 +43,17 @@
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="mapperLocations" value="classpath:com/hanbit/web/mappers/*.xml">
-		</property>
+		<property name="dataSource" ref="dataSource" />
+		 <property name="mapperLocations" value="classpath:com/hanbit/web/mappers/*Mapper.xml" />
 	</bean>
+	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory"/>
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
-	
-	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"></property>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    	<property name="dataSource" ref="dataSource" />
 	</bean>
-	
+	<tx:annotation-driven transaction-manager="transactionManager" /> 
 </beans>
 
 

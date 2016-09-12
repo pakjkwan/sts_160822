@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hanbit.web.domains.GradeDTO;
 import com.hanbit.web.services.GradeService;
 @Service
+@Transactional
 public class GradeServiceImpl implements GradeService {
 	private static GradeServiceImpl instance = new GradeServiceImpl();
 	public static GradeServiceImpl getInstance() {

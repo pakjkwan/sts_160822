@@ -3,26 +3,37 @@ package com.hanbit.web.services.impl;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.annotation.Resource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.domains.SubjectDTO;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService{
-	private MemberMapper dao;
+	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
+	@Autowired private SqlSession sqlSession;
 	@Autowired private MemberDTO member;
 	@Autowired private SubjectDTO subject;
 	
 	@Override
 	public String regist(MemberDTO mem) {
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		String msg = "";
 		MemberDTO temp = this.findById(mem.getId());
 		if (temp == null) {
 			System.out.println(mem.getId()+"가 존재하지 않음,가입 가능한 ID");
-			int result = dao.insert(mem);
+			int result = mapper.insert(mem);
 			if (result==1) {
 				msg = "success";
 			} else {
@@ -39,7 +50,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public void update(MemberDTO mem) {
-		int result = dao.update(mem);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		int result = mapper.update(mem);
 		if (result == 1) {
 			System.out.println("서비스 수정결과 성공");
 		}else{
@@ -52,34 +64,36 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public void delete(MemberDTO member) {
-		dao.delete(member);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		mapper.delete(member);
 	}
 
 
 	@Override
 	public int count() {
-		// TODO Auto-generated method stub
-		return dao.count();
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.count();
 	}
 
 
 	@Override
 	public MemberDTO findById(String findID) {
-		return dao.findById(findID);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.findById(findID);
 	}
 
 
 	@Override
 	public List<?> list() {
-		
-		return dao.list();
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.list();
 	}
 
 
 	@Override
 	public List<?> findBy(String keyword) {
-		// TODO Auto-generated method stub
-		return dao.findByName(keyword);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.findByName(keyword);
 	}
 
 
@@ -97,5 +111,20 @@ public class MemberServiceImpl implements MemberService{
 			member = null;
 		}
 		
+	}
+
+
+	@Override
+	public MemberDTO login(MemberDTO member) {
+		logger.info("MemberService login ID = {}",member.getId());
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		MemberDTO mem = mapper.findById(member.getId());
+		if(mem.getPw().equals(member.getPw())){
+			logger.info("MemberService login {}"," SUCCESS ");
+			return mem;
+		}
+		logger.info("MemberService login {}"," FAIL ");
+		mem.setId("NONE");
+		return mem;
 	}
 }

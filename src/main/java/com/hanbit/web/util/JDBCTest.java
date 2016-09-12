@@ -14,7 +14,7 @@ public class JDBCTest {
 		Statement stmt = null;
 		ResultSet rs = null;
 		String sql = "select name from member "
-				+ "where id = 'hong2'",result="";
+				+ "where mem_id = 'hong'",result="";
 		
 		List<String> list = new ArrayList<String>();
 		try {
