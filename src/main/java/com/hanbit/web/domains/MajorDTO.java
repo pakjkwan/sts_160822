@@ -20,10 +20,8 @@ import lombok.Setter;
 */
 @Component
 @Data
-public class MemberDTO implements Serializable{
+public class MajorDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
-	@Getter @Setter private String id,pw,name,regDate,gender,ssn,profileImg,email,phone,role;
-	@Getter @Setter private int birth;
-	
-
+	@Getter @Setter private String majorTitle,grade,term,id,pw,name,regDate,gender,ssn,profileImg,email,phone,role;
+	@Getter @Setter private int majorSeq;
 }
