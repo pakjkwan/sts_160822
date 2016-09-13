@@ -28,35 +28,37 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
-
-		<mvc:annotation-driven/> 
-	<mvc:resources mapping="/resources/**" location="/resources/" /> 
+	<context:annotation-config />
+	 <mvc:annotation-driven /> 
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<context:component-scan base-package="com.hanbit.web" />
-	<context:property-placeholder location="classpath:config/database.properties" />
-		<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-			<property name="locations">
-				<value>classpath:config/database.properties</value>
-			</property>
-		</bean> 
-		
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<value>classpath:config/database.properties</value>
+		</property>
+	</bean> 
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${jdbc.driver}"/>
 		<property name="url" value="${jdbc.url}"/>
 		<property name="username" value="${jdbc.username}"/>
 		<property name="password" value="${jdbc.password}"/>
 	</bean>
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		 <property name="mapperLocations" value="classpath:com/hanbit/web/mappers/*Mapper.xml" />
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:com/hanbit/web/mappers/*.xml"/>
+	</bean>
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
 	</bean>
 	
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg index="0" ref="sqlSessionFactory" />
+	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    	<property name="dataSource" ref="dataSource" />
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+ 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+ 		<property name="dataSource" ref="dataSource"></property>
+ 	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
 		<property name="contentNegotiationManager" ref="contentNegotiationManager"/>
 		<property name="viewResolvers">
@@ -90,8 +92,7 @@
                 </bean>
            </constructor-arg>
       </bean>
-        <!-- Tiles configuration -->
-<bean id="tilesConfigurer"
+	<bean id="tilesConfigurer"
     class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
     <property name="definitions">
         <list>
@@ -99,14 +100,5 @@
         </list>
     </property>
 </bean>
+
 </beans>
-
-
-
-
-
-
-
-
-
-
