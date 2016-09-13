@@ -97,11 +97,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
-	@Override
-	public Map<?, ?> map() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 
 	@Override

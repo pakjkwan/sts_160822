@@ -1,10 +1,5 @@
 package com.hanbit.web.services.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,11 +8,6 @@ import com.hanbit.web.services.GradeService;
 @Service
 @Transactional
 public class GradeServiceImpl implements GradeService {
-	private static GradeServiceImpl instance = new GradeServiceImpl();
-	public static GradeServiceImpl getInstance() {
-		return instance;
-	}
-	private GradeServiceImpl() {}
 	@Override
 	public int insert(GradeDTO grade) {
 		return 0;
@@ -34,23 +24,10 @@ public class GradeServiceImpl implements GradeService {
 		return msg;
 	}
 
-	@Override
-	public List<?> list() {
-		return null;
-	}
-
-	@Override
-	public List<?> findBy(String id) {
-		return null;
-	}
 
 	@Override
 	public GradeDTO findBySeq(String seq) {
 		return null;
-	}
-	@Override
-	public int count() {
-		return 0;
 	}
 	@Override
 	public int count(String examDate) {
@@ -63,11 +40,5 @@ public class GradeServiceImpl implements GradeService {
 		
 		this.insert(g);
 	}
-	@Override
-	public Map<?, ?> map() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 
 }

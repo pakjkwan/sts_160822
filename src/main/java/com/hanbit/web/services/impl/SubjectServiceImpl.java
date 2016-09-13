@@ -9,14 +9,6 @@ import com.hanbit.web.services.SubjectService;
 @Service
 @Transactional
 public class SubjectServiceImpl implements SubjectService{
-	private static SubjectServiceImpl instance
-		= new SubjectServiceImpl();
-	private SubjectServiceImpl() {
-		
-	}
-	public static SubjectServiceImpl getInstance() {
-		return instance;
-	}
 
 	@Override
 	public void insert(SubjectDTO s) {
