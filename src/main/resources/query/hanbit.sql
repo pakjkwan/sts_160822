@@ -135,7 +135,7 @@ WHERE u.mem_id = b.mem_id;
 /*
 ========= META_PROCEDURE ====
 */	
-SELECT OBJECT_NAME FROM USER_PROCEDURES;
+SELECT OBJECT_NAME FROM USER_PROCEDURES ORDER BY OBJECT_NAME ASC;
 DROP PROCEDURE HANBIT.SELECT_MAJOR;
 /*
 ============ MAJOR ==========
@@ -369,15 +369,15 @@ END insert_student;
 EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
 -- DEF_COUNT_STUDENT
 CREATE OR REPLACE PROCEDURE count_student(sp_count OUT NUMBER) AS 
-BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT';END count_student;
+BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT';COMMIT;END count_student;
 -- EXE_COUNT_STUDENT
-DECLARE sp_count NUMBER;BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생 인원 : '||sp_count||' 명');END;
+
 -- DEF_FIND_BY_STUDENT_ID
 CREATE OR REPLACE PROCEDURE find_by_student_id(
 	sp_student_id IN Member.mem_id%TYPE,
 	sp_student OUT Member%ROWTYPE
 ) AS BEGIN SELECT * INTO sp_prof FROM Member 
-    WHERE mem_id = sp_prof_id AND role='STUDENT'; END find_by_student_id;
+    WHERE mem_id = sp_prof_id AND role='STUDENT';COMMIT; END find_by_student_id;
 -- EXE_FIND_BY_STUDENT_ID
 DECLARE
  sp_student_id VARCHAR2(100) := 'test';
