@@ -67,6 +67,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int count() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		
 		return mapper.count();
 	}
 

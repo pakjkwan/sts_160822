@@ -5,8 +5,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.hanbit.web.handlers.ListHandler;
 import com.hanbit.web.services.IntegerMath;
-import com.hanbit.web.services.ListService;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,7 +18,7 @@ public class AdminController {
 		return "admin:admin/content.tiles";
 	}
 	public void aaa(){
-		ListService abc = ()->null;
+		ListHandler abc = ()->null;
 		IntegerMath def = (int a,int b)->a+b;
 	}
 	
