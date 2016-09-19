@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 
 
@@ -19,7 +20,7 @@ import com.hanbit.web.domains.MemberDTO;
 @Component
 public interface MemberService{
 	public String regist(MemberDTO mem);
-	public MemberDTO findById(String findID);
+	public MemberDTO findOne(Command command);
 	public void update(MemberDTO stu2);
 	public void delete(MemberDTO member);
 	public void logout(MemberDTO member);

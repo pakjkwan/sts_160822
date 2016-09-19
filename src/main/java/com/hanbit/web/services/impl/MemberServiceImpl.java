@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hanbit.web.controllers.MemberController;
+import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 
 import com.hanbit.web.mappers.MemberMapper;
@@ -73,11 +74,9 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public MemberDTO findById(String findID) {
-	
-		
+	public MemberDTO findOne(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findById(findID);
+		return mapper.findById(command);
 	}
 
 
