@@ -17,26 +17,27 @@ import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 
 @Service
-
 public class MemberServiceImpl implements MemberService{
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired private SqlSession sqlSession;
 
 	@Override
-	public String regist(MemberDTO mem) {
+	public String regist(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		String msg = "";
-		MemberDTO temp = this.findById(mem.getId());
+		Command command = new Command();
+		command.setKeyword(member.getId());
+		MemberDTO temp = mapper.findOne(command);
 		if (temp == null) {
-			System.out.println(mem.getId()+"가 존재하지 않음,가입 가능한 ID");
-			int result = mapper.insert(mem);
+			System.out.println(temp.getId()+"가 존재하지 않음,가입 가능한 ID");
+			int result = mapper.insert(temp);
 			if (result==1) {
 				msg = "success";
 			} else {
 				msg = "fail";
 			}
 		} else {
-			System.out.println(mem.getId()+"가 존재함,가입 불가능한 ID");
+			System.out.println(temp.getId()+"가 존재함,가입 불가능한 ID");
 			msg = "fail";
 		}
 		
@@ -76,7 +77,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDTO findOne(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findById(command);
+		return mapper.findOne(command);
 	}
 
 
@@ -111,7 +112,9 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO login(MemberDTO member) {
 		logger.info("MemberService login ID = {}",member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		MemberDTO mem = mapper.findById(member.getId());
+		Command command = new Command();
+		command.setKeyword(member.getId());
+		MemberDTO mem = mapper.findOne(command);
 		if(mem.getPw().equals(member.getPw())){
 			logger.info("MemberService login {}"," SUCCESS ");
 			return mem;

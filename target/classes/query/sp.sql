@@ -252,6 +252,20 @@ BEGIN
 	SELECT mem_id,pw,name,gender,reg_date,ssn,email,profile_img,role,phone,major_seq 
 	FROM Member WHERE major_seq IS NOT NULL;
 END all_students;
+-- DEF_FIND_BY_STUDENT_ID
+CREATE OR REPLACE PROCEDURE find_by_student_id(
+	sp_student_id IN Member.mem_id%TYPE,
+	sp_student OUT Member%ROWTYPE
+) AS BEGIN SELECT * INTO sp_student FROM Member 
+    WHERE mem_id = sp_student_id AND role='STUDENT';COMMIT; END find_by_student_id;
+-- EXE_FIND_BY_PROF_ID
+DECLARE
+ sp_student_id VARCHAR2(100) := 'hong';
+ sp_student Member%ROWTYPE;
+BEGIN
+ find_by_student_id(sp_student_id,sp_student);
+  DBMS_OUTPUT.put_line (sp_student.name);
+ END;
 /*
 =========== SUBJECT =========
 @AUTHOR : pakjkwan@gmail.com

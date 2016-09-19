@@ -32,12 +32,11 @@ public class MemberController {
 		command.setOption(option);
 		return service.findOne(command);
 	}
-	@RequestMapping(value="/count/{condition}",method=RequestMethod.GET,
-			consumes="application/json")
-	public String count(@PathVariable String condition,Model model){
-		logger.info("TO COUNT CONDITION IS {}",condition);
+	@RequestMapping("/aaa")
+	public String count(Model model){
+		logger.info("TO COUNT CONDITION IS {}","UUUUUUUU");
 		int count = service.count();
-		model.addAttribute("count", count);
+	//	model.addAttribute("count", count);
 		return "admin:member/detail.tiles";
 	}
 	@RequestMapping(value="/login",method=RequestMethod.POST)
@@ -97,7 +96,7 @@ public class MemberController {
 		logger.info("GO TO {}","delete");
 		return "user:member/delete.tiles";
 	}
-	@RequestMapping("/login")
+	@RequestMapping("/bbb")
 	public String login() {
 		logger.info("GO TO {}","login");
 		return "public:member/login.tiles";

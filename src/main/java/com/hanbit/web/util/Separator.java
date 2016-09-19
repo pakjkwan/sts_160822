@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Separator {
 	public static CommandFactory factory = new CommandFactory();
-	public static Command command;
-	public static Command init(HttpServletRequest request,
+	public static Command2 command;
+	public static Command2 init(HttpServletRequest request,
 								HttpServletResponse response){
 		String path = request.getServletPath();
 		System.out.println("패스"+path);

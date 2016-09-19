@@ -376,8 +376,8 @@ BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT';COMMIT;END 
 CREATE OR REPLACE PROCEDURE find_by_student_id(
 	sp_student_id IN Member.mem_id%TYPE,
 	sp_student OUT Member%ROWTYPE
-) AS BEGIN SELECT * INTO sp_prof FROM Member 
-    WHERE mem_id = sp_prof_id AND role='STUDENT';COMMIT; END find_by_student_id;
+) AS BEGIN SELECT * INTO sp_student FROM Member 
+    WHERE mem_id = sp_student_id AND role='STUDENT';COMMIT; END find_by_student_id;
 -- EXE_FIND_BY_STUDENT_ID
 DECLARE
  sp_student_id VARCHAR2(100) := 'test';
@@ -392,7 +392,7 @@ CREATE OR REPLACE PROCEDURE HANBIT.all_student(
 ) IS
 BEGIN
     OPEN student_cur FOR SELECT * FROM Member WHERE role = 'STUDENT';
-END all_student;
+COMMIT; END all_student;
  -- EXE_ALL_STUDENT(CURSOR VERSION)
 DECLARE
   sp_cursor  SYS_REFCURSOR;

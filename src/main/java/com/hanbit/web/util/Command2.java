@@ -1,16 +1,16 @@
 package com.hanbit.web.util;
 
-public class Command implements Orderable{
+public class Command2 implements Orderable{
 	
 	private String directory,action,view,page;
 	
-	public Command(String directory,String action,String page) {
+	public Command2(String directory,String action,String page) {
 		this.directory = directory;
 		this.action = action;
 		this.page = page;
 		this.setView();
 	}
-	public Command(String directory,String action,
+	public Command2(String directory,String action,
 			String page,String keyField,String keyword) {
 	}
 	@Override
