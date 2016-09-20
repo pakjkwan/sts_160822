@@ -18,16 +18,14 @@
 	    	role as role,
 	    	ssn as ssn,
 	    	phone as phone,
-	    	major_seq as major_seq
+	    	major_seq as majorSeq
     	from member where ${option} = #{keyword}
     </select>
      <select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
     select * from member where name =#{name}
     </select>
-     <select id="count" statementType="CALLABLE" resultType="int">
-     {call count_student(
-		#{count, mode=OUT, jdbcType=NUMERIC}
-	 )}
+    <select id="count" resultType="int">
+     select count(*) as count from member
     </select>
      
     <select id="existId" parameterType="com.hanbit.web.domains.MemberDTO" resultType="int">

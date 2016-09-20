@@ -24,10 +24,8 @@
      <select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
     select * from member where name =#{name}
     </select>
-     <select id="count" statementType="CALLABLE" resultType="int">
-     {call count_student(
-		#{count, mode=OUT, jdbcType=NUMERIC}
-	 )}
+    <select id="count" resultType="int">
+     select count(*) as count from member
     </select>
      
     <select id="existId" parameterType="com.hanbit.web.domains.MemberDTO" resultType="int">

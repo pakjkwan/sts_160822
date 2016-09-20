@@ -12,32 +12,15 @@ CREATE SEQUENCE exam_seq START WITH 1000 INCREMENT BY 1 NOCACHE NOCYCLE;
 
 -- SELECT SEQUENCE_OWNER, SEQUENCE_NAME FROM ALL_SEQUENCES WHERE SEQUENCE_OWNER = 'HANBIT';
 
-DROP TABLE Major CASCADE CONSTRAINT;
-DROP TABLE Member CASCADE CONSTRAINT;
+
+
 DROP TABLE Grade CASCADE CONSTRAINT;
 DROP TABLE Board CASCADE CONSTRAINT;
 DROP TABLE Subject CASCADE CONSTRAINT;
 DROP TABLE Exam CASCADE CONSTRAINT;
 
-CREATE TABLE Major(
-	major_seq INT PRIMARY KEY,
-	title VARCHAR2(20) NOT NULL UNIQUE
-);
-CREATE TABLE Member(
-	mem_id VARCHAR2(20) PRIMARY KEY,
-	pw VARCHAR2(20) NOT NULL,
-	name VARCHAR2(20) NOT NULL,
-	gender VARCHAR2(10) NOT NULL,
-	reg_date VARCHAR2(20) NOT NULL,
-	ssn VARCHAR2(10) NOT NULL UNIQUE,
-	email VARCHAR2(30),
-	profile_img VARCHAR2(100) DEFAULT 'default.jpg',
-	role VARCHAR2(10) DEFAULT 'STUDENT',
-	phone VARCHAR2(13) NOT NULL UNIQUE,
-	major_seq INT,
-	CONSTRAINT gender_ck CHECK (gender IN ('MALE', 'FEMALE')),
-	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
-);
+
+
 CREATE TABLE Grade(
 	grade_seq INT PRIMARY KEY,
 	grade VARCHAR2(5) NOT NULL,
@@ -145,19 +128,24 @@ DROP PROCEDURE HANBIT.SELECT_MAJOR;
 @DESC : 전공
 ==============================
 */
--- DEF_INSERT_MAJOR
+DROP TABLE Major CASCADE CONSTRAINT;
+CREATE TABLE Major(
+	major_seq INT PRIMARY KEY,
+	title VARCHAR2(20) NOT NULL UNIQUE
+);
+-- SP_INSERT_MAJOR
 CREATE OR REPLACE PROCEDURE insert_major(sp_title IN Major.title%TYPE) AS
 BEGIN
 	INSERT INTO Major(major_seq,title) VALUES(major_seq.nextval,sp_title);
 END insert_major;
 -- EXE_INSERT_MAJOR
 EXEC HANBIT.INSERT_MAJOR('컴퓨터공학');
--- DEF_COUNT_MAJOR
+-- SP_COUNT_MAJOR
 CREATE OR REPLACE PROCEDURE count_major(sp_count OUT NUMBER) AS 
 BEGIN SELECT COUNT(*) into sp_count FROM Major;END count_major;
 -- EXE_COUNT_MAJOR
 DECLARE sp_count NUMBER;BEGIN count_major(sp_count);DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);END;
--- DEF_FIND_BY_MAJOR_SEQ
+-- SP_FIND_BY_MAJOR_SEQ
 CREATE OR REPLACE PROCEDURE find_by_major_seq(
 	sp_major_seq IN OUT Major.major_seq%TYPE,
 	sp_title OUT Major.title%TYPE,
@@ -186,7 +174,7 @@ BEGIN
  find_by_major_seq(sp_major_seq,sp_title,sp_result);
   DBMS_OUTPUT.put_line (sp_result);
  END;
--- DEF_ALL_MAJOR(CURSOR VERSION)
+-- SP_ALL_MAJOR(CURSOR VERSION)
 CREATE OR REPLACE PROCEDURE HANBIT.all_major(
     major_cur OUT SYS_REFCURSOR
 ) IS
@@ -208,7 +196,7 @@ BEGIN
   END LOOP;
   CLOSE sp_cursor;
 END;
--- DEF_ALL_MAJOR(CLOB VERSION)
+-- SP_ALL_MAJOR(CLOB VERSION)
 CREATE OR REPLACE PROCEDURE HANBIT.all_major(
     sp_result OUT CLOB
 ) AS
@@ -238,14 +226,14 @@ BEGIN
 END all_major;
 -- EXE_ALL_MAJOR(CLOB VERSION)
 DECLARE sp_result CLOB; BEGIN all_major(sp_result);DBMS_OUTPUT.PUT_LINE(sp_result);END; 
--- DEF_UPDATE_MAJOR
+-- SP_UPDATE_MAJOR
 CREATE OR REPLACE PROCEDURE update_major(
   sp_major_seq IN Major.major_seq%TYPE,
   sp_title IN Major.title%TYPE
 )AS BEGIN UPDATE Major SET title = sp_title WHERE major_seq = sp_major_seq;END update_major;
 -- EXE_UPDATE_MAJOR
 BEGIN update_major(1002,'경영학부');END;
--- DEF_DELETE_MAJOR
+-- SP_DELETE_MAJOR
 CREATE OR REPLACE PROCEDURE delete_major(sp_major_seq IN Major.major_seq%TYPE)AS 
 BEGIN DELETE FROM Major WHERE major_seq = sp_major_seq; END;
 -- EXE_DELETE_MAJOR
@@ -258,6 +246,22 @@ BEGIN delete_major(1006); END;
 @DESC : 교수
 ==============================
 */
+DROP TABLE Member CASCADE CONSTRAINT;
+CREATE TABLE Member(
+	mem_id VARCHAR2(20) PRIMARY KEY,
+	pw VARCHAR2(20) NOT NULL,
+	name VARCHAR2(20) NOT NULL,
+	gender VARCHAR2(10) NOT NULL,
+	reg_date VARCHAR2(20) NOT NULL,
+	ssn VARCHAR2(10) NOT NULL UNIQUE,
+	email VARCHAR2(30),
+	profile_img VARCHAR2(100) DEFAULT 'default.jpg',
+	role VARCHAR2(10) DEFAULT 'STUDENT',
+	phone VARCHAR2(13) NOT NULL UNIQUE,
+	major_seq INT,
+	CONSTRAINT gender_ck CHECK (gender IN ('MALE', 'FEMALE')),
+	CONSTRAINT major_member_fk FOREIGN KEY (major_seq) REFERENCES Major(major_seq) ON DELETE CASCADE
+);
 -- DEF_INSERT_PROF
 CREATE OR REPLACE PROCEDURE insert_prof(
 	sp_mem_id IN Member.mem_id%TYPE,

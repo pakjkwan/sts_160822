@@ -1,8 +1,12 @@
 package com.hanbit.web.controllers;
 
+import javax.mail.Session;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,36 +21,31 @@ import com.hanbit.web.services.impl.MemberServiceImpl;
 
 @Controller
 @SessionAttributes({"user","context","js","css","img"})
+@Scope("session")
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired MemberServiceImpl service;
 	@Autowired Command command;
-	@RequestMapping("/search/{option}/{keyword}")
-	public MemberDTO find(@PathVariable("option") String option,
-			@PathVariable("keyword")String keyword,
+	
+	@RequestMapping(value="/count/{option}")
+	public Model count(@PathVariable("option") String option,
 			Model model){
-		logger.info("TO SEARCH KEYWORD IS {}",keyword);
-		logger.info("TO SEARCH OPTION IS {}",option);
-		command.setKeyword(keyword);
-		command.setOption(option);
-		return service.findOne(command);
+		logger.info("TO COUNT CONDITION IS {}",option);
+		model.addAttribute("count", service.count());
+		return model;
 	}
-	@RequestMapping("/aaa")
-	public String count(Model model){
-		logger.info("TO COUNT CONDITION IS {}","UUUUUUUU");
-		int count = service.count();
-	//	model.addAttribute("count", count);
-		return "admin:member/detail.tiles";
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String login() {
+		logger.info("GO TO {}","login");
+		return "public:member/login.tiles";
 	}
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(@RequestParam("id") String id,
-			@RequestParam("pw")String pw,
-			@RequestParam("context")String context,
+	@RequestMapping(value="/login/{id}/{pw}",method=RequestMethod.POST)
+	public String login(@PathVariable("id") String id,
+			@PathVariable("pw")String pw,HttpSession session,
 			Model model) {
 		logger.info("TO LOGIN ID IS {}",id);
 		logger.info("TO LOGIN PW IS {}",pw);
-		logger.info("CONTEXT IS {}",context);
 		MemberDTO member = new MemberDTO();
 		member.setId(id);
 		member.setPw(pw);
@@ -57,14 +56,18 @@ public class MemberController {
 		}else{
 			logger.info("Controller LOGIN ","SUCCESS");
 			model.addAttribute("user",member);
-			model.addAttribute("context",context);
+			String context = (String) session.getAttribute("context");
 			model.addAttribute("js", context+"/resources/js");
 			model.addAttribute("css", context+"/resources/css");
 			model.addAttribute("img", context+"/resources/img");
 			return "user:user/content.tiles";
 		}
 	}
-	// --- MOVE ---
+	@RequestMapping("/logout")
+	public String moveLogout() {
+		logger.info("GO TO {}","logout");
+		return "public:member/logout.tiles";
+	}
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("GO TO {}","main");
@@ -86,6 +89,16 @@ public class MemberController {
 		logger.info("GO TO {}","detail");
 		return "user:member/detail.tiles";
 	}
+	@RequestMapping("/search/{option}/{keyword}")
+	public MemberDTO find(@PathVariable("option") String option,
+			@PathVariable("keyword")String keyword,
+			Model model){
+		logger.info("TO SEARCH KEYWORD IS {}",keyword);
+		logger.info("TO SEARCH OPTION IS {}",option);
+		command.setKeyword(keyword);
+		command.setOption(option);
+		return service.findOne(command);
+	}
 	@RequestMapping("/update")
 	public String moveUpdate() {
 		logger.info("GO TO {}","update");
@@ -96,16 +109,7 @@ public class MemberController {
 		logger.info("GO TO {}","delete");
 		return "user:member/delete.tiles";
 	}
-	@RequestMapping("/bbb")
-	public String login() {
-		logger.info("GO TO {}","login");
-		return "public:member/login.tiles";
-	}
-	@RequestMapping("/logout")
-	public String moveLogout() {
-		logger.info("GO TO {}","logout");
-		return "member/logout.tiles";
-	}
+	
 	@RequestMapping("/list")
 	public String moveList() {
 		logger.info("GO TO {}","list");
