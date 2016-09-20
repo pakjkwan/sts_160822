@@ -12,8 +12,6 @@ var app = (function(){
 		onCreate();
 		member.init();
 		user.init();
-		account.init();
-		kaup.init();
 		grade.init();
 		nav.init();
 		admin.init();
@@ -27,8 +25,8 @@ var app = (function(){
 		$('#footer').addClass('bottom').addClass('footer');
 		$('#global_content').addClass('box');
 		$('#global_content a').addClass('cursor');
-		$('#global_content_a_regist').text('SIGN UP').click(function(){controller.move('member','regist');});
-		$('#global_content_a_login').text('LOG IN').click(function(){controller.move('member','login');});
+		$('#global_content_a_regist').text('SIGN UP').click(function(){member.pub_sign_up_form();});
+		$('#global_content_a_login').text('LOG IN').click(function(){member.pub_login_form();});
 		$('#global_content_a_admin').text('ADMIN MODE').click(function(){admin.check();});
 	};
 	var onCreate = function(){
@@ -149,11 +147,11 @@ var nav = (function(){
 */
 var major = (function(){})();
 /*
-========= PROF_JS =======
+========= MEMBER_JS =======
 @AUTHOR : pakjkwan@gmail.com
 @CREATE DATE : 2016-9-8
 @UPDATE DATE : 2016-9-9
-@DESC : 교수
+@DESC : 회원(가입.로그인)
 ==============================
 */
 var member = (function(){
@@ -234,6 +232,53 @@ var member = (function(){
 		init : init,
 		spec : function (){
 			
+		},
+		pub_login_form : function(){
+			var view = '<div class="box">'
+				+'<form id="member_login_form" class="form-signin">' 
+				+'<h2 class="form-signin-heading">Please sign in</h2>' 
+				+'<label for="inputEmail" class="sr-only">Email address</label>' 
+				+'<input type="text" name="id" class="form-control" placeholder="USER ID" required autofocus>' 
+				+'<label for="inputPassword" class="sr-only">Password</label>' 
+				+'<input type="password" name="pw" class="form-control" placeholder="PASSWORD" required>' 
+				+'<input type="hidden" name="context">' 
+				+'<div class="checkbox">' 
+				+'<label><input type="checkbox" name="remember_me" value="remember-me"> Remember me</label></div>' 
+				+'<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/></form></div>';
+			$('#pub_article').empty().append(view);
+		},
+		pub_sign_up_form : function(){
+			var view = '<section id="member_regist"><form id="member_regist_form">'
+				+'<div><label for="exampleInputEmail1">이름</label>'
+				+'<div><input type="text" id="username" placeholder="USER NAME"></div></div>'
+				+'<div><label for="exampleInputEmail1">비밀번호</label>'
+				+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
+				+'<div><label for="exampleInputEmail1">SSN</label>'
+				+'<div><input type="text" id="ssn" placeholder="예)800101-2"></div></div>'
+				+'<div><label for="exampleInputEmail1">E-MAIL</label>'
+				+'<div><input type="email" id="email" placeholder="EMAIL"></div></div>'
+				+'<div><label for="exampleInputEmail1">전화번호</label>'
+				+'<div><input type="text" id="phone" placeholder="PHONE"></div></div>'
+				+'<div id="rd_major">'
+				+'<label for="exampleInputEmail1">전 공</label><br>'
+				+'<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>'
+				+'<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>'
+				+'<label ><input type="radio" name="major" value="math"> 수학부</label>'
+				+'<label ><input type="radio" name="major" value="eng"> 영문학부</label></div>'
+				+'<div><label for="exampleInputEmail1">수강과목</label><br>'
+				+'<div><div id="ck_subject">'
+				+'<label ><input type="checkbox" name="subject"  value="java"> Java</label>'
+				+'<label ><input type="checkbox" name="subject"  value="sql"> SQL</label>'
+				+'<label ><input type="checkbox" name="subject"  value="cpp"> C++	</label>'
+				+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
+				+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
+				+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
+				+'<input type="hidden" name="action" value="regist" />'
+				+'<input type="hidden" name="page" value="login" />'
+				+'<button id="bt_join" type="button" value="회원가입" >JOIN</button>'
+				+'<button id="bt_cancel" type="reset" value="취소" >CANCEL</button></form></section>';
+			$('#pub_article').empty().append(view);
+			member.init();
 		}
 		
 	};	
