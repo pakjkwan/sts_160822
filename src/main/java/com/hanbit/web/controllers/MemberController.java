@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.services.impl.MemberServiceImpl;
 
 @Controller
@@ -27,40 +29,53 @@ public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired MemberServiceImpl service;
 	@Autowired Command command;
+	@Autowired MemberDTO member;
 	
 	@RequestMapping(value="/count/{option}")
 	public Model count(@PathVariable("option") String option,
 			Model model){
 		logger.info("TO COUNT CONDITION IS {}",option);
+		Retval r = service.count();
+		model.addAttribute("count", r.getCount());
+		return model;
+	}
+	@RequestMapping(value="/countall")
+	public Model countAll(
+			Model model){
+		logger.info("TO COUNT CONDITION IS {}","ALL IS ...");
 		model.addAttribute("count", service.count());
 		return model;
 	}
-	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login() {
-		logger.info("GO TO {}","login");
-		return "public:member/login.tiles";
+	@RequestMapping("/search/{option}/{keyword}")
+	public MemberDTO find(@PathVariable("option") String option,
+			@PathVariable("keyword")String keyword,
+			Model model){
+		logger.info("TO SEARCH KEYWORD IS {}",keyword);
+		logger.info("TO SEARCH OPTION IS {}",option);
+		command.setKeyword(keyword);
+		command.setOption(option);
+		return service.findOne(command);
 	}
-	@RequestMapping(value="/login/{id}/{pw}",method=RequestMethod.POST)
-	public String login(@PathVariable("id") String id,
-			@PathVariable("pw")String pw,HttpSession session,
-			Model model) {
+	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+	public @ResponseBody MemberDTO login(@RequestParam("id") String id,
+			@RequestParam("pw")String pw,HttpSession session) {
 		logger.info("TO LOGIN ID IS {}",id);
 		logger.info("TO LOGIN PW IS {}",pw);
-		MemberDTO member = new MemberDTO();
 		member.setId(id);
 		member.setPw(pw);
 		member = service.login(member);
 		if(member.getId().equals("NONE")){
 			logger.info("Controller LOGIN ","FAIL");
-			return "public:member/login.tiles";
+			return member;
 		}else{
 			logger.info("Controller LOGIN ","SUCCESS");
-			model.addAttribute("user",member);
+			/*model.addAttribute("user",member);*/
 			String context = (String) session.getAttribute("context");
-			model.addAttribute("js", context+"/resources/js");
+		/*	model.addAttribute("js", context+"/resources/js");
 			model.addAttribute("css", context+"/resources/css");
-			model.addAttribute("img", context+"/resources/img");
-			return "user:user/content.tiles";
+			model.addAttribute("img", context+"/resources/img");*/
+			return member;
 		}
 	}
 	@RequestMapping("/logout")
@@ -89,16 +104,7 @@ public class MemberController {
 		logger.info("GO TO {}","detail");
 		return "user:member/detail.tiles";
 	}
-	@RequestMapping("/search/{option}/{keyword}")
-	public MemberDTO find(@PathVariable("option") String option,
-			@PathVariable("keyword")String keyword,
-			Model model){
-		logger.info("TO SEARCH KEYWORD IS {}",keyword);
-		logger.info("TO SEARCH OPTION IS {}",option);
-		command.setKeyword(keyword);
-		command.setOption(option);
-		return service.findOne(command);
-	}
+	
 	@RequestMapping("/update")
 	public String moveUpdate() {
 		logger.info("GO TO {}","update");

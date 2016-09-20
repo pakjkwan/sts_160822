@@ -16,6 +16,7 @@ public class Test {
 	}
 	public static void main(String[] args) {
 		Test t = new Test();
-		System.out.println(t.test());
+		MemberServiceImpl service = new MemberServiceImpl();
+		System.out.println(service.count());
 	}
 }

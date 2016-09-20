@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
+import com.hanbit.web.domains.Retval;
 
 
 /**
@@ -26,7 +27,7 @@ public interface MemberService{
 	public void logout(MemberDTO member);
 	public MemberDTO show();
 	public MemberDTO login(MemberDTO member);
-	public int count();
+	public Retval count();
 	public List<?> list();
 	public List<?> findBy(String keyword);
 	

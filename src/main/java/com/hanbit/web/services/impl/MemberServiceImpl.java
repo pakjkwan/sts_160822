@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
-
+import com.hanbit.web.domains.Retval;
 import com.hanbit.web.mappers.MemberMapper;
 import com.hanbit.web.services.MemberService;
 
@@ -20,12 +20,12 @@ import com.hanbit.web.services.MemberService;
 public class MemberServiceImpl implements MemberService{
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 	@Autowired private SqlSession sqlSession;
-
+	@Autowired Command command;
+	@Autowired MemberDTO member;
 	@Override
 	public String regist(MemberDTO member) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		String msg = "";
-		Command command = new Command();
 		command.setKeyword(member.getId());
 		MemberDTO temp = mapper.findOne(command);
 		if (temp == null) {
@@ -67,9 +67,8 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public int count() {
+	public Retval count() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		
 		return mapper.count();
 	}
 
@@ -112,8 +111,8 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO login(MemberDTO member) {
 		logger.info("MemberService login ID = {}",member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		Command command = new Command();
 		command.setKeyword(member.getId());
+		command.setOption("mem_id");
 		MemberDTO mem = mapper.findOne(command);
 		if(mem.getPw().equals(member.getPw())){
 			logger.info("MemberService login {}"," SUCCESS ");

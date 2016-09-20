@@ -238,14 +238,30 @@ var member = (function(){
 				+'<form id="member_login_form" class="form-signin">' 
 				+'<h2 class="form-signin-heading">Please sign in</h2>' 
 				+'<label for="inputEmail" class="sr-only">Email address</label>' 
-				+'<input type="text" name="id" class="form-control" placeholder="USER ID" required autofocus>' 
+				+'<input type="text" id="id" name="id" class="form-control" placeholder="USER ID" required autofocus>' 
 				+'<label for="inputPassword" class="sr-only">Password</label>' 
-				+'<input type="password" name="pw" class="form-control" placeholder="PASSWORD" required>' 
+				+'<input type="password" id="pw" name="pw" class="form-control" placeholder="PASSWORD" required>' 
 				+'<input type="hidden" name="context">' 
 				+'<div class="checkbox">' 
 				+'<label><input type="checkbox" name="remember_me" value="remember-me"> Remember me</label></div>' 
-				+'<input class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/></form></div>';
-			$('#pub_article').empty().append(view);
+				+'<input id="login_btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/></form></div>';
+			$('#pub_article').html(view);
+			$('#login_btn').click(function(e){
+				e.preventDefault();
+				$.ajax({
+					url : app.context()+'/member/login',
+					type : 'POST',
+					data : {'id':$('#id').val(),'pw':$('#pw').val()},
+					dataType: 'json',
+					success : function(data){
+						alert('로그인 성공 : 넘어온 값은 '+data.name);
+					},
+					error : function(xhr,status,msg){
+						alert('로그인 실패 이유 :'+msg);
+					}
+				});
+			});
+			
 		},
 		pub_sign_up_form : function(){
 			var view = '<section id="member_regist"><form id="member_regist_form">'
