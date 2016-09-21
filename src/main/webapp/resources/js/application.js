@@ -321,7 +321,7 @@ var member = (function(){
 		pub_sign_up_form : function(){
 			var view = '<section id="member_regist"><form id="member_regist_form">'
 				+'<div><label for="exampleInputEmail1">ID</label>'
-				+'<div><input type="text" id="id" placeholder="USER NAME"><input type="button" id="check_dup" name="check_dup" value="중복체크"/></div></div>'
+				+'<div id="id_box"><input type="text" id="id" placeholder="USER ID"><input type="button" id="check_dup" name="check_dup" value="중복체크"/></div></div>'
 				+'<div><label for="exampleInputEmail1">비밀번호</label>'
 				+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
 				+'<div><label for="exampleInputEmail1">이 름</label>'
@@ -354,7 +354,13 @@ var member = (function(){
 				$.ajax({
 					url : app.context()+'/member/check_dup/'+$('#id').val(),
 					success : function(data){
-						alert('중복체크 결과 :'+data.message);
+						if(data.flag==="TRUE"){
+							$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="check_dup" name="check_dup" value="다시 조회"/>');
+							member.init();
+						}else{
+							$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="check_dup" name="check_dup" value="그대로 사용"/>');
+							member.init();
+						}
 					},
 					error : function(x,s,m){
 						alert('id 중복체크시 발생한 에러'+m);

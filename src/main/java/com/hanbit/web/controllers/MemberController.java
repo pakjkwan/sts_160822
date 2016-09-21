@@ -103,11 +103,14 @@ public class MemberController {
 	public @ResponseBody Retval CheckDup(@PathVariable String id) {
 		logger.info("CHECK DUP {}","EXEUTE");
 		if(service.existId(id)==1){
+			retval.setFlag("TRUE");
 			retval.setMessage("입력하신 ID는 이미 존재합니다");
 		}else{
+			retval.setFlag("FALSE");
 			retval.setMessage("입력하신 ID는 사용가능 합니다.");
 		}
-		logger.info("RETVAL IS {}",retval);
+		logger.info("RETVAL FLAG IS {}",retval.getFlag());
+		logger.info("RETVAL MSG IS {}",retval.getMessage());
 		return retval;
 	}
 	@RequestMapping("/a_detail")
