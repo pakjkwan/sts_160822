@@ -30,5 +30,6 @@ public interface MemberService{
 	public Retval count();
 	public List<?> list();
 	public List<?> findBy(String keyword);
+	public int existId(String id);
 	
 }

@@ -108,18 +108,45 @@ public class MemberServiceImpl implements MemberService{
 
 
 	@Override
-	public MemberDTO login(MemberDTO member) {
-		logger.info("MemberService login ID = {}",member.getId());
+	public MemberDTO login(MemberDTO param) {
+		logger.info("MemberService login ID is {}",member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		command.setKeyword(member.getId());
 		command.setOption("mem_id");
-		MemberDTO mem = mapper.findOne(command);
-		if(mem.getPw().equals(member.getPw())){
-			logger.info("MemberService login {}"," SUCCESS ");
-			return mem;
+		MemberDTO retval = mapper.findOne(command);
+		logger.info("MemberService PASSWORD(param) is {}",param.getPw());
+		logger.info("MemberService PASSWORD(retval) is {}",retval.getPw());
+		if(retval.getPw().equals(param.getPw())){
+			logger.info("MemberService login is {}"," SUCCESS ");
+			return retval;
+		}else{
+			logger.info("MemberService login is {}"," FAIL ");
+			retval.setId("NONE");
+			return retval;
 		}
-		logger.info("MemberService login {}"," FAIL ");
-		mem.setId("NONE");
-		return mem;
 	}
+	@Override
+	public int existId(String id){
+		logger.info("MemberService existId ID is {}",id);
+		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		return mapper.existId(id);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -18,5 +18,5 @@ public interface MemberMapper {
 	public Retval count();
 	public int delete(MemberDTO member);
 	public boolean login(MemberDTO param);
-	public boolean existId(String id);
+	public int existId(String id);
 }

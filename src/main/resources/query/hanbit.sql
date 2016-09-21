@@ -290,12 +290,12 @@ BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT';COMMIT;END 
 -- SP_FIND_BY_STUDENT_ID
 CREATE OR REPLACE PROCEDURE find_by_student_id(
 	sp_student_id IN Member.mem_id%TYPE,
-	sp_student OUT Member%ROWTYPE
+	sp_cursor OUT SYS_REFCURSOR 
 ) AS BEGIN SELECT * INTO sp_student FROM Member 
     WHERE mem_id = sp_student_id AND role='STUDENT';COMMIT; END find_by_student_id;
 -- EXE_FIND_BY_STUDENT_ID
 DECLARE
- sp_student_id VARCHAR2(100) := 'test';
+ sp_student_id VARCHAR2(100) := 'hong';
  sp_student Member%ROWTYPE;
 BEGIN
  find_by_student_id(sp_student_id,sp_student);

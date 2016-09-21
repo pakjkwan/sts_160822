@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
@@ -30,6 +31,7 @@ public class MemberController {
 	@Autowired MemberServiceImpl service;
 	@Autowired Command command;
 	@Autowired MemberDTO member;
+	@Autowired Retval retval;
 	
 	@RequestMapping(value="/count/{option}")
 	public Model count(@PathVariable("option") String option,
@@ -56,6 +58,11 @@ public class MemberController {
 		command.setOption(option);
 		return service.findOne(command);
 	}
+	@RequestMapping("/logined/header")
+	public String loginedHeader(){
+		logger.info("THIS PATH IS {}","LOGINED_HEADER");
+		return "user/header.jsp";
+	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public @ResponseBody MemberDTO login(@RequestParam("id") String id,
@@ -64,34 +71,44 @@ public class MemberController {
 		logger.info("TO LOGIN PW IS {}",pw);
 		member.setId(id);
 		member.setPw(pw);
-		member = service.login(member);
-		if(member.getId().equals("NONE")){
-			logger.info("Controller LOGIN ","FAIL");
-			return member;
+		MemberDTO user = service.login(member);
+		if(user.getId().equals("NONE")){
+			logger.info("Controller LOGIN IS {}","FAIL");
+			return user;
 		}else{
-			logger.info("Controller LOGIN ","SUCCESS");
-			/*model.addAttribute("user",member);*/
-			String context = (String) session.getAttribute("context");
-		/*	model.addAttribute("js", context+"/resources/js");
-			model.addAttribute("css", context+"/resources/css");
-			model.addAttribute("img", context+"/resources/img");*/
-			return member;
+			logger.info("Controller LOGIN IS {}","SUCCESS");
+			session.setAttribute("user", user);
+			return user;
 		}
 	}
 	@RequestMapping("/logout")
-	public String moveLogout() {
-		logger.info("GO TO {}","logout");
-		return "public:member/logout.tiles";
+	public String logout(SessionStatus status) {
+		logger.info("GO TO {}","LOGOUT");
+		status.setComplete();
+		logger.info("SESSION IS {}","CLEAR");
+		return "redirect:/";
 	}
 	@RequestMapping("/main")
 	public String moveMain() {
 		logger.info("GO TO {}","main");
 		return "admin:member/content.tiles";
 	}
-	@RequestMapping("/regist")
-	public String moveRegist() {
-		logger.info("GO TO {}","regist");
-		return "public:member/regist.tiles";
+	@RequestMapping("/signup")
+	public @ResponseBody Retval signup() {
+		logger.info("SIGN UP {}","EXEUTE");
+		
+		return retval;
+	}
+	@RequestMapping("/check_dup/{id}")
+	public @ResponseBody Retval CheckDup(@PathVariable String id) {
+		logger.info("CHECK DUP {}","EXEUTE");
+		if(service.existId(id)==1){
+			retval.setMessage("입력하신 ID는 이미 존재합니다");
+		}else{
+			retval.setMessage("입력하신 ID는 사용가능 합니다.");
+		}
+		logger.info("RETVAL IS {}",retval);
+		return retval;
 	}
 	@RequestMapping("/a_detail")
 	public String moveDetail(@RequestParam("key")String key) {

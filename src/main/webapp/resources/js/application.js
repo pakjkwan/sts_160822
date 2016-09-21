@@ -185,6 +185,7 @@ var member = (function(){
 		$('#member_regist').addClass('box');
 		$('#member_regist #bt_join').addClass('btn').addClass(' btn-primary');
 		$('#member_regist #bt_cancel').addClass('btn').addClass(' btn-danger');
+		$('#member_regist #check_dup').addClass('btn').addClass(' btn-danger');
 		$('#member_regist_form').addClass('form-horizontal');
 		$('#member_regist_form > div').addClass('form-group').addClass('form-group-lg');
 		$('#member_regist_form > div > label').addClass('col-sm-2').addClass('control-label');
@@ -254,7 +255,61 @@ var member = (function(){
 					data : {'id':$('#id').val(),'pw':$('#pw').val()},
 					dataType: 'json',
 					success : function(data){
-						alert('로그인 성공 : 넘어온 값은 '+data.name);
+						
+						if(data.id === 'NONE'){
+							alert('ID 나 비번이 일치하지 않습니다.');
+							
+						}else{
+							var view = '<section id="user_content_service" class="box section-padded">'
+								+'<div><div class="row text-center title"><h2>Services</h2>'
+								+'<h4 class="light muted">Achieve the best results with our wide variety of training options!</h4></div>'
+								+'<div class="row services">'
+								+'<div class="col-md-4"><div id="kaup" class="service">'
+								+'<div class="icon-holder"><img src="'+app.img()+'/icons/heart-blue.png" alt="" class="icon"></div>'
+								+'<h4 class="heading">KAUP INDEX</h4>'
+								+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p></div></div>'
+								+'<div class="col-md-4"><div id="rock_sissor_paper" class="service">'
+								+'<div class="icon-holder"><img src="'+app.img()+'/icons/guru-blue.png" alt="" class="icon"></div>'
+								+'<h4 class="heading">ROCK SISSOR PAPER</h4>'
+								+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p></div></div>'
+								+'<div class="col-md-4"><div id="lotto" class="service">'
+								+'<div class="icon-holder"><img src="'+app.img()+'/icons/weight-blue.png" alt="" class="icon"></div>'
+								+'<h4 class="heading">LOTTO DRAWING</h4>'
+								+'<p class="description">A elementum ligula lacus ac quam ultrices a scelerisque praesent vel suspendisse scelerisque a aenean hac montes.</p></div></div></div></div>'
+								+'<div class="cut cut-bottom"></div></section>'
+								+'<section id="user_content_subject" class="section gray-bg"><div class="container">'
+								+'<div class="row title text-center"><h2 class="margin-top">MAJOR SUBJECT</h2>'
+								+'<h4 class="light muted">TOP 3</h4></div>'
+								+'<div class="row"><div class="col-md-4"><div id="major_subject_1"  class="team text-center">'
+								+'<div class="cover" style="background:url('+app.img()+'/team/team-cover1.jpg")"; background-size:cover;">'
+								+'<div class="overlay text-center"><h3 class="white">Java</h3><h5 class="light light-white">Server Program Language</h5></div></div>'
+								+'<img src="'+app.img()+'/team/team3.jpg" alt="Team Image" class="avatar">'
+								+'<div class="title"><h4>Java</h4><h5 class="muted regular">Server Program Language</h5></div>'
+								+'<input type="hidden" name="major_subject_1" value="java">'
+								+'<input id="aaaa" type="button" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/></div></div>'
+								+'<div class="col-md-4"><div id="major_subject_2"  class="team text-center">'
+								+'<div class="cover" style="background:url('+app.img()+'/team/team-cover2.jpg"); background-size:cover;">'
+								+'<div class="overlay text-center"><h3 class="white">Javascript</h3><h5 class="light light-white">UI Program Language</h5></div></div>'
+								+'<img src="'+app.img()+'/team/team1.jpg" alt="Team Image" class="avatar">'
+								+'<div class="title"><h4>Javascript</h4>'
+								+'<h5 class="muted regular">UI Program Language</h5></div>'
+								+'<input type="hidden" name="major_subject_2">'
+								+'<input type="button" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/></div></div>'
+								+'<div class="col-md-4"><div id="major_subject_3" class="team text-center">'
+								+'<div class="cover" style="background:url('+app.img()+'/team/team-cover3.jpg"); background-size:cover;">'
+								+'<div class="overlay text-center"><h3 class="white">SQL</h3>'
+								+'<h5 class="light light-white">Database Management Language</h5></div></div>'
+								+'<img src="'+app.img()+'/team/team2.jpg" alt="Team Image" class="avatar"><div class="title">'
+								+'<h4>SQL</h4>'
+								+'<h5 class="muted regular">Database Management Language</h5></div>'
+								+'<input type="hidden" name="major_subject_3">'
+								+'<input type="button" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>'
+								+'</div></div></div></div></section>';
+							$('#pub_header').empty().load(app.context()+'/member/logined/header');
+							$('#pub_article').html(view);
+							
+						}
+						
 					},
 					error : function(xhr,status,msg){
 						alert('로그인 실패 이유 :'+msg);
@@ -265,10 +320,12 @@ var member = (function(){
 		},
 		pub_sign_up_form : function(){
 			var view = '<section id="member_regist"><form id="member_regist_form">'
-				+'<div><label for="exampleInputEmail1">이름</label>'
-				+'<div><input type="text" id="username" placeholder="USER NAME"></div></div>'
+				+'<div><label for="exampleInputEmail1">ID</label>'
+				+'<div><input type="text" id="id" placeholder="USER NAME"><input type="button" id="check_dup" name="check_dup" value="중복체크"/></div></div>'
 				+'<div><label for="exampleInputEmail1">비밀번호</label>'
 				+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
+				+'<div><label for="exampleInputEmail1">이 름</label>'
+				+'<div><input type="text" id="name" placeholder="예)홍 길 동"></div></div>'
 				+'<div><label for="exampleInputEmail1">SSN</label>'
 				+'<div><input type="text" id="ssn" placeholder="예)800101-2"></div></div>'
 				+'<div><label for="exampleInputEmail1">E-MAIL</label>'
@@ -289,14 +346,22 @@ var member = (function(){
 				+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
 				+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
 				+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
-				+'<input type="hidden" name="action" value="regist" />'
-				+'<input type="hidden" name="page" value="login" />'
-				+'<button id="bt_join" type="button" value="회원가입" >JOIN</button>'
-				+'<button id="bt_cancel" type="reset" value="취소" >CANCEL</button></form></section>';
+				+'<input id="bt_join" type="submit" value="회원가입" />'
+				+'<input id="bt_cancel" type="reset" value="취소" /></form></section>';
 			$('#pub_article').empty().append(view);
 			member.init();
+			$('#check_dup').click(function(){
+				$.ajax({
+					url : app.context()+'/member/check_dup/'+$('#id').val(),
+					success : function(data){
+						alert('중복체크 결과 :'+data.message);
+					},
+					error : function(x,s,m){
+						alert('id 중복체크시 발생한 에러'+m);
+					}
+				});
+			});
 		}
-		
 	};	
 })();
 /*

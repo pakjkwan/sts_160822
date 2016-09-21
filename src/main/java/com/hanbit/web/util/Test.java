@@ -17,6 +17,9 @@ public class Test {
 	public static void main(String[] args) {
 		Test t = new Test();
 		MemberServiceImpl service = new MemberServiceImpl();
-		System.out.println(service.count());
+		String data = "홍";
+		String member = "이";
+		String data333 = member;
+		System.out.println(data333);
 	}
 }
