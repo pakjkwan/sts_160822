@@ -108,6 +108,7 @@ public class MemberController {
 		}else{
 			retval.setFlag("FALSE");
 			retval.setMessage("입력하신 ID는 사용가능 합니다.");
+			retval.setTemp(id);
 		}
 		logger.info("RETVAL FLAG IS {}",retval.getFlag());
 		logger.info("RETVAL MSG IS {}",retval.getMessage());

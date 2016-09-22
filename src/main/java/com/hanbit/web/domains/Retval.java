@@ -8,6 +8,6 @@ import lombok.Setter;
 @Component
 public class Retval {
 	@Getter @Setter private int count;
-	@Getter @Setter private String message,flag;
+	@Getter @Setter private String message,flag,temp;
 }
 
