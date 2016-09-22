@@ -203,7 +203,7 @@ var SIGN_UP_FORM =
 		+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
 		+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
 		+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
-		+'<input id="bt_join" type="submit" value="회원가입" />'
+		+'<input id="bt_join" type="button" value="회원가입" />'
 		+'<input id="bt_cancel" type="reset" value="취소" /></form></section>';
 var member = (function(){
 	var _age,_gender,_name,_ssn;
@@ -295,10 +295,8 @@ var member = (function(){
 					data : {'id':$('#id').val(),'pw':$('#pw').val()},
 					dataType: 'json',
 					success : function(data){
-						
 						if(data.id === 'NONE'){
 							alert('ID 나 비번이 일치하지 않습니다.');
-							
 						}else{
 							
 							$('#pub_header').empty().load(app.context()+'/member/logined/header');
@@ -317,23 +315,49 @@ var member = (function(){
 		pub_sign_up_form : function(){
 			$('#pub_article').empty().append(SIGN_UP_FORM);
 			member.init();
-			$('#check_dup').click(function(){
+			$('#check_dup').click(function(e){
+				e.preventDefault();
 				if(util.pwChecker($('#id').val())==='yes'){
 					$.ajax({
 						url : app.context()+'/member/check_dup/'+$('#id').val(),
 						success : function(data){
-							if(data.flag==="TRUE"){
-								$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="re_check" name="re_check" value="다시 조회"/>');
-								member.init();
-							}else{
-								$('#id_box').html('<input type="text" id="id" placeholder="'+data.temp+'"><input type="button" id="use_input_id" name="use_input_id" value="그대로 사용"/>');
-								member.init();
-								$('#use_input_id').click(function(){alert('그대로 사용');});
-								var use_id = data.temp;
-								var password = $('#password').val();
-								$('#bt_join').click(function(){
-									
-								});
+								if(data.flag==="TRUE"){
+									$('#id_box').html('<input type="text" id="id" placeholder="'+data.message+'"><input type="button" id="re_check" name="re_check" value="다시 조회"/>');
+									member.init();
+								}else{
+									$('#id_box').html('<input type="text" id="id" value="'+data.temp+'"><input type="button" id="use_input_id" name="use_input_id" value="그대로 사용"/>');
+									member.init();
+									$('#bt_join').click(function(){
+										var join_info = {
+											'id' : $('#id').val(),
+											'pw' : $('#password').val(),
+											'name' : $('#name').val(),
+											'ssn' : $('#ssn').val(),
+											'email' : $('#email').val(),
+											'phone' : $('#phone').val()
+										};
+										//$('#radio').val()
+										//$('#ck_subject').val()
+										$.ajax({
+											url : app.context()+'/member/signup',
+											type : 'post',
+											contentType : 'application/json',
+											data : JSON.stringify(join_info),
+											dataType : 'json',
+											success : function(data){
+												if(data.message==='success'){
+													member.pub_login_form();
+												}else{
+													alert('회원가입 시 알 수 없는 에러가  발생했습니다.');
+												}
+											},
+											error : function(x,s,m){
+												alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
+											}
+											
+										});
+									});
+								
 							}
 						},
 						error : function(x,s,m){
@@ -343,7 +367,6 @@ var member = (function(){
 				}else{
 					alert('정규식에 맞지 않음');
 					$('#id').val('').focus();
-					
 				}
 				
 			});

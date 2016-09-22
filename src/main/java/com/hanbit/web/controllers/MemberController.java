@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,10 +94,19 @@ public class MemberController {
 		logger.info("GO TO {}","main");
 		return "admin:member/content.tiles";
 	}
-	@RequestMapping("/signup")
-	public @ResponseBody Retval signup() {
+	@RequestMapping(value="/signup",method=RequestMethod.POST,
+			consumes="application/json")
+	public @ResponseBody Retval signup(@RequestBody MemberDTO param) {
 		logger.info("SIGN UP {}","EXEUTE");
-		
+		logger.info("SIGN UP ID = {}",param.getId());
+		logger.info("SIGN UP PW = {}",param.getPw());
+		logger.info("SIGN UP NAME = {}",param.getName());
+		logger.info("SIGN UP SSN = {}",param.getSsn());
+		logger.info("SIGN UP EMAIL = {}",param.getEmail());
+		logger.info("SIGN UP PHONE = {}",param.getPhone());
+		// retval.setMessage(service.regist(param));
+		retval.setMessage("success");
+		logger.info("SIGN UP REVAL = {}",retval.getMessage());
 		return retval;
 	}
 	@RequestMapping("/check_dup/{id}")
