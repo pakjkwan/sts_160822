@@ -6,6 +6,6 @@
   <div class="form-group">
     <input type="text" class="form-control" placeholder="PASSWORD">
   </div>
-  <input type="submit" class="btn btn-default" value="탈 퇴"/>
+  <input id="unregist_bt" type="submit" class="btn btn-default" value="탈 퇴"/>
 </form>
 </div>

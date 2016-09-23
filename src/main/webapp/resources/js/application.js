@@ -208,32 +208,22 @@ var SIGN_UP_FORM =
 var DETAIL_FORM =
 	'<div class="box">'
 	+'<table id="member_detail" class="table"><tr>'
-	+'<td rowspan="5" style="width:30%">'
+	+'<td rowspan="7" style="width:30%">'
 	+'<img id="img" src="" alt="W3Schools.com" width="104"height="142"></td>'
 	+'<td style="width:20%" class="font_bold bg_color_yellow">ID</td>'
 	+'<td style="width:40%" id="id"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">PW</td>'
+	+'<td id="u_pw"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">이 름</td>'
 	+'<td id="name"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">성 별</td><td id="gender"></td></tr>'
 	+'<tr><td class="font_bold bg_color_yellow">이메일</td>'
-	+'<td id="email"></td></tr>'
-	+'<tr><td class="font_bold bg_color_yellow" id="major">전공과목</td><td></td></tr>'
-	+'<tr><td class="font_bold bg_color_yellow" id="subject">수강과목</td><td colspan="2"></td></tr>'
-	+'<tr><td class="font_bold bg_color_yellow" id="birth">생년월일</td><td colspan="2"></td></tr>'
-	+'<tr><td class="font_bold bg_color_yellow" id="reg_date">등록일</td><td colspan="2"></td></tr></table></div>';
-var UPDATE_FORM =
-	+'<div class="box"><table id="member_update" class="table">'
-	+'<tr><td rowspan="5" style="width:30%"><img src="" alt="W3Schools.com" width="104" height="142"></td>'
-	+'<td style="width:20%" class="font_bold ">ID</td>'
-	+'<td style="width:40%"></td></tr>'
-	+'<tr><td class="font_bold ">이 름</td><td></td></tr>'
-	+'<tr><td class="font_bold ">성 별</td><td>남</td></tr>'
-	+'<tr><td class="font_bold ">이메일</td><td></td></tr>'
-	+'<tr><td class="font_bold ">전공과목</td><td></td></tr>'
-	+'<tr><td class="font_bold ">수강과목</td><td colspan="2"></td></tr>'
-	+'<tr><td class="font_bold ">생년월일</td>'
-	+'<td colspan="2">900101</td></tr>'
-	+'<tr><td class="font_bold ">등록일</td><td colspan="2"></td></tr></table></div>';
+	+'<td id="u_email"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">전공과목</td><td id="major"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">수강과목</td><td colspan="2" id="subject"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">생년월일</td><td colspan="2" id="birth"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">등록일</td><td colspan="2" id="reg_date"></td></tr></table>'
+	+'<div id="bt_box"><input type="button" value="정보수정 하러가기" id="go_update"/><input type="button" value="회원 탈퇴" id="unregist"/></div></div>';
 var member = (function(){
 	var _age,_gender,_name,_ssn;
 	var setAge = function(age){this._age=age;}
@@ -402,24 +392,63 @@ var member = (function(){
 		detail : function(){
 			$('#pub_header').empty().load(app.context()+'/member/logined/header');
 			$('#pub_article').html(DETAIL_FORM);
-			$('#test').click(function(){
-	    		 
-		    	  $.ajax({
-		    		url : app.context()+'/member/detail',
-					dataType : 'json',
-					async : false,
-					success : function(data){
-						  $('#member_detail #img').attr('src',app.img()+'/member/'+data.profileImg);
-				    	  $('#member_detail #id').text(data.id);
-				    	  $('#member_detail #name').text(data.name);
-				    	  $('#member_detail #gender').text(data.gender);
-				    	  $('#member_detail #email').text(data.email);
-				    	  $('#member_detail #major').text('전공');
-				    	  $('#member_detail #subject').text('과목');
-				    	  $('#member_detail #birth').text('생일');
-				    	  $('#member_detail #reg_date').text(data.regDate);
-					},
-					error : function(x,s,e){alert('detail_false'+e);}
+	    	  $.getJSON(app.context()+'/member/detail', function(data){
+				  $('#member_detail #img').attr('src',app.img()+'/member/'+data.profileImg);
+		    	  $('#member_detail #id').text(data.id);
+		    	  $('#member_detail #pw').text(data.pw).hide();
+		    	  $('#member_detail #name').text(data.name);
+		    	  $('#member_detail #gender').text(data.gender);
+		    	  $('#member_detail #email').text(data.email);
+		    	  $('#member_detail #major').text('전공');
+		    	  $('#member_detail #subject').text('과목');
+		    	  $('#member_detail #birth').text('생일');
+		    	  $('#member_detail #reg_date').text(data.regDate);
+		    	  $('#go_update').click(function(){
+		    		  $('#member_detail #u_pw').html('<input type="text" id="pw" placeholder="'+data.pw+'"/>');
+			    	  $('#member_detail #u_email').html('<input type="text" id="email" placeholder="'+data.email+'"/>');
+			    	  $('#member_detail #u_major').html('<input type="text" id="major" placeholder=""/>');
+			    	  $('#member_detail #u_subject').html('<input type="text" id="subject" placeholder=""/>');
+			    	  $('#bt_box').html('<input type="button" value="확 인" id="confirm"/><input type="button" value="취 소" id="cancel"/>');
+			    	  $('#confirm').click(function(){
+			    		  $.ajax({
+			    			  url : '',
+			    			  type : 'post',
+			    			  data : {},
+			    			  dataType : 'json',
+			    			  success : function(data){
+			    				  if(data.message==='success'){
+			    					  member.detail();
+			    				  }else{
+			    					  alert('서버는 다녀왔는데 실패함 !!');
+			    				  }
+			    			  },
+			    			  error : function(x,s,m){
+			    				  alert('정보 수정시 발생한 에러 : '+m);
+			    			  }
+			    		  });
+			    	  });
+		    	  });
+		    	  $('#unregist').click(function(){
+		    		  $('#pub_article').html(UNREGIST_FORM);
+		    		  $('#unregist_bt').click(function(){
+		    			  $.ajax({
+		    				  url : app.context()+'/member/delete',
+		    				  type : 'post',
+		    				  data : {'pw':$('#u_pw').val()},
+		    				  dataType : 'json',
+		    				  success : function(data){
+		    					  if(data.message==='pw가 일치하지 않음'){
+		    						  $('#pub_header').empty().load(app.context()+'/member/logined/header');
+		    						  $('#pub_article').html(UNREGIST_FORM);
+		    					  }else{
+		    						  locaton.href = app.context()+'/';
+		    					  }
+		    				  },
+		    				  error : function(x,s,m){
+		    					  alert('회원탈퇴 시 발생한 에러 : '+m);
+		    				  }
+		    			  });
+		    		  });
 		    	  });
 	    	  });
 		}
