@@ -60,7 +60,9 @@
 </nav> 
 <script type="text/javascript">
 $(function(){
-	$('#logout').click(function(){location.href = app.context()+'/member/logout';});	
+	$('#logout').click(function(){location.href = app.context()+'/member/logout';});
+//	$('#a_detail').click(function(){location.href = app.context()+'/member/detail';});
+	$('#a_detail').click(function(){member.detail()});
 });
 </script>
 

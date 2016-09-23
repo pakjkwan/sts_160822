@@ -118,7 +118,7 @@ var util = (function(){
 			return typeof value === 'number' && isFinite(value);
 		},
 		pwChecker : function(value){
-			var pw_regex = /^.*(?=.{4,10})(?=.*[a-zA-Z0-9]).*$/;
+			var pw_regex = /^[0-9a-zA-Z]{4,10}$/;
 			return pw_regex.test(value)?"yes":"no";
 		}
 	};
@@ -173,38 +173,67 @@ var LOGIN_FORM =
 	+'<label><input type="checkbox" name="remember_me" value="remember-me"> Remember me</label></div>' 
 	+'<input id="login_btn" class="btn btn-lg btn-primary btn-block" type="submit" value="Sign in"/></form></div>';
 var SIGN_UP_FORM = 
-		'<section id="member_regist"><form id="member_regist_form">'
-		+'<div><label for="exampleInputEmail1">ID</label>'
-		+'<div id="id_box"><input type="text" id="id" placeholder="문자 혹은 숫자로 4~10 자 입력가능"><input type="button" id="check_dup" name="check_dup" value="중복체크"/></div></div>'
-		+'<div><label for="exampleInputEmail1">비밀번호</label>'
-		+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
-		+'<div><label for="exampleInputEmail1">비밀번호확인</label>'
-		+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
-		+'<div id="show_pw_check"></div>'
-		+'<div><label for="exampleInputEmail1">이 름</label>'
-		+'<div><input type="text" id="name" placeholder="예)홍 길 동"></div></div>'
-		+'<div><label for="exampleInputEmail1">SSN</label>'
-		+'<div><input type="text" id="ssn" placeholder="예)800101-2"></div></div>'
-		+'<div><label for="exampleInputEmail1">E-MAIL</label>'
-		+'<div><input type="email" id="email" placeholder="EMAIL"></div></div>'
-		+'<div><label for="exampleInputEmail1">전화번호</label>'
-		+'<div><input type="text" id="phone" placeholder="PHONE"></div></div>'
-		+'<div id="rd_major">'
-		+'<label for="exampleInputEmail1">전 공</label><br>'
-		+'<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>'
-		+'<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>'
-		+'<label ><input type="radio" name="major" value="math"> 수학부</label>'
-		+'<label ><input type="radio" name="major" value="eng"> 영문학부</label></div>'
-		+'<div><label for="exampleInputEmail1">수강과목</label><br>'
-		+'<div><div id="ck_subject">'
-		+'<label ><input type="checkbox" name="subject"  value="java"> Java</label>'
-		+'<label ><input type="checkbox" name="subject"  value="sql"> SQL</label>'
-		+'<label ><input type="checkbox" name="subject"  value="cpp"> C++	</label>'
-		+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
-		+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
-		+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
-		+'<input id="bt_join" type="button" value="회원가입" />'
-		+'<input id="bt_cancel" type="reset" value="취소" /></form></section>';
+	'<section id="member_regist"><form id="member_regist_form">'
+	+'<div><label for="exampleInputEmail1">ID</label>'
+	+'<div id="id_box"><input type="text" id="id" placeholder="문자 혹은 숫자로 4~10 자 입력가능"><input type="button" id="check_dup" name="check_dup" value="중복체크"/></div></div>'
+	+'<div><label for="exampleInputEmail1">비밀번호</label>'
+	+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
+	+'<div><label for="exampleInputEmail1">비밀번호확인</label>'
+	+'<div><input type="password" id="password" placeholder="PASSWORD"></div></div>'
+	+'<div id="show_pw_check"></div>'
+	+'<div><label for="exampleInputEmail1">이 름</label>'
+	+'<div><input type="text" id="name" placeholder="예)홍 길 동"></div></div>'
+	+'<div><label for="exampleInputEmail1">SSN</label>'
+	+'<div><input type="text" id="ssn" placeholder="예)800101-2"></div></div>'
+	+'<div><label for="exampleInputEmail1">E-MAIL</label>'
+	+'<div><input type="email" id="email" placeholder="EMAIL"></div></div>'
+	+'<div><label for="exampleInputEmail1">전화번호</label>'
+	+'<div><input type="text" id="phone" placeholder="PHONE"></div></div>'
+	+'<div id="rd_major">'
+	+'<label for="exampleInputEmail1">전 공</label><br>'
+	+'<label ><input type="radio" name="major" value="computer" checked> 컴공학부</label>'
+	+'<label ><input type="radio" name="major" value="mgmt"> 경영학부</label>'
+	+'<label ><input type="radio" name="major" value="math"> 수학부</label>'
+	+'<label ><input type="radio" name="major" value="eng"> 영문학부</label></div>'
+	+'<div><label for="exampleInputEmail1">수강과목</label><br>'
+	+'<div><div id="ck_subject">'
+	+'<label ><input type="checkbox" name="subject"  value="java"> Java</label>'
+	+'<label ><input type="checkbox" name="subject"  value="sql"> SQL</label>'
+	+'<label ><input type="checkbox" name="subject"  value="cpp"> C++	</label>'
+	+'<label ><input type="checkbox" name="subject"  value="python"> 파이썬</label>'
+	+'<label ><input type="checkbox" name="subject"  value="delphi"> 델파이</label>'
+	+'<label ><input type="checkbox" name="subject"  value="html"> HTML</label></div></div> </div>'
+	+'<input id="bt_join" type="button" value="회원가입" />'
+	+'<input id="bt_cancel" type="reset" value="취소" /></form></section>';
+var DETAIL_FORM =
+	'<div class="box">'
+	+'<table id="member_detail" class="table"><tr>'
+	+'<td rowspan="5" style="width:30%">'
+	+'<img id="img" src="" alt="W3Schools.com" width="104"height="142"></td>'
+	+'<td style="width:20%" class="font_bold bg_color_yellow">ID</td>'
+	+'<td style="width:40%" id="id"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">이 름</td>'
+	+'<td id="name"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">성 별</td><td id="gender"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow">이메일</td>'
+	+'<td id="email"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow" id="major">전공과목</td><td></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow" id="subject">수강과목</td><td colspan="2"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow" id="birth">생년월일</td><td colspan="2"></td></tr>'
+	+'<tr><td class="font_bold bg_color_yellow" id="reg_date">등록일</td><td colspan="2"></td></tr></table></div>';
+var UPDATE_FORM =
+	+'<div class="box"><table id="member_update" class="table">'
+	+'<tr><td rowspan="5" style="width:30%"><img src="" alt="W3Schools.com" width="104" height="142"></td>'
+	+'<td style="width:20%" class="font_bold ">ID</td>'
+	+'<td style="width:40%"></td></tr>'
+	+'<tr><td class="font_bold ">이 름</td><td></td></tr>'
+	+'<tr><td class="font_bold ">성 별</td><td>남</td></tr>'
+	+'<tr><td class="font_bold ">이메일</td><td></td></tr>'
+	+'<tr><td class="font_bold ">전공과목</td><td></td></tr>'
+	+'<tr><td class="font_bold ">수강과목</td><td colspan="2"></td></tr>'
+	+'<tr><td class="font_bold ">생년월일</td>'
+	+'<td colspan="2">900101</td></tr>'
+	+'<tr><td class="font_bold ">등록일</td><td colspan="2"></td></tr></table></div>';
 var member = (function(){
 	var _age,_gender,_name,_ssn;
 	var setAge = function(age){this._age=age;}
@@ -354,7 +383,6 @@ var member = (function(){
 											error : function(x,s,m){
 												alert("code:"+x.status+"\n"+"message:"+x.responseText+"\n"+"m:"+error);
 											}
-											
 										});
 									});
 								
@@ -370,6 +398,30 @@ var member = (function(){
 				}
 				
 			});
+		},
+		detail : function(){
+			$('#pub_header').empty().load(app.context()+'/member/logined/header');
+			$('#pub_article').html(DETAIL_FORM);
+			$('#test').click(function(){
+	    		 
+		    	  $.ajax({
+		    		url : app.context()+'/member/detail',
+					dataType : 'json',
+					async : false,
+					success : function(data){
+						  $('#member_detail #img').attr('src',app.img()+'/member/'+data.profileImg);
+				    	  $('#member_detail #id').text(data.id);
+				    	  $('#member_detail #name').text(data.name);
+				    	  $('#member_detail #gender').text(data.gender);
+				    	  $('#member_detail #email').text(data.email);
+				    	  $('#member_detail #major').text('전공');
+				    	  $('#member_detail #subject').text('과목');
+				    	  $('#member_detail #birth').text('생일');
+				    	  $('#member_detail #reg_date').text(data.regDate);
+					},
+					error : function(x,s,e){alert('detail_false'+e);}
+		    	  });
+	    	  });
 		}
 	};	
 })();

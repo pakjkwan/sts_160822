@@ -131,9 +131,9 @@ public class MemberController {
 		return "admin:member/a_detail.tiles";
 	}
 	@RequestMapping("/detail")
-	public String moveDetail() {
+	public @ResponseBody MemberDTO moveDetail(HttpSession session) {
 		logger.info("GO TO {}","detail");
-		return "user:member/detail.tiles";
+		return (MemberDTO) session.getAttribute("user");
 	}
 	
 	@RequestMapping("/update")
