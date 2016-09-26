@@ -12,7 +12,7 @@ import com.hanbit.web.domains.Retval;
 public interface MemberMapper {
 	public int insert(MemberDTO mem);
 	public int update(MemberDTO mem);
-	public List<MemberDTO> list();
+	public List<MemberDTO> list(Command command);
 	public MemberDTO findOne(Command command);
 	public List<MemberDTO> findByName(String name);
 	public Retval count();

@@ -22,13 +22,13 @@ import com.hanbit.web.domains.Retval;
 public interface MemberService{
 	public String regist(MemberDTO mem);
 	public MemberDTO findOne(Command command);
-	public void update(MemberDTO stu2);
+	public String update(MemberDTO member);
 	public void delete(MemberDTO member);
 	public void logout(MemberDTO member);
 	public MemberDTO show();
 	public MemberDTO login(MemberDTO member);
 	public Retval count();
-	public List<?> list();
+	public List<?> list(Command command);
 	public List<?> findBy(String keyword);
 	public int existId(String id);
 	

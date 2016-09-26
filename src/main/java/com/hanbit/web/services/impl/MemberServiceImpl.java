@@ -1,14 +1,11 @@
 package com.hanbit.web.services.impl;
 
 import java.util.List;
-
-
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.hanbit.web.controllers.MemberController;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
@@ -26,17 +23,17 @@ public class MemberServiceImpl implements MemberService{
 	public String regist(MemberDTO member) {
 		return (sqlSession.getMapper(MemberMapper.class).insert(member)==1)?"success": "fail";
 	}
-
-
 	@Override
-	public void update(MemberDTO mem) {
+	public String update(MemberDTO mem) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		int result = mapper.update(mem);
+		String retval = "";
 		if (result == 1) {
-			System.out.println("서비스 수정결과 성공");
+			retval = "success";
 		}else{
-			System.out.println("서비스 수정결과 실패");
+			retval = "fail";
 		}
+		return retval;
 	}
 	@Override
 	public MemberDTO show() {
@@ -47,49 +44,33 @@ public class MemberServiceImpl implements MemberService{
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		mapper.delete(member);
 	}
-
-
 	@Override
 	public Retval count() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.count();
 	}
-
-
 	@Override
 	public MemberDTO findOne(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.findOne(command);
 	}
-
-
 	@Override
-	public List<?> list() {
+	public List<?> list(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.list();
+		return mapper.list(command);
 	}
-
-
 	@Override
 	public List<?> findBy(String keyword) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.findByName(keyword);
 	}
-
-
-	
-
-
 	@Override
 	public void logout(MemberDTO member) {
 		if (member.getId().equals(member.getId()) 
 				&& member.getPw().equals(member.getPw())) {
 			member = null;
 		}
-		
 	}
-
-
 	@Override
 	public MemberDTO login(MemberDTO param) {
 		logger.info("MemberService login ID is {}",member.getId());
@@ -114,22 +95,4 @@ public class MemberServiceImpl implements MemberService{
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.existId(id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

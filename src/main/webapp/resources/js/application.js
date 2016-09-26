@@ -30,6 +30,11 @@ var app = (function(){
 		$('#global_content_a_regist').text('SIGN UP').click(function(){member.pub_sign_up_form();});
 		$('#global_content_a_login').text('LOG IN').click(function(){member.pub_login_form();});
 		$('#global_content_a_admin').text('ADMIN MODE').click(function(){admin.check();});
+	/*	$('#global_content_a_admin').text('ADMIN MODE').click(function(){
+			
+			location.href=app.context()+'/admin/test';
+		
+		});*/
 	};
 	var onCreate = function(){
 		setContentView();
@@ -144,7 +149,7 @@ var nav = (function(){
 	};
 })();
 /*
-============ MAJOR_JS =====
+============ MAJOR_JS ========
 @AUTHOR : pakjkwan@gmail.com
 @CREATE DATE : 2016-9-8
 @UPDATE DATE : 2016-9-9
@@ -153,7 +158,7 @@ var nav = (function(){
 */
 var major = (function(){})();
 /*
-========= MEMBER_JS =======
+=========== MEMBER_JS ========
 @AUTHOR : pakjkwan@gmail.com
 @CREATE DATE : 2016-9-8
 @UPDATE DATE : 2016-9-9
@@ -386,7 +391,6 @@ var member = (function(){
 					alert('정규식에 맞지 않음');
 					$('#id').val('').focus();
 				}
-				
 			});
 		},
 		detail : function(){
@@ -404,12 +408,15 @@ var member = (function(){
 		    	  $('#member_detail #birth').text('생일');
 		    	  $('#member_detail #reg_date').text(data.regDate);
 		    	  $('#go_update').click(function(){
-		    		  $('#member_detail #u_pw').html('<input type="text" id="pw" placeholder="'+data.pw+'"/>');
-			    	  $('#member_detail #u_email').html('<input type="text" id="email" placeholder="'+data.email+'"/>');
-			    	  $('#member_detail #u_major').html('<input type="text" id="major" placeholder=""/>');
-			    	  $('#member_detail #u_subject').html('<input type="text" id="subject" placeholder=""/>');
+		    		  $('#member_detail #u_pw').html('<input type="text" id="pw" value="'+data.pw+'"/>');
+			    	  $('#member_detail #u_email').html('<input type="text" id="email" value="'+data.email+'"/>');
+			    	  $('#member_detail #u_major').html('<input type="text" id="major" value=""/>');
+			    	  $('#member_detail #u_subject').html('<input type="text" id="subject" value=""/>');
 			    	  $('#bt_box').html('<input type="button" value="확 인" id="confirm"/><input type="button" value="취 소" id="cancel"/>');
 			    	  $('#confirm').click(function(){
+			    		  var up_info = {
+			    				pw : $('#u_pw').val()  
+			    		  };
 			    		  $.ajax({
 			    			  url : '',
 			    			  type : 'post',
@@ -590,6 +597,9 @@ var admin = (function() {
     	setPass : setPass,
     	init : init,
     	check : function() {
+    		controller.move('admin','main');
+		},
+    	check2 : function() {
     		setPass(1);
 			var isAdmin = confirm('관리자입니까?');
 			if (!isAdmin) {

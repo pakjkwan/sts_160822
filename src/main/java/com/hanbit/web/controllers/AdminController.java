@@ -11,15 +11,9 @@ import com.hanbit.web.services.IntegerMath;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	@RequestMapping("/main")
 	public String goMain(){
-		logger.info("AdminController ! goMain() ");
 		return "admin:admin/content.tiles";
-	}
-	public void aaa(){
-		ListHandler abc = ()->null;
-		IntegerMath def = (int a,int b)->a+b;
 	}
 	
 }
