@@ -47,7 +47,13 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Retval count() {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.count();
+		Retval r = mapper.count(); 
+		if(r==null){
+			System.out.println("Retval 은 null");
+		}else{
+			System.out.println("Retval 은 null 아님");
+		}
+		return r;
 	}
 	@Override
 	public MemberDTO findOne(Command command) {

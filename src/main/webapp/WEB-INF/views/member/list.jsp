@@ -1,23 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="pgSize" value="5"/>
-<c:choose>
-	<c:when test="${totCount % pgSize eq 0 }">
-		<c:set var="totPg" value="${totCount/pgSize}"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var="totPg" value="${totCount/pgSize+1}"/>
-	</c:otherwise>
-</c:choose>
-<c:set var="startPg" value="${pgNum - ((pgNum-1)%pgSize) }"/>
-<c:choose>
-	<c:when test="${startPg + pgSize-1 le totPg }">
-		<c:set var="lastPg" value="${startPg + pgSize -1}"/>
-	</c:when>
-	<c:otherwise>
-		<c:set var="lastPg" value="${totPg}"/>
-	</c:otherwise>
-</c:choose>
 <div class="box" style='padding-top:0;width:90%'>
 <ul class="list-group">
   <li class="list-group-item">총학생수 : ${totCount}</li>
@@ -39,11 +21,10 @@
   <tr>
     <td>${member.id}</td>
     <td><a class="name">${member.name}</a></td>
-    <td>${member.regDate} }</td>
+    <td>${member.regDate}</td>
     <td>${member.birth}</td>
     <td>${member.email}</td>
     <td>${member.phone}</td>
-    <td>${member.grade}</td>
     <td><a class="regist">등록</a> / <a class="update">수정</a></td>
   </tr>
   </c:forEach>

@@ -302,13 +302,13 @@ EXEC HANBIT.INSERT_STUDENT('lee_mi','1','이미연','FEMALE','2012-05-30','02070
 EXEC HANBIT.INSERT_STUDENT('angel','1','안젤리나','FEMALE','2010-09-30','030801-1','angel@test.com','default.jpg','STUDENT','010-5645-6611',1001);
 EXEC HANBIT.INSERT_STUDENT('jackie','1','재키','FEMALE','2009-05-30','050701-1','jackie@test.com','default.jpg','STUDENT','010-7878-6611',1001);
 -- SP_COUNT_STUDENT
-CREATE OR REPLACE PROCEDURE count_student(sp_count OUT NUMBER) AS 
-BEGIN SELECT COUNT(*) into sp_count 
+CREATE OR REPLACE PROCEDURE count_student(sp_count OUT INTEGER) AS 
+BEGIN SELECT COUNT(*) count into sp_count 
 FROM Member WHERE role='STUDENT';
 COMMIT;END count_student;
 -- EXE_COUNT_STUDENT
 SET serveroutput ON 
-DECLARE sp_count NUMBER;
+DECLARE sp_count INTEGER;
 BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생수 : '||sp_count);END;
 -- SP_FIND_BY_STUDENT_ID
 CREATE OR REPLACE PROCEDURE find_by_student_id(

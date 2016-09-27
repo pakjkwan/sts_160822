@@ -126,19 +126,41 @@ public class MemberController {
 		return retval;
 	}
 	@RequestMapping("/list/{pgNum}")
-	public String list(@PathVariable String pgNum,
-			Model model){
+	public String list(@PathVariable String pgNum,Model model){
 		logger.info("LIST pgNum {}",pgNum);
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 		int[]rows = new int[2];
 		Retval r = service.count();
 		int totCount = r.getCount();
+		int totPg = 0;
+		int startPg = 0,lastPg = 0;
+		int pgNum2 = Integer.parseInt(pgNum);
 		logger.info("LIST totCount {}",totCount);
 	//	int pgCount = totCount/Values.PG_SIZE;
 		rows = Pagination.getStartRow(totCount, Integer.parseInt(pgNum), Values.PG_SIZE); 
 		command.setStart(rows[0]);
 		command.setEnd(rows[1]);
 		model.addAttribute("list", service.list(command));
+		int pgSize = Values.PG_SIZE;
+		if(totCount % pgSize == 0){
+			totPg = totCount/pgSize;
+		}else{
+			totPg = totCount/pgSize + 1;
+		}
+		startPg = pgNum2 - ((pgNum2-1)%pgSize);
+		if(startPg + pgSize-1 <= totPg){
+			lastPg =  startPg + pgSize -1;
+		}else{
+			lastPg = totPg;
+		}
+		logger.info("LIST pgSize {}",pgSize);
+		model.addAttribute("pgSize", pgSize);
+		model.addAttribute("totCount", totCount);
+		model.addAttribute("totPg", totPg);
+		model.addAttribute("pgNum", pgNum2);
+		model.addAttribute("startPg", startPg);
+		model.addAttribute("lastPg", lastPg);
+		
 		return "admin:member/list.tiles";
 	}
 	@RequestMapping("/search")

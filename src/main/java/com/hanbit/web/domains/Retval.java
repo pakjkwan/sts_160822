@@ -9,5 +9,6 @@ import lombok.Setter;
 public class Retval {
 	@Getter @Setter private int count;
 	@Getter @Setter private String message,flag,temp;
+	
 }
 
