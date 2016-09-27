@@ -581,7 +581,7 @@ var admin = (function() {
     };
     var onCreate = function(){
     	setContentView();
-    	$('#admin_nav #member_mgmt #list').click(function(){controller.move('member','list');});
+    	$('#admin_nav #member_mgmt #list').click(function(){admin.member_list()});
     	$('#admin_nav #member_mgmt #find_by').click(function(){controller.move('member','find');});
     	$('#admin_nav #member_mgmt #count').click(function(){controller.move('member','count');});
     	$('#admin_nav #account_mgmt #list').click(function(){controller.move('account','list');});
@@ -612,7 +612,14 @@ var admin = (function() {
 					alert('관리자 비번이 틀립니다.');
 				}
 			}
-		}
+		},
+	    member_list : function(){
+	    	alert('0000');
+	    	location.href = app.context()+'/member/list/1';
+	    	/*$.getJSON(app.context()+'/member/list/1',function(){
+	    		
+	    	});*/
+	    }
     };
 })();
 /*

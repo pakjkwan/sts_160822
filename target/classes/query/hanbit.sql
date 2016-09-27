@@ -54,7 +54,7 @@ EXEC HANBIT.INSERT_MAJOR('컴퓨터공학');
 CREATE OR REPLACE PROCEDURE count_major(sp_count OUT NUMBER) AS 
 BEGIN SELECT COUNT(*) into sp_count FROM Major;END count_major;
 -- EXE_COUNT_MAJOR
-DECLARE sp_count NUMBER;BEGIN count_major(sp_count);DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);END;
+DECLARE sp_count_major NUMBER;BEGIN count_major(sp_count);DBMS_OUTPUT.put_line ('전공 수량 : '||sp_count);END;
 -- SP_FIND_BY_MAJOR_SEQ
 CREATE OR REPLACE PROCEDURE find_by_major_seq(
 	sp_major_seq IN OUT Major.major_seq%TYPE,
@@ -196,14 +196,14 @@ EXEC HANBIT.INSERT_PROF('prof_x','1','찰스','MALE','2010-06-01','700101-1','pr
 CREATE OR REPLACE PROCEDURE count_prof(sp_count OUT NUMBER) AS 
 BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='PROF';END count_prof;
 -- EXE_COUNT_PROF
-DECLARE sp_count NUMBER;BEGIN count_prof(sp_count);DBMS_OUTPUT.put_line ('교수 인원 : '||sp_count||' 명');END;
+SET serveroutput ON DECLARE sp_count NUMBER;BEGIN count_prof(sp_count);DBMS_OUTPUT.put_line ('교수 인원 : '||sp_count||' 명');END;
 -- SP_EXIST_MEMBER_ID
 CREATE OR REPLACE PROCEDURE exist_member_id(
     sp_mem_id IN Member.mem_id%TYPE,
     sp_count OUT NUMBER
 )AS BEGIN SELECT COUNT(*) INTO sp_count FROM Member WHERE mem_id = sp_mem_id;END exist_member_id;
 -- EXE_EXIST_MEMBER_ID
-DECLARE sp_mem_id VARCHAR2(30) := 'hong';sp_count NUMBER;BEGIN exist_member_id(sp_mem_id,sp_count);DBMS_OUTPUT.put_line ('조회결과는  : '||sp_count||' 명');END;
+SET serveroutput ON DECLARE sp_mem_id VARCHAR2(30) := 'hong';sp_count NUMBER;BEGIN exist_member_id(sp_mem_id,sp_count);DBMS_OUTPUT.put_line ('조회결과는  : '||sp_count||' 명');END;
 -- SP_FIND_BY_PROF_ID
 CREATE OR REPLACE PROCEDURE find_by_prof_id(
 	sp_prof_id IN Member.mem_id%TYPE,
@@ -211,6 +211,7 @@ CREATE OR REPLACE PROCEDURE find_by_prof_id(
 ) AS BEGIN SELECT * INTO sp_prof FROM Member 
     WHERE mem_id = sp_prof_id AND role='PROF'; END find_by_prof_id;
 -- EXE_FIND_BY_PROF_ID
+SET serveroutput ON; 
 DECLARE
  sp_prof_id VARCHAR2(100) := 'profx';
  sp_prof Member%ROWTYPE;
@@ -281,12 +282,34 @@ BEGIN
 	VALUES(sp_mem_id,sp_pw,sp_name,sp_gender,sp_reg_date,sp_ssn,sp_email,sp_profile_img,sp_role,sp_phone,sp_major_seq);
 END insert_student;
 -- EXE_INSERT_STUDENT
-EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678','1001');
+EXEC HANBIT.INSERT_STUDENT('hong','1','홍길동','MALE','2016-06-01','800101-1','hong@test.com','default.jpg','STUDENT','010-1234-5678',1001);
+EXEC HANBIT.INSERT_STUDENT('kim','1','김유신','MALE','2013-08-02','900101-1','kim@test.com','default.jpg','STUDENT','010-1111-2222',1001);
+EXEC HANBIT.INSERT_STUDENT('park','1','박지성','MALE','2009-05-25','950101-1','park@test.com','default.jpg','STUDENT','010-2222-3333',1001);
+EXEC HANBIT.INSERT_STUDENT('lee','1','이순신','MALE','2014-08-20','960101-1','lee@test.com','default.jpg','STUDENT','010-3333-4444',1001);
+EXEC HANBIT.INSERT_STUDENT('song','1','송지효','FEMALE','2010-03-14','970101-1','song@test.com','default.jpg','STUDENT','010-4444-5555',1001);
+EXEC HANBIT.INSERT_STUDENT('lim','1','임영영','FEMALE','2008-11-30','980101-1','lim@test.com','default.jpg','STUDENT','010-5555-6666',1001);
+EXEC HANBIT.INSERT_STUDENT('hong2','1','홍길동','MALE','2013-01-01','690101-1','hong2@test.com','default.jpg','STUDENT','010-1234-5674',1001);
+EXEC HANBIT.INSERT_STUDENT('kim2','1','김유신','MALE','2009-08-02','950101-1','kim2@test.com','default.jpg','STUDENT','010-1111-2224',1001);
+EXEC HANBIT.INSERT_STUDENT('park2','1','박지성','MALE','2009-05-25','950101-1','park@test.com','default.jpg','STUDENT','010-2222-3334',1001);
+EXEC HANBIT.INSERT_STUDENT('lee2','1','이순신','MALE','2013-08-20','880101-1','lee2@test.com','default.jpg','STUDENT','010-3333-4448',1001);
+EXEC HANBIT.INSERT_STUDENT('song2','1','송지효','FEMALE','2010-03-14','971201-1','song2@test.com','default.jpg','STUDENT','010-4444-5554',1001);
+EXEC HANBIT.INSERT_STUDENT('lim2','1','임영영','FEMALE','2008-11-30','981201-1','lim2@test.com','default.jpg','STUDENT','010-5555-6667',1001);
+EXEC HANBIT.INSERT_STUDENT('hong3','1','홍길동','MALE','2011-11-30','021201-1','hong3@test.com','default.jpg','STUDENT','010-5555-6668',1001);
+EXEC HANBIT.INSERT_STUDENT('choo','1','추신수','MALE','2002-07-30','021101-1','choo@test.com','default.jpg','STUDENT','010-5555-6669',1001);
+EXEC HANBIT.INSERT_STUDENT('kang','1','강정호','MALE','2002-06-30','020501-1','kang@test.com','default.jpg','STUDENT','010-5555-6610',1001);
+EXEC HANBIT.INSERT_STUDENT('jang','1','장국영','MALE','2002-05-30','030701-1','jang@test.com','default.jpg','STUDENT','010-5555-6611',1001);
+EXEC HANBIT.INSERT_STUDENT('lee_mi','1','이미연','FEMALE','2012-05-30','020702-1','lee_mi@test.com','default.jpg','STUDENT','010-5955-6611',1001);
+EXEC HANBIT.INSERT_STUDENT('angel','1','안젤리나','FEMALE','2010-09-30','030801-1','angel@test.com','default.jpg','STUDENT','010-5645-6611',1001);
+EXEC HANBIT.INSERT_STUDENT('jackie','1','재키','FEMALE','2009-05-30','050701-1','jackie@test.com','default.jpg','STUDENT','010-7878-6611',1001);
 -- SP_COUNT_STUDENT
 CREATE OR REPLACE PROCEDURE count_student(sp_count OUT NUMBER) AS 
-BEGIN SELECT COUNT(*) into sp_count FROM Member WHERE role='STUDENT';COMMIT;END count_student;
+BEGIN SELECT COUNT(*) into sp_count 
+FROM Member WHERE role='STUDENT';
+COMMIT;END count_student;
 -- EXE_COUNT_STUDENT
-
+SET serveroutput ON 
+DECLARE sp_count NUMBER;
+BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생수 : '||sp_count);END;
 -- SP_FIND_BY_STUDENT_ID
 CREATE OR REPLACE PROCEDURE find_by_student_id(
 	sp_student_id IN Member.mem_id%TYPE,
@@ -527,3 +550,51 @@ BEGIN
 	INSERT INTO Board(art_seq,category,title,reg_date,content) 
 	VALUES(sp_art_seq,sp_category,sp_title,sp_reg_date,sp_content);
 END insert_notice;
+
+/*====================
+select 
+    m.mem_id id, 
+    m.name name,
+    m.gender gender,
+    m.reg_date regDate,
+    m.ssn ssn,
+    m.email email,
+    m.profile_img profileImg,
+    m.role role,
+    m.phone phone,
+    m.major_seq majorSeq    
+   from Member m order by reg_date desc;
+
+select rownum seq,t.* from (
+     select 
+    m.mem_id id, 
+    m.name name,
+    m.gender gender,
+    m.reg_date regDate,
+    m.ssn ssn,
+    m.email email,
+    m.profile_img profileImg,
+    m.role role,
+    m.phone phone,
+    m.major_seq majorSeq    
+   from Member m order by reg_date desc) t;
+
+
+select t2.* from(
+   select rownum seq,t.* from (
+     select 
+    m.mem_id id, 
+    m.name name,
+    m.gender gender,
+    m.reg_date regDate,
+    m.ssn ssn,
+    m.email email,
+    m.profile_img profileImg,
+    m.role role,
+    m.phone phone,
+    m.major_seq majorSeq    
+   from Member m order by reg_date desc) t)t2
+   where t2.seq between 5 and 7
+   order by t2.seq asc
+
+select * from member;

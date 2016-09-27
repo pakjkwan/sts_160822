@@ -56,9 +56,9 @@
      <select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
     select * from member where name =#{name}
     </select>
-    <select id="count" statementType="CALLABLE" resultType="com.hanbit.web.domains.Retval">
+    <select id="count" statementType="CALLABLE" parameterType="com.hanbit.web.domains.Retval">
      { call HANBIT.COUNT_STUDENT(
-            #{count, mode=OUT,jdbcType=NUMERIC}
+            #{count, mode=OUT,jdbcType=Integer}
  			)
      }
     </select>

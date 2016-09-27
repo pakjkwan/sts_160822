@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+
+import com.hanbit.web.constants.Values;
 import com.hanbit.web.domains.Command;
 import com.hanbit.web.domains.MemberDTO;
 import com.hanbit.web.domains.Retval;
 import com.hanbit.web.services.impl.MemberServiceImpl;
+import com.hanbit.web.util.Pagination;
 
 @Controller
 @SessionAttributes({"user","context","js","css","img"})
@@ -28,7 +31,6 @@ import com.hanbit.web.services.impl.MemberServiceImpl;
 @RequestMapping("/member")
 public class MemberController {
 	private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
-	public static int PG_SIZE = 5;
 	@Autowired MemberServiceImpl service;
 	@Autowired Command command;
 	@Autowired MemberDTO member;
@@ -124,23 +126,18 @@ public class MemberController {
 		return retval;
 	}
 	@RequestMapping("/list/{pgNum}")
-	public String list(@PathVariable String strPgNum,
+	public String list(@PathVariable String pgNum,
 			Model model){
+		logger.info("LIST pgNum {}",pgNum);
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
-		int pgNum = Integer.parseInt(strPgNum);
-		int totCount = service.count().getCount();
-		int startRow = 0;
-		int endRow = 0;
-		int pgCount = totCount/PG_SIZE;
-		if((totCount%PG_SIZE)==0){
-			startRow = 0;
-			endRow = 0;
-		}else{
-			startRow = 0;
-			endRow = 0;
-		}
-		command.setStart(startRow);
-		command.setEnd(endRow);
+		int[]rows = new int[2];
+		Retval r = service.count();
+		int totCount = r.getCount();
+		logger.info("LIST totCount {}",totCount);
+	//	int pgCount = totCount/Values.PG_SIZE;
+		rows = Pagination.getStartRow(totCount, Integer.parseInt(pgNum), Values.PG_SIZE); 
+		command.setStart(rows[0]);
+		command.setEnd(rows[1]);
 		model.addAttribute("list", service.list(command));
 		return "admin:member/list.tiles";
 	}
@@ -148,7 +145,7 @@ public class MemberController {
 	public String search(
 			@RequestParam(value="keyField") String keyField,
 			@RequestParam(value="keyword") String keyword,
-			@RequestParam(value="pgNum") String strPgNum,
+		//	@RequestParam(value="pgNum") String strPgNum,
 			Model model){
 		List<MemberDTO> list = new ArrayList<MemberDTO>();
 	//	service.list(Command);
