@@ -29,7 +29,7 @@ public interface MemberService{
 	public MemberDTO login(MemberDTO member);
 	public Retval count();
 	public List<?> list(Command command);
-	public List<?> findBy(String keyword);
+	public List<?> find(Command command);
 	public int existId(String id);
 	
 }

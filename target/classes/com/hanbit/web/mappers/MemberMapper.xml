@@ -3,11 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hanbit.web.mappers.MemberMapper">
-<resultMap id="RetvalMap" type="com.hanbit.web.domains.Retval">
-    <result property="count" column="COUNT"/>
-</resultMap>
-    <select id="list" resultType="com.hanbit.web.domains.MemberDTO"
-    				  parameterType="com.hanbit.web.domains.Command" >
+    <select id="list" 
+    	resultType="com.hanbit.web.domains.MemberDTO"
+    	parameterType="com.hanbit.web.domains.Command" >
     	select t2.* from(
 		   select rownum seq,t.* from (
 		     select 
@@ -25,21 +23,22 @@
 		   where t2.seq between #{start} and #{end}
 		   order by t2.seq asc
     </select>
-   <select id="findOne2"  statementType="CALLABLE"  
-   	parameterType="com.hanbit.web.domains.Command"  
-   	resultType="com.hanbit.web.domains.MemberDTO">
-{call find_by_student_id
-	( 
-    	#{keyword}  
-   		,#{spcursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=sampleVOMap
-  	)
-}
+   <select id="findOne2"  
+   		statementType="CALLABLE"  
+   		resultType="com.hanbit.web.domains.MemberDTO"
+   	    parameterType="com.hanbit.web.domains.Command">
+	{call find_by_student_id
+		( 
+	    	#{keyword}  
+	   		,#{spcursor, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=sampleVOMap
+	  	)
+	}
   
 </select>
 
     
     <select id="findOne" 
-    		parameterType="com.hanbit.web.domains.Command" 
+    		parameterType="com.hanbit.web.domains.MemberDTO" 
     		resultType="com.hanbit.web.domains.MemberDTO">
     	select 
 	    	mem_id as id,
@@ -53,21 +52,40 @@
 	    	ssn as ssn,
 	    	phone as phone,
 	    	major_seq as majorSeq
-    	from member where ${option} = #{keyword}
+    	from member where mem_id = #{id}
     </select>
-     <select id="findByName" parameterType="string" resultType="com.hanbit.web.domains.MemberDTO">
-    select * from member where name =#{name}
+     <select id="find" parameterType="com.hanbit.web.domains.Command" 
+     			resultType="com.hanbit.web.domains.MemberDTO">
+    	select 
+    		mem_id as id,
+	    	pw as pw,
+	    	name as name,
+	    	gender as gender,
+	    	reg_date as regDate,
+	    	email as email,
+	    	profile_img as profileImg,
+	    	role as role,
+	    	ssn as ssn,
+	    	phone as phone,
+	    	major_seq as majorSeq
+    	from member where ${keyField} =#{keyword}
     </select>
     
     <select id="count" resultType="com.hanbit.web.domains.Retval">
      select count(*) as count from member where role='STUDENT'
     </select>
-    <select id="count2" statementType="CALLABLE" parameterType="com.hanbit.web.domains.Retval">
+    <select id="count2" 
+    		statementType="CALLABLE" 
+    		parameterType="com.hanbit.web.domains.Retval">
      { call HANBIT.COUNT_STUDENT(
             #{count, mode=OUT,jdbcType=INTEGER}
  			)
      }
+     </select>
+     <select id="procedureCall" parameterType="com.hanbit.web.domains.Retval" statementType="CALLABLE">
+    	{ CALL GETEMP( #{ key, jdbcType=CURSOR, mode=OUT, javaType=java.sql.ResultSet,resultMap=empvoMap } ) }
     </select>
+    
      
     <select id="existId" parameterType="com.hanbit.web.domains.MemberDTO" resultType="int">
     select count(*) as count from member where mem_id = #{id}

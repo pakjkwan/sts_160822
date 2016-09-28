@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="context" value="<%=request.getContextPath()%>"/>
 <div class="box" style='padding-top:0;width:90%'>
 <ul class="list-group">
   <li class="list-group-item">총학생수 : ${totCount}</li>
@@ -46,7 +47,7 @@
   			<font color="red">${i.index}</font>
   		</c:when>
   		<c:otherwise>
-  			<a href="${context}/member/detail/${i.index}"></a>
+  			<a href="${context}/member/list/${i.index}">${i.index}</a>
   		</c:otherwise>
   	</c:choose>
   </c:forEach>
@@ -63,10 +64,9 @@
 	<form action="${context}/member/search" method="post">
 		<select name="keyField" id="">
 			<option value="name" selected>이름</option>
-			<option value="id">ID</option>
+			<option value="mem_id">ID</option>
 		</select>
 		<input type="text" name="keyword">
-		<input type="hidden" name="pgNum">
 		<input type="submit" name="검 색">
 	</form>
 </div>

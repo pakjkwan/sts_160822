@@ -213,7 +213,7 @@ CREATE OR REPLACE PROCEDURE find_by_prof_id(
 -- EXE_FIND_BY_PROF_ID
 SET serveroutput ON; 
 DECLARE
- sp_prof_id VARCHAR2(100) := 'profx';
+ sp_prof_id VARCHAR2(100) := 'prof_x';
  sp_prof Member%ROWTYPE;
 BEGIN
  find_by_prof_id(sp_prof_id,sp_prof);
@@ -314,8 +314,10 @@ BEGIN count_student(sp_count);DBMS_OUTPUT.put_line ('학생수 : '||sp_count);EN
 CREATE OR REPLACE PROCEDURE find_by_student_id(
 	sp_student_id IN Member.mem_id%TYPE,
 	sp_cursor OUT SYS_REFCURSOR 
-) AS BEGIN SELECT * INTO sp_student FROM Member 
-    WHERE mem_id = sp_student_id AND role='STUDENT';COMMIT; END find_by_student_id;
+) AS BEGIN 
+	OPEN sp_cursor FOR
+	SELECT * INTO sp_cursor FROM Member 
+    WHERE mem_id = sp_student_id AND role='STUDENT'; END find_by_student_id;
 -- EXE_FIND_BY_STUDENT_ID
 DECLARE
  sp_student_id VARCHAR2(100) := 'hong';

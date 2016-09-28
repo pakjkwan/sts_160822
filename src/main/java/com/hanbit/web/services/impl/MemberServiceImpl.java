@@ -19,6 +19,7 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired private SqlSession sqlSession;
 	@Autowired Command command;
 	@Autowired MemberDTO member;
+	@Autowired Retval retval;
 	@Override
 	public String regist(MemberDTO member) {
 		return (sqlSession.getMapper(MemberMapper.class).insert(member)==1)?"success": "fail";
@@ -46,12 +47,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	@Override
 	public Retval count() {
-		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		Retval r = mapper.count(); 
+		Retval r = sqlSession.getMapper(MemberMapper.class).count(retval); 
 		if(r==null){
-			System.out.println("Retval 은 null");
+			System.out.println("RETVAL 널");
 		}else{
-			System.out.println("Retval 은 null 아님");
+			System.out.println("RETVAL 널 아님");
 		}
 		return r;
 	}
@@ -66,9 +66,9 @@ public class MemberServiceImpl implements MemberService{
 		return mapper.list(command);
 	}
 	@Override
-	public List<?> findBy(String keyword) {
+	public List<?> find(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
-		return mapper.findByName(keyword);
+		return mapper.find(command);
 	}
 	@Override
 	public void logout(MemberDTO member) {
@@ -82,7 +82,7 @@ public class MemberServiceImpl implements MemberService{
 		logger.info("MemberService login ID is {}",member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		command.setKeyword(member.getId());
-		command.setOption("mem_id");
+		command.setKeyField("mem_id");
 		MemberDTO retval = mapper.findOne(command);
 		logger.info("MemberService PASSWORD(param) is {}",param.getPw());
 		logger.info("MemberService PASSWORD(retval) is {}",retval.getPw());

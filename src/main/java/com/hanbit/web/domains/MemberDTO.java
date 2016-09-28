@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @date   :2016. 6. 16. 
@@ -19,6 +20,7 @@ import lombok.Setter;
  * @story  :
 */
 @Component
+@ToString
 @Data
 public class MemberDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
