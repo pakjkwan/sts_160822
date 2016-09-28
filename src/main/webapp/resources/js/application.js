@@ -647,7 +647,7 @@ var user = (function(){
 					
 				}
 				student_list += '</tbody></table>'
-				var pagination='<nav aria-label="Page navigation"><ul class="pagination">';
+				var pagination='<nav aria-label="Page navigation" style="margin:0 auto;"><ul class="pagination">';
 				if((startPg-lastPg) > 0){
 					pagination += 
 						+'<li>'
@@ -660,20 +660,20 @@ var user = (function(){
 					if(i==pgNum){
 						pagination +='<font color="red">'+i+'</font>';
 					}else{
-						pagination += +'<a href="'+app.context()+'/member/list/'+i+'">'+i+'</a>';
+						pagination += '<a href="'+app.context()+'/member/list/'+i+'">'+i+'</a>';
 					}
 				}
 				if(startPg + pgSize <= totPg){
 					pagination += 
-						+'<li>'
+						'<li>'
 						+'<a href="'+app.context()+'/member/list/'+(startPg-pgSize)+'}" aria-label="Next">'
 						+ '<span aria-hidden="true">&laquo;</span>'
 						+'</a>'
 						+'</li>';
 				}
-				pagination += +'</ul></nav>'
+				pagination += '</ul></nav>'
 				var search_form =
-					+'<div align="center">'
+					'<div align="center">'
 					+'<form action="'+app.context()+'/member/search" method="post">'
 					+'<select name="keyField" id="keyField">'
 					+'<option value="name" selected>이름</option>'
