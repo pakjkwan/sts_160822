@@ -596,7 +596,6 @@ var user = (function(){
 	return {
 		init : init,
 		student_list : function(pgNum){
-			alert('7777');
 			$('#adm_header').empty().load(app.context()+'/admin/header');
 			$('#adm_nav').empty().load(app.context()+'/admin/nav');
 			$('#adm_article').empty();
@@ -647,7 +646,7 @@ var user = (function(){
 					
 				}
 				student_list += '</tbody></table>'
-				var pagination='<nav aria-label="Page navigation" style="margin:0 auto;"><ul class="pagination">';
+				var pagination='<nav aria-label="Page navigation" align="center"><ul class="pagination">';
 				if((startPg-lastPg) > 0){
 					pagination += 
 						+'<li>'
@@ -660,7 +659,7 @@ var user = (function(){
 					if(i==pgNum){
 						pagination +='<font color="red">'+i+'</font>';
 					}else{
-						pagination += '<a href="'+app.context()+'/member/list/'+i+'">'+i+'</a>';
+						pagination += '<a href="#" onclick="user.student_list('+i+')">'+i+'</a>';
 					}
 				}
 				if(startPg + pgSize <= totPg){
@@ -686,9 +685,9 @@ var user = (function(){
 					+'</div>'
 					+'</div>';
 				frame += student_list;
-				
-				frame += search_form;
 				frame += pagination;
+				frame += search_form;
+				
 				$('#adm_article').html(frame);
 			});
 			
