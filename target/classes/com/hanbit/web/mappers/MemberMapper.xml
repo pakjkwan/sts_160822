@@ -19,7 +19,7 @@
 		    m.role role,
 		    m.phone phone,
 		    m.major_seq majorSeq    
-		   from Member m order by reg_date desc) t)t2
+		   from Member m where role='STUDENT' order by reg_date desc) t)t2
 		   where t2.seq between #{start} and #{end}
 		   order by t2.seq asc
     </select>

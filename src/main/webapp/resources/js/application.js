@@ -516,49 +516,6 @@ var STUDENT_MAIN =
 		+'<input type="hidden" name="major_subject_3">'
 		+'<input type="button" data-toggle="modal" data-target="#modal1" class="btn btn-blue-fill" value="과목 정보 보기"/>'
 		+'</div></div></div></div></section>';
-	
-var aaa =
-	+'<nav aria-label="Page navigation">'
-	+'<ul class="pagination">'
-	+'<c:if test="${ startPg - pgSize gt 0}">'
-	+'<li>'
-	+'<a href="${context}/member/list/${startPg-pgSize}" aria-label="Previous">'
-	+'<span aria-hidden="true">&laquo;</span>'
-	+'</a>'
-	+'</li>'
-	+'</c:if>'
-	+'<c:forEach begin="${startPg}" end="${lastPg}" step="1" varStatus="i">'
-	+'<c:choose>'
-	+'<c:when test="${i.index == pgNum }">'
-	+'<font color="red">${i.index}</font>'
-	+'</c:when>'
-	+'<c:otherwise>'
-	+'<a href="${context}/member/list/${i.index}">${i.index}</a>'
-	+'</c:otherwise>'
-	+'</c:choose>'
-	+'</c:forEach>'
-	+ '<c:if test="${startPg + pgSize le totPg}">'
-	+'<li>'
-	+'<a href="${context}/member/list/${startPg-pgSize}" aria-label="Next">'
-	+ '<span aria-hidden="true">&laquo;</span>'
-	+'</a>'
-	+'</li>'
-	+'</c:if>'
-	+'</ul>'
-	+'</nav>'
-	+'<div align="center">'
-	+'<form action="${context}/member/search" method="post">'
-	+'<select name="keyField" id="">'
-	+'<option value="name" selected>이름</option>'
-	+'<option value="mem_id">ID</option>'
-	+'</select>'
-	+'<input type="text" name="keyword">'
-	+'<input type="submit" name="검 색">'
-	+'</form>'
-	+'</div>'
-	+'</div>'
-	+'</div>'
-	;
 var user = (function(){
 	var init = function(){onCreate();};
 	var setContentView = function(){
@@ -640,7 +597,7 @@ var user = (function(){
 							+'<td>'+member.birth+'</td>'
 							+'<td>'+member.email+'</td>'
 							+'<td>'+member.phone+'</td>'
-							+'<td><a class="regist">등록</a> / <a class="update">수정</a></td>'
+							+'<td><a class="regist" onclick="'+subject.regist(member.id)+'">등록</a> / <a class="update" onclick="'+user.detail(member.id)+'" >수정</a></td>'
 							+'</tr>';
 					});
 					
@@ -673,13 +630,13 @@ var user = (function(){
 				pagination += '</ul></nav>'
 				var search_form =
 					'<div align="center">'
-					+'<form action="'+app.context()+'/member/search" method="post">'
+					+'<form id="searchForm" action="'+app.context()+'/member/search" method="post">'
 					+'<select name="keyField" id="keyField">'
 					+'<option value="name" selected>이름</option>'
 					+'<option value="mem_id">ID</option>'
 					+'</select>'
-					+'<input type="text" name="keyword">'
-					+'<input type="submit" name="검 색">'
+					+'<input type="text" name="keyword" id="keyword">'
+					+'<input type="submit" id="find_submit" name="검 색">'
 					+'</form>'
 					+'</div>'
 					+'</div>'
@@ -687,8 +644,24 @@ var user = (function(){
 				frame += student_list;
 				frame += pagination;
 				frame += search_form;
-				
 				$('#adm_article').html(frame);
+				$('#find_submit').click(function(){
+					if($('#keyword').val().length>0){
+						user.find_student($('#keyField').val(),$('#keyword').val());
+					}else{
+						alert('검색어를 입력해 주세요');
+						$('#keyword').focus();
+						return false;
+					}
+					
+				});
+			});
+			
+		},
+		find_student : function(keyField,keyword){
+			alert('검색어'+keyword);
+			$.getJSON(app.context()+'/member/search/'+keyField+'/'+keyword,function(){
+				
 			});
 			
 		}

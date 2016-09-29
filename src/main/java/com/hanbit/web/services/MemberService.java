@@ -21,7 +21,7 @@ import com.hanbit.web.domains.Retval;
 @Component
 public interface MemberService{
 	public String regist(MemberDTO mem);
-	public MemberDTO findOne(Command command);
+//	public MemberDTO findOne(Command command);
 	public String update(MemberDTO member);
 	public void delete(MemberDTO member);
 	public void logout(MemberDTO member);

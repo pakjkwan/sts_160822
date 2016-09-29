@@ -1,5 +1,6 @@
 package com.hanbit.web.services.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -55,11 +56,11 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return r;
 	}
-	@Override
+	/*@Override
 	public MemberDTO findOne(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
 		return mapper.findOne(command);
-	}
+	}*/
 	@Override
 	public List<?> list(Command command) {
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
@@ -77,22 +78,25 @@ public class MemberServiceImpl implements MemberService{
 			member = null;
 		}
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public MemberDTO login(MemberDTO param) {
 		logger.info("MemberService login ID is {}",member.getId());
 		MemberMapper mapper = sqlSession.getMapper(MemberMapper.class);
+		List<MemberDTO> list = new ArrayList<MemberDTO>();
 		command.setKeyword(member.getId());
 		command.setKeyField("mem_id");
-		MemberDTO retval = mapper.findOne(command);
+		list = (List<MemberDTO>) mapper.find(command);
+		String pw = list.get(0).getPw();
 		logger.info("MemberService PASSWORD(param) is {}",param.getPw());
-		logger.info("MemberService PASSWORD(retval) is {}",retval.getPw());
-		if(retval.getPw().equals(param.getPw())){
+		logger.info("MemberService PASSWORD(리스트에 등록된) is {}",pw);
+		if(pw.equals(param.getPw())){
 			logger.info("MemberService login is {}"," SUCCESS ");
-			return retval;
+			
+			return list.get(0);
 		}else{
 			logger.info("MemberService login is {}"," FAIL ");
-			retval.setId("NONE");
-			return retval;
+			return list.get(0);
 		}
 	}
 	@Override

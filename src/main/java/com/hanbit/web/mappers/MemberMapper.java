@@ -13,7 +13,7 @@ public interface MemberMapper {
 	public int insert(MemberDTO mem);
 	public int update(MemberDTO mem);
 	public List<MemberDTO> list(Command command);
-	public MemberDTO findOne(Command command);
+//	public MemberDTO findOne(Command command);
 	public List<?> find(Command command);
 	public Retval count(Retval retval);
 	public int delete(MemberDTO member);

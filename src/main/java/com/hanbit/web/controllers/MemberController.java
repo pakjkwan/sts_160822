@@ -54,14 +54,24 @@ public class MemberController {
 		return model;
 	}
 	@RequestMapping("/search/{option}/{keyword}")
-	public MemberDTO find(@PathVariable("option") String option,
+	public @ResponseBody HashMap<String,Object> find(@PathVariable("option") String option,
 			@PathVariable("keyword")String keyword,
 			Model model){
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		logger.info("TO SEARCH KEYWORD IS {}",keyword);
 		logger.info("TO SEARCH OPTION IS {}",option);
 		command.setKeyword(keyword);
 		command.setKeyField(option);
-		return service.findOne(command);
+		List<MemberDTO> list =(List<MemberDTO>) service.find(command); 
+		if(list.size()==0){
+			map.put("result", "none");
+		}else if(list.size()==1){
+			map.put("result", list.get(0));
+		}else{
+			map.put("result", list);
+		}
+		
+		return map;
 	}
 	@RequestMapping("/logined/header")
 	public String loginedHeader(){
@@ -146,13 +156,6 @@ public class MemberController {
 		logger.info("LIST pgNum {}",pgNum);
 		logger.info("LIST startPg {}",pages[0]);
 		logger.info("LIST lastPg {}",pages[1]);
-	/*	model.addAttribute("list", service.list(command));
-		model.addAttribute("pgSize", Values.PG_SIZE);
-		model.addAttribute("totCount", totCount);
-		model.addAttribute("totPg", pages[2]);
-		model.addAttribute("pgNum", Integer.parseInt(pgNum));
-		model.addAttribute("startPg", pages[0]);
-		model.addAttribute("lastPg", pages[1]);*/
 		map.put("list", service.list(command));
 		map.put("pgSize", Values.PG_SIZE);
 		map.put("totCount", totCount);
@@ -166,27 +169,28 @@ public class MemberController {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequestMapping("/search")
-	public String search(
-			@RequestParam(value="keyField") String keyField,
-			@RequestParam(value="keyword") String keyword,
-			Model model){
+	@RequestMapping("/search/{keyField}/{keyword}")
+	public @ResponseBody HashMap<String,Object> search(
+			@PathVariable(value="keyField") String keyField,
+			@PathVariable(value="keyword") String keyword){
 		logger.info("SEARCH keyField {}",keyField);
 		logger.info("SEARCH keyword {}",keyword);
 		command.setKeyField(keyField);
 		command.setKeyword(keyword);
+		HashMap<String,Object> map = new HashMap<String,Object>();
 		List<MemberDTO> list = (List<MemberDTO>) service.find(command);
 		int[]pages = Pagination.getPages(list.size(),1);
 		int[]rows = Pagination.getRows(list.size(), 1, Values.PG_SIZE);
-		model.addAttribute("pgSize", Values.PG_SIZE);
-		model.addAttribute("totCount", list.size());
-		model.addAttribute("totPg", pages[2]);
-		model.addAttribute("pgNum", 1);
-		model.addAttribute("startPg", pages[0]);
-		model.addAttribute("lastPg", pages[1]);
-		System.out.println(list);
-		model.addAttribute("list",list);
-		return "admin:member/list.tiles";
+		map.put("list", service.list(command));
+		map.put("pgSize", Values.PG_SIZE);
+		map.put("totCount", list.size());
+		map.put("totPg", pages[2]);
+		map.put("pgNum", 1);
+		map.put("startPg", pages[0]);
+		map.put("lastPg", pages[1]);
+		map.put("groupSize", Values.GROUP_SIZE);
+		
+		return map;
 	}
 	
 	
